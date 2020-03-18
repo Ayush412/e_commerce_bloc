@@ -1,0 +1,116 @@
+Date : 2020-03-12 19:17:13
+Directory : /Users/fatboy/Documents/flutter projects/e_commerce_bloc/lib
+Total : 61 files,  3823 codes, 59 comments, 330 blanks, all 4212 lines
+
+Languages
++----------+------------+------------+------------+------------+------------+
+| language | files      | code       | comment    | blank      | total      |
++----------+------------+------------+------------+------------+------------+
+| Dart     |         61 |      3,823 |         59 |        330 |      4,212 |
++----------+------------+------------+------------+------------+------------+
+
+Directories
++-------------------------------------------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| path                                                                                                                                            | files      | code       | comment    | blank      | total      |
++-------------------------------------------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| .                                                                                                                                               |         61 |      3,823 |         59 |        330 |      4,212 |
+| blocs                                                                                                                                           |         15 |        584 |         33 |        128 |        745 |
+| blocs/add_product_bloc                                                                                                                          |          2 |        138 |          3 |         17 |        158 |
+| blocs/analytics_bloc                                                                                                                            |          1 |         24 |          3 |          8 |         35 |
+| blocs/notifications_bloc                                                                                                                        |          1 |         26 |          3 |         10 |         39 |
+| blocs/product_description_bloc                                                                                                                  |          1 |         24 |          3 |         10 |         37 |
+| blocs/products_home_bloc                                                                                                                        |          1 |         47 |          3 |         13 |         63 |
+| blocs/scan_to_seaarch_bloc                                                                                                                      |          1 |         26 |          3 |          9 |         38 |
+| blocs/user_cart_bloc                                                                                                                            |          1 |         35 |          3 |         11 |         49 |
+| blocs/user_details_bloc                                                                                                                         |          2 |        125 |          3 |         16 |        144 |
+| blocs/user_login_bloc                                                                                                                           |          2 |         60 |          3 |         13 |         76 |
+| blocs/user_register_bloc                                                                                                                        |          2 |         61 |          3 |         13 |         77 |
+| repositories                                                                                                                                    |          9 |        424 |          0 |         54 |        478 |
+| screens                                                                                                                                         |         27 |      2,438 |         26 |        117 |      2,581 |
+| screens/add_product                                                                                                                             |          5 |        414 |          0 |         20 |        434 |
+| screens/add_product/add_product_widgets                                                                                                         |          4 |        257 |          0 |         13 |        270 |
+| screens/analytics                                                                                                                               |          2 |        158 |          0 |          7 |        165 |
+| screens/notification_description                                                                                                                |          1 |         78 |          0 |          5 |         83 |
+| screens/notifications_list                                                                                                                      |          1 |        118 |         23 |          8 |        149 |
+| screens/product_description                                                                                                                     |          3 |        272 |          0 |         12 |        284 |
+| screens/product_description/product_description_widgets                                                                                         |          2 |        190 |          0 |          6 |        196 |
+| screens/products_home                                                                                                                           |          6 |        474 |          3 |         23 |        500 |
+| screens/products_home/products_home_widgets                                                                                                     |          5 |        339 |          3 |         16 |        358 |
+| screens/scan_to_search                                                                                                                          |          3 |        198 |          0 |          8 |        206 |
+| screens/scan_to_search/scan_to_search_widgets                                                                                                   |          2 |         91 |          0 |          2 |         93 |
+| screens/user_cart                                                                                                                               |          1 |        157 |          0 |          5 |        162 |
+| screens/user_details                                                                                                                            |          1 |        157 |          0 |          6 |        163 |
+| screens/user_details_edit                                                                                                                       |          2 |        171 |          0 |          7 |        178 |
+| screens/user_details_edit/user_details_edit_widgets                                                                                             |          1 |         20 |          0 |          1 |         21 |
+| screens/user_login                                                                                                                              |          1 |        133 |          0 |         10 |        143 |
+| screens/user_register                                                                                                                           |          1 |        108 |          0 |          6 |        114 |
+| widgets                                                                                                                                         |          8 |        310 |          0 |         20 |        330 |
++-------------------------------------------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+
+Files
++-------------------------------------------------------------------------------------------------------------------------------------------------+----------+------------+------------+------------+------------+
+| filename                                                                                                                                        | language | code       | comment    | blank      | total      |
++-------------------------------------------------------------------------------------------------------------------------------------------------+----------+------------+------------+------------+------------+
+| /Users/fatboy/Documents/flutter projects/e_commerce_bloc/lib/blocs/add_product_bloc/add_product_bloc.dart                                       | Dart     |         98 |          3 |         11 |        112 |
+| /Users/fatboy/Documents/flutter projects/e_commerce_bloc/lib/blocs/add_product_bloc/add_product_validator.dart                                  | Dart     |         40 |          0 |          6 |         46 |
+| /Users/fatboy/Documents/flutter projects/e_commerce_bloc/lib/blocs/analytics_bloc/analytics_bloc.dart                                           | Dart     |         24 |          3 |          8 |         35 |
+| /Users/fatboy/Documents/flutter projects/e_commerce_bloc/lib/blocs/bloc.dart                                                                    | Dart     |         18 |          3 |          8 |         29 |
+| /Users/fatboy/Documents/flutter projects/e_commerce_bloc/lib/blocs/notifications_bloc/notifications_bloc.dart                                   | Dart     |         26 |          3 |         10 |         39 |
+| /Users/fatboy/Documents/flutter projects/e_commerce_bloc/lib/blocs/product_description_bloc/product_description_bloc.dart                       | Dart     |         24 |          3 |         10 |         37 |
+| /Users/fatboy/Documents/flutter projects/e_commerce_bloc/lib/blocs/products_home_bloc/products_home_bloc.dart                                   | Dart     |         47 |          3 |         13 |         63 |
+| /Users/fatboy/Documents/flutter projects/e_commerce_bloc/lib/blocs/scan_to_seaarch_bloc/scan_to_search_bloc.dart                                | Dart     |         26 |          3 |          9 |         38 |
+| /Users/fatboy/Documents/flutter projects/e_commerce_bloc/lib/blocs/user_cart_bloc/user_cart_bloc.dart                                           | Dart     |         35 |          3 |         11 |         49 |
+| /Users/fatboy/Documents/flutter projects/e_commerce_bloc/lib/blocs/user_details_bloc/user_details_bloc.dart                                     | Dart     |         85 |          3 |         11 |         99 |
+| /Users/fatboy/Documents/flutter projects/e_commerce_bloc/lib/blocs/user_details_bloc/user_details_validator.dart                                | Dart     |         40 |          0 |          5 |         45 |
+| /Users/fatboy/Documents/flutter projects/e_commerce_bloc/lib/blocs/user_login_bloc/user_login_bloc.dart                                         | Dart     |         36 |          3 |          9 |         48 |
+| /Users/fatboy/Documents/flutter projects/e_commerce_bloc/lib/blocs/user_login_bloc/user_login_validator.dart                                    | Dart     |         24 |          0 |          4 |         28 |
+| /Users/fatboy/Documents/flutter projects/e_commerce_bloc/lib/blocs/user_register_bloc/user_register_bloc.dart                                   | Dart     |         31 |          3 |          8 |         42 |
+| /Users/fatboy/Documents/flutter projects/e_commerce_bloc/lib/blocs/user_register_bloc/user_register_validator.dart                              | Dart     |         30 |          0 |          5 |         35 |
+| /Users/fatboy/Documents/flutter projects/e_commerce_bloc/lib/main.dart                                                                          | Dart     |         63 |          0 |         10 |         73 |
+| /Users/fatboy/Documents/flutter projects/e_commerce_bloc/lib/navigate.dart                                                                      | Dart     |          4 |          0 |          1 |          5 |
+| /Users/fatboy/Documents/flutter projects/e_commerce_bloc/lib/repositories/analytics_repo.dart                                                   | Dart     |         87 |          0 |          7 |         94 |
+| /Users/fatboy/Documents/flutter projects/e_commerce_bloc/lib/repositories/cart_and_notification_count.dart                                      | Dart     |         11 |          0 |          1 |         12 |
+| /Users/fatboy/Documents/flutter projects/e_commerce_bloc/lib/repositories/notifications_repo.dart                                               | Dart     |         74 |          0 |         11 |         85 |
+| /Users/fatboy/Documents/flutter projects/e_commerce_bloc/lib/repositories/products_details.dart                                                 | Dart     |         72 |          0 |          8 |         80 |
+| /Users/fatboy/Documents/flutter projects/e_commerce_bloc/lib/repositories/scan_to_search_repo.dart                                              | Dart     |         50 |          0 |          5 |         55 |
+| /Users/fatboy/Documents/flutter projects/e_commerce_bloc/lib/repositories/shared_preferences_email.dart                                         | Dart     |         12 |          0 |          2 |         14 |
+| /Users/fatboy/Documents/flutter projects/e_commerce_bloc/lib/repositories/user_cart_repo.dart                                                   | Dart     |         30 |          0 |          7 |         37 |
+| /Users/fatboy/Documents/flutter projects/e_commerce_bloc/lib/repositories/user_details_repo.dart                                                | Dart     |         70 |          0 |          8 |         78 |
+| /Users/fatboy/Documents/flutter projects/e_commerce_bloc/lib/repositories/user_register_repo.dart                                               | Dart     |         18 |          0 |          5 |         23 |
+| /Users/fatboy/Documents/flutter projects/e_commerce_bloc/lib/screens/add_product/add_product.dart                                               | Dart     |        157 |          0 |          7 |        164 |
+| /Users/fatboy/Documents/flutter projects/e_commerce_bloc/lib/screens/add_product/add_product_widgets/category_dropdown_menu.dart                | Dart     |        120 |          0 |          5 |        125 |
+| /Users/fatboy/Documents/flutter projects/e_commerce_bloc/lib/screens/add_product/add_product_widgets/description_field.dart                     | Dart     |         38 |          0 |          1 |         39 |
+| /Users/fatboy/Documents/flutter projects/e_commerce_bloc/lib/screens/add_product/add_product_widgets/image_picker.dart                          | Dart     |         72 |          0 |          5 |         77 |
+| /Users/fatboy/Documents/flutter projects/e_commerce_bloc/lib/screens/add_product/add_product_widgets/labels_field.dart                          | Dart     |         27 |          0 |          2 |         29 |
+| /Users/fatboy/Documents/flutter projects/e_commerce_bloc/lib/screens/analytics/analytics_screen.dart                                            | Dart     |        136 |          0 |          6 |        142 |
+| /Users/fatboy/Documents/flutter projects/e_commerce_bloc/lib/screens/analytics/piechart_widget.dart                                             | Dart     |         22 |          0 |          1 |         23 |
+| /Users/fatboy/Documents/flutter projects/e_commerce_bloc/lib/screens/notification_description/notification_description.dart                     | Dart     |         78 |          0 |          5 |         83 |
+| /Users/fatboy/Documents/flutter projects/e_commerce_bloc/lib/screens/notifications_list/notifications_list.dart                                 | Dart     |        118 |         23 |          8 |        149 |
+| /Users/fatboy/Documents/flutter projects/e_commerce_bloc/lib/screens/product_description/product_description.dart                               | Dart     |         82 |          0 |          6 |         88 |
+| /Users/fatboy/Documents/flutter projects/e_commerce_bloc/lib/screens/product_description/product_description_widgets/description.dart           | Dart     |        156 |          0 |          5 |        161 |
+| /Users/fatboy/Documents/flutter projects/e_commerce_bloc/lib/screens/product_description/product_description_widgets/view_count.dart            | Dart     |         34 |          0 |          1 |         35 |
+| /Users/fatboy/Documents/flutter projects/e_commerce_bloc/lib/screens/products_home/products_home.dart                                           | Dart     |        135 |          0 |          7 |        142 |
+| /Users/fatboy/Documents/flutter projects/e_commerce_bloc/lib/screens/products_home/products_home_widgets/bottom_navigation.dart                 | Dart     |        153 |          3 |         12 |        168 |
+| /Users/fatboy/Documents/flutter projects/e_commerce_bloc/lib/screens/products_home/products_home_widgets/notification_badge.dart                | Dart     |         28 |          0 |          1 |         29 |
+| /Users/fatboy/Documents/flutter projects/e_commerce_bloc/lib/screens/products_home/products_home_widgets/products_carousel.dart                 | Dart     |         70 |          0 |          1 |         71 |
+| /Users/fatboy/Documents/flutter projects/e_commerce_bloc/lib/screens/products_home/products_home_widgets/products_list.dart                     | Dart     |         60 |          0 |          1 |         61 |
+| /Users/fatboy/Documents/flutter projects/e_commerce_bloc/lib/screens/products_home/products_home_widgets/shopping_cart_badge.dart               | Dart     |         28 |          0 |          1 |         29 |
+| /Users/fatboy/Documents/flutter projects/e_commerce_bloc/lib/screens/scan_to_search/scan_to_search.dart                                         | Dart     |        107 |          0 |          6 |        113 |
+| /Users/fatboy/Documents/flutter projects/e_commerce_bloc/lib/screens/scan_to_search/scan_to_search_widgets/center_image.dart                    | Dart     |         27 |          0 |          1 |         28 |
+| /Users/fatboy/Documents/flutter projects/e_commerce_bloc/lib/screens/scan_to_search/scan_to_search_widgets/matched_product_list.dart            | Dart     |         64 |          0 |          1 |         65 |
+| /Users/fatboy/Documents/flutter projects/e_commerce_bloc/lib/screens/user_cart/user_cart.dart                                                   | Dart     |        157 |          0 |          5 |        162 |
+| /Users/fatboy/Documents/flutter projects/e_commerce_bloc/lib/screens/user_details/user_details.dart                                             | Dart     |        157 |          0 |          6 |        163 |
+| /Users/fatboy/Documents/flutter projects/e_commerce_bloc/lib/screens/user_details_edit/user_details_edit.dart                                   | Dart     |        151 |          0 |          6 |        157 |
+| /Users/fatboy/Documents/flutter projects/e_commerce_bloc/lib/screens/user_details_edit/user_details_edit_widgets/textfield_with_controller.dart | Dart     |         20 |          0 |          1 |         21 |
+| /Users/fatboy/Documents/flutter projects/e_commerce_bloc/lib/screens/user_login/user_login.dart                                                 | Dart     |        133 |          0 |         10 |        143 |
+| /Users/fatboy/Documents/flutter projects/e_commerce_bloc/lib/screens/user_register/register.dart                                                | Dart     |        108 |          0 |          6 |        114 |
+| /Users/fatboy/Documents/flutter projects/e_commerce_bloc/lib/widgets/app_bar.dart                                                               | Dart     |         13 |          0 |          1 |         14 |
+| /Users/fatboy/Documents/flutter projects/e_commerce_bloc/lib/widgets/circular_progress_indicator.dart                                           | Dart     |         16 |          0 |          1 |         17 |
+| /Users/fatboy/Documents/flutter projects/e_commerce_bloc/lib/widgets/drawer.dart                                                                | Dart     |         91 |          0 |          5 |         96 |
+| /Users/fatboy/Documents/flutter projects/e_commerce_bloc/lib/widgets/map_details.dart                                                           | Dart     |         78 |          0 |          3 |         81 |
+| /Users/fatboy/Documents/flutter projects/e_commerce_bloc/lib/widgets/map_dialog.dart                                                            | Dart     |         64 |          0 |          7 |         71 |
+| /Users/fatboy/Documents/flutter projects/e_commerce_bloc/lib/widgets/show_dialog.dart                                                           | Dart     |         16 |          0 |          1 |         17 |
+| /Users/fatboy/Documents/flutter projects/e_commerce_bloc/lib/widgets/show_snack.dart                                                            | Dart     |         11 |          0 |          1 |         12 |
+| /Users/fatboy/Documents/flutter projects/e_commerce_bloc/lib/widgets/textfield.dart                                                             | Dart     |         21 |          0 |          1 |         22 |
+| Total                                                                                                                                           |          |      3,823 |         59 |        330 |      4,212 |
++-------------------------------------------------------------------------------------------------------------------------------------------------+----------+------------+------------+------------+------------+
