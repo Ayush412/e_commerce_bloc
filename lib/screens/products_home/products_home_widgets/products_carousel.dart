@@ -28,7 +28,7 @@ productsCarousel(){
                 decoration: BoxDecoration(color: Colors.grey, borderRadius: BorderRadius.circular(20)),
                 width: 320,
                 child: GestureDetector(
-                  onTap: () => navigate(context, ProductDescription(post: product, tag: 'card${product.documentID}',)), //TODO navigate to detail,
+                  onTap: () => navigate(context, ProductDescription(post: product, tag: 'card${product.documentID}',)),
                   child: Card(
                     elevation: 0,
                     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),

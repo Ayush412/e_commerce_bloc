@@ -1,5 +1,4 @@
 import 'package:e_commerce_bloc/blocs/bloc.dart';
-import 'package:e_commerce_bloc/blocs/product_description_bloc/product_description_bloc.dart';
 import 'package:e_commerce_bloc/blocs/products_home_bloc/products_home_bloc.dart';
 import 'package:e_commerce_bloc/blocs/user_login_bloc/user_login_bloc.dart';
 import 'package:e_commerce_bloc/repositories/cart_and_notification_count.dart';
