@@ -39,7 +39,7 @@ class _AddProductState extends State<AddProduct> {
 
   check(){
     if(addProductBloc.check() == true)
-      return showDialogBox(context, 'Confirm', 'Add data?', () => addData()); //not working
+      return showDialogBox(context, 'Confirm', 'Add data?', () => addData());
     else
       return _scaffoldKey.currentState.showSnackBar(ShowSnack('Check all fields', Colors.black, Colors.orange));
   }

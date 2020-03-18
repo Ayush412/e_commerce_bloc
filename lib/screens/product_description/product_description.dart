@@ -37,8 +37,10 @@ class _ProductDescriptionState extends State<ProductDescription> {
     productDetails.moreDocsLeft = true;
     productDescBloc.reviewIn.add(null);
     productDescBloc.userRatingIn.add(null);
-    productDescBloc.getUserRating(widget.post.documentID);
-    productDescBloc.getReviews(widget.post.documentID);
+    if(loginBloc.userMap['Admin'] != 1){
+      productDescBloc.getUserRating(widget.post.documentID);
+      productDescBloc.getReviews(widget.post.documentID);
+    }
     leading = IconButton(icon: Icon(Icons.arrow_back), onPressed: () => Navigator.of(context).pop());
     controller.addListener(() {
       double maxScroll = controller.position.maxScrollExtent;
@@ -58,7 +60,7 @@ class _ProductDescriptionState extends State<ProductDescription> {
   }
 
   deleteItem() async{
-    Navigator.pop(context, false);
+    Navigator.pop(context, true);
     pr.show();
     await productDetails.deleteItem(widget.post);
     pr.hide();
@@ -70,7 +72,7 @@ class _ProductDescriptionState extends State<ProductDescription> {
     pr = new ProgressDialog(context,
         type: ProgressDialogType.Normal, isDismissible: false);
     pr.style(
-      message: 'Please Wait...',
+      message: 'Deleting..',
       borderRadius: 10.0,
       backgroundColor: Colors.white,
       progressWidget: CircularProgressIndicator(),
@@ -159,7 +161,7 @@ class _ProductDescriptionState extends State<ProductDescription> {
                     borderRadius: BorderRadius.circular(30),
                     splashColor: Colors.grey,
                     onTap: () => loginBloc.userMap['Admin'] == 1
-                      ? showDialogBox(context, 'Delete item?', 'Do you want to delete this product?', deleteItem())
+                      ? showDialogBox(context, 'Warning', 'Do you want to delete this product?', deleteItem())
                       : widget.post.data['Stock'] > 0
                         ? addItem()
                         : ShowSnack('Out of stock! Check back later.', Colors.black, Colors.orange),

@@ -39,6 +39,7 @@ class ProductDetails{
       '4 Star': 0,
       '5 Star': 0,
       'Rate': 0,
+      'Views': 0,
       'ProdName': map['ProdName'],
       'Category': map['Category'],
       'SubCategory': map['SubCategory'],
