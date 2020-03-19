@@ -33,10 +33,10 @@ class _ScanToSearchState extends State<ScanToSearch> {
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              optionCard('Scan an Object', ScanObject(), 'object.png'),
+              optionCard(context, 'Scan an Object', ScanObject(), 'object.png'),
               Padding(
                 padding: const EdgeInsets.only(top: 60),
-                child: optionCard('Scan a QR Code', null, 'barcode.png')
+                child: optionCard(context, 'Scan a QR Code', null, 'barcode.png')
               )
             ],
           ),

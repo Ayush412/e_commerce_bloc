@@ -1,9 +1,10 @@
+import 'package:e_commerce_bloc/navigate.dart';
 import 'package:flutter/material.dart';
 
-optionCard(String text, dynamic onTap, String img){
+optionCard(BuildContext context, String text, dynamic onTap, String img){
   return InkWell(
     highlightColor: Colors.grey,
-    onTap: () => onTap,
+    onTap: () => navigate(context, onTap),
     child: Container(
       height: 220, width: 260,
       child: Card(

@@ -38,7 +38,7 @@ class _ScanObjectState extends State<ScanObject> {
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
-        onWillPop: () => navigate(context, ProductsHome()),
+        onWillPop: (){Navigator.of(context).pop();},
         child: MaterialApp(
           debugShowCheckedModeBanner: false,
           home: Scaffold(
