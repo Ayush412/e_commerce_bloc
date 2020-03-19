@@ -19,6 +19,7 @@ class ProductDescBloc implements BaseBloc{
   BehaviorSubject<List<DocumentSnapshot>> _productreviewController = BehaviorSubject();
   BehaviorSubject<double> _heightController = BehaviorSubject();
   BehaviorSubject<bool> _editController = BehaviorSubject();
+  BehaviorSubject<List> _lineChartController = BehaviorSubject();
   
 
   //SINKS
@@ -27,6 +28,7 @@ class ProductDescBloc implements BaseBloc{
   Sink<List<DocumentSnapshot>> get reviewIn => _productreviewController.sink; 
   Sink<double> get heightIn => _heightController.sink;
   Sink<bool> get editIn => _editController.sink;
+  Sink<List> get chartIn => _lineChartController.sink;
 
   //STREAMS
   Stream<String> get userReviewOut => _userReviewController.stream;
@@ -34,6 +36,7 @@ class ProductDescBloc implements BaseBloc{
   Stream<List<DocumentSnapshot>> get reviewOut => _productreviewController.stream;
   Stream<double> get heightOut => _heightController.stream;
   Stream<bool> get editOut => _editController.stream;
+  Stream<List> get chartOut => _lineChartController.stream;
   
 
   @override
@@ -43,6 +46,7 @@ class ProductDescBloc implements BaseBloc{
     _productreviewController.close();
     _heightController.close();
     _editController.close();
+    _lineChartController.close();
   }
 
   addView(String docID){
@@ -57,10 +61,6 @@ class ProductDescBloc implements BaseBloc{
     productDetails.getNextReviews(docID);
   }
 
-  submitReview(String text) async{
-    
-  }
-
   getUserRating(String docID){
     productDetails.getUserRating(docID);
   }
@@ -73,6 +73,13 @@ class ProductDescBloc implements BaseBloc{
   updateUserRating(int oldRate, int newRate, double totalRate, int totalVotes, String docID){
     userRatingIn.add(newRate.toDouble());
     productDetails.updateUserRating(oldRate, newRate, totalRate, totalVotes, docID);
+  }
+
+  getChartData(String docID) async{
+    chartIn.add(null);
+    List data = List();
+    data = await productDetails.getViewsAndAdds(docID);
+    chartIn.add(data);
   }
 }
 

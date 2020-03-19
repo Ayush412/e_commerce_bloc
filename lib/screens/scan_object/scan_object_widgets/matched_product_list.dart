@@ -1,8 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:e_commerce_bloc/blocs/bloc.dart';
-import 'package:e_commerce_bloc/blocs/products_home_bloc/products_home_bloc.dart';
 import 'package:e_commerce_bloc/blocs/scan_to_seaarch_bloc/scan_to_search_bloc.dart';
-import 'package:e_commerce_bloc/screens/scan_to_search/scan_to_search_widgets/center_image.dart';
+import 'package:e_commerce_bloc/navigate.dart';
+import 'package:e_commerce_bloc/screens/product_description/product_description.dart';
+import 'package:e_commerce_bloc/screens/scan_object/scan_object_widgets/center_image.dart';
 import 'package:e_commerce_bloc/widgets/circular_progress_indicator.dart';
 import 'package:flutter/material.dart';
 
@@ -33,7 +34,7 @@ matchedProductsList(){
                   child: Stack(
                     children: <Widget>[
                       ListTile(
-                        onTap: () => null,//TODO navigateToDetail(product.data[index], '${product.data[index].documentID}')
+                        onTap: () => navigate(context, ProductDescription(post: product, tag: product.documentID)),
                           leading: Hero(
                             tag: '${product.documentID}',
                             child: Image.network(product.data['imgurl'],height: 100, width: 100)),

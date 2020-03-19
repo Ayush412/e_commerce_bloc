@@ -6,6 +6,7 @@ import 'package:e_commerce_bloc/blocs/product_description_bloc/product_descripti
 import 'package:e_commerce_bloc/blocs/user_login_bloc/user_login_bloc.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:charts_flutter/flutter.dart' as charts;
 
 class ProductDetails{
   StorageReference storageRef;
@@ -216,6 +217,74 @@ class ProductDetails{
     storageRef = await FirebaseStorage.instance.getReferenceFromUrl(url);
     await storageRef.delete();
   }
-}
 
+  getViewsAndAdds(String docID) async {
+    List<int> visitCount = List<int>();
+    List<int> addCount = List<int>();
+    List<ProductData> productData = List<ProductData>();
+    List<String> labels = List<String>();
+    List<charts.Series<ProductData, String>> series = List<charts.Series<ProductData, String>>();
+    Map<dynamic, dynamic> myMap = Map<dynamic, dynamic>();
+    String date = formatDate(DateTime.now(), [yyyy, '-', mm, '-', dd]);
+    var keys = [];
+
+    DocumentSnapshot ds = await Firestore.instance
+        .collection('products')
+        .document(docID)
+        .get();
+    if (ds.data['Map'] == null) {
+      myMap[date] = [0, 0];
+      addViewsAndPurchases(myMap, docID);
+    } else {
+      myMap = ds.data['Map'];
+      if (myMap[date] == null) {
+        myMap[date] = [0, 0];
+        addViewsAndPurchases(myMap, docID);
+      }
+    }
+    if (loginBloc.userMap['Admin'] != 1) {
+      myMap[date][0] += 1;
+      addViewsAndPurchases(myMap, docID);
+    }
+    keys = myMap.keys.toList()..sort();
+    for (int i = 0; i < keys.length; i++) {
+      visitCount.add((myMap[keys[i]][0]));
+      addCount.add((myMap[keys[i]][1]));
+      labels.add(
+          (formatDate(DateTime.parse('${keys[i]} 00:00:00'), [dd, ' ', M, yy]))
+              .toString());
+      productData.add(ProductData(labels[i], visitCount[i], addCount[i]));
+    }
+    series = [
+      charts.Series(
+          id: 'Views',
+          colorFn: (_, __) => charts.MaterialPalette.blue.shadeDefault,
+          domainFn: (ProductData visits, _) => visits.date,
+          measureFn: (ProductData visits, _) => visits.visits,
+          data: productData),
+      charts.Series(
+          id: 'Purchases',
+          colorFn: (_, __) => charts.MaterialPalette.green.shadeDefault,
+          domainFn: (ProductData adds, _) => adds.date,
+          measureFn: (ProductData adds, _) => adds.adds,
+          data: productData),
+    ];
+    return [labels, series];
+  }
+  
+  addViewsAndPurchases(Map myMap, String docID) async {
+    await Firestore.instance
+        .collection('products')
+        .document(docID)
+        .updateData({'Map': myMap});
+  }
+
+}
 final productDetails = ProductDetails();
+
+class ProductData {
+  String date;
+  int visits;
+  int adds;
+  ProductData(this.date, this.visits, this.adds);
+}
