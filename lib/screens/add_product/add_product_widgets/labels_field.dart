@@ -20,9 +20,12 @@ labelsField(){
       Positioned(
         right:5, top:3,
         child: IconButton(
-          onPressed: () => addProductBloc.prodLabelIn.add(controller.text),
           icon: Icon(Icons.add_circle_outline, size: 28,),
-        ),
+          onPressed: (){
+            if(controller.text!='' || controller.text!=null)
+              addProductBloc.prodLabelIn.add(controller.text);
+          }
+        )
       )
     ],
   );

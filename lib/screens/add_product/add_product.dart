@@ -1,5 +1,6 @@
 import 'package:e_commerce_bloc/blocs/add_product_bloc/add_product_bloc.dart';
 import 'package:e_commerce_bloc/navigate.dart';
+import 'package:e_commerce_bloc/repositories/scan_to_search_repo.dart';
 import 'package:e_commerce_bloc/screens/add_product/add_product_widgets/category_dropdown_menu.dart';
 import 'package:e_commerce_bloc/screens/add_product/add_product_widgets/description_field.dart';
 import 'package:e_commerce_bloc/screens/add_product/add_product_widgets/labels_field.dart';
@@ -7,8 +8,9 @@ import 'package:e_commerce_bloc/screens/products_home/products_home.dart';
 import 'package:e_commerce_bloc/widgets/app_bar.dart';
 import 'package:e_commerce_bloc/widgets/show_dialog.dart';
 import 'package:e_commerce_bloc/widgets/show_snack.dart';
-import 'package:e_commerce_bloc/widgets/textfield.dart';
+import 'package:e_commerce_bloc/widgets/textfield_with_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:progress_dialog/progress_dialog.dart';
 import 'add_product_widgets/image_picker.dart';
 
@@ -22,11 +24,36 @@ class _AddProductState extends State<AddProduct> {
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   ProgressDialog pr;
   dynamic leading;
+  List<Widget> actions = List<Widget>();
+  TextEditingController nameController = TextEditingController();
+  TextEditingController costController = TextEditingController();
+  TextEditingController stockController = TextEditingController();
+  TextEditingController descController = TextEditingController();
 
   @override
   void initState() { 
     super.initState();
     leading = IconButton(icon: Icon(Icons.arrow_back), onPressed: (){addProductBloc.clearAll(); navigate(context, ProductsHome());});
+    actions = [IconButton(icon: Icon(MdiIcons.qrcodeScan, color: Colors.white,), onPressed: () => scanQRCode())];
+  }
+
+  scanQRCode() async{
+    List<String> list = List<String>();
+    String text = await scanToSearchRepo.scanCode();
+    list.add(text.splitMapJoin(
+      RegExp(r'$', multiLine: true),
+      onMatch: (_) => '\n',
+      onNonMatch: (n){list.add(n.trim());},
+    ));
+
+    addProductBloc.name = nameController.text = list[0];
+
+    addProductBloc.cost = costController.text = list[1];
+
+    addProductBloc.stock = stockController.text = list[2];
+
+    addProductBloc.desc = descController.text = list[3];
+
   }
 
   addData()async{
@@ -60,12 +87,12 @@ class _AddProductState extends State<AddProduct> {
               color: Colors.black, fontSize: 19.0, fontWeight: FontWeight.w600),
         ); 
     return WillPopScope(
-        onWillPop: () => null,
+        onWillPop: (){addProductBloc.clearAll(); navigate(context, ProductsHome());},
         child: MaterialApp(
           debugShowCheckedModeBanner: false,
           home: Scaffold(
             key: _scaffoldKey,
-            appBar: appBar('Add Product', leading, null),
+            appBar: appBar('Add Product', leading, actions),
             body: SingleChildScrollView(
               child: Center(
                 child: Stack(
@@ -76,14 +103,13 @@ class _AddProductState extends State<AddProduct> {
                           padding: const EdgeInsets.only(top:45),
                           child: Container(
                             width: 300,
-                            child: textField(
+                            child: textFieldWithController(
+                              nameController,
                               addProductBloc.prodNameCheck, 
                               addProductBloc.prodNameChanged, 
-                              '', 
                               'Product Name', 
                               Icon(Icons.loyalty), 
-                              TextInputType.text, 
-                              false
+                              TextInputType.text,
                             )
                           )
                         ),
@@ -91,14 +117,13 @@ class _AddProductState extends State<AddProduct> {
                           padding: const EdgeInsets.only(top:50),
                           child: Container(
                             width: 300,
-                            child: textField(
+                            child: textFieldWithController(
+                              costController,
                               addProductBloc.prodCostCheck, 
-                              addProductBloc.prodCostChanged, 
-                              '', 
+                              addProductBloc.prodCostChanged,
                               'Cost', 
                               Icon(Icons.local_offer), 
                               TextInputType.number, 
-                              false
                             )
                           ),
                         ),
@@ -108,18 +133,17 @@ class _AddProductState extends State<AddProduct> {
                           padding: const EdgeInsets.only(top:50),
                           child: Container(
                             width: 300,
-                            child: textField(
+                            child: textFieldWithController(
+                              stockController,
                               addProductBloc.prodStockCheck, 
-                              addProductBloc.prodStockChanged, 
-                              '', 
+                              addProductBloc.prodStockChanged,
                               'Stock', 
                               Icon(Icons.exposure_plus_1), 
-                              TextInputType.number, 
-                              false
+                              TextInputType.number,
                             )
                           ),
                         ),
-                        descriptionField(),
+                        descriptionField(descController),
                         imagePicker.selectImage(),
                         Padding(
                           padding: const EdgeInsets.only(top:15),

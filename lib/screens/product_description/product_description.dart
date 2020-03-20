@@ -207,7 +207,7 @@ class _ProductDescriptionState extends State<ProductDescription> {
                       borderRadius: BorderRadius.circular(30),
                       splashColor: Colors.grey,
                       onTap: () => loginBloc.userMap['Admin'] == 1
-                        ? showDialogBox(context, 'Warning', 'Do you want to delete this product?', deleteItem())
+                        ? showDialogBox(context, 'Warning', 'Do you want to delete this product?', () => deleteItem())
                         : widget.post.data['Stock'] > 0
                           ? addItem()
                           : ShowSnack('Out of stock! Check back later.', Colors.black, Colors.orange),

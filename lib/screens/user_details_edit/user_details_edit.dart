@@ -3,11 +3,11 @@ import 'package:e_commerce_bloc/blocs/user_details_bloc/user_details_bloc.dart';
 import 'package:e_commerce_bloc/blocs/user_login_bloc/user_login_bloc.dart';
 import 'package:e_commerce_bloc/navigate.dart';
 import 'package:e_commerce_bloc/screens/products_home/products_home.dart';
-import 'package:e_commerce_bloc/screens/user_details_edit/user_details_edit_widgets/textfield_with_controller.dart';
 import 'package:e_commerce_bloc/widgets/app_bar.dart';
 import 'package:e_commerce_bloc/widgets/circular_progress_indicator.dart';
 import 'package:e_commerce_bloc/widgets/map_details.dart';
 import 'package:e_commerce_bloc/widgets/show_snack.dart';
+import 'package:e_commerce_bloc/widgets/textfield_with_controller.dart';
 import 'package:flutter/material.dart';
 
 class UserDetailsEdit extends StatefulWidget {
@@ -19,7 +19,6 @@ class _UserDetailsEditState extends State<UserDetailsEdit> {
 
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>(); 
   dynamic leading;
-  List<Widget> actions = List<Widget>();
   TextEditingController fnameController;
   TextEditingController lnameController;
   TextEditingController mobcontroller;
@@ -28,8 +27,7 @@ class _UserDetailsEditState extends State<UserDetailsEdit> {
   @override
   void initState() {
     super.initState();
-    leading = IconButton(icon: Icon(Icons.arrow_back, color: Colors.white),onPressed: () => navigate(context, ProductsHome()));
-    actions = null;
+    leading = IconButton(icon: Icon(Icons.arrow_back),onPressed: () => navigate(context, ProductsHome()));
     fnameController = TextEditingController(text: loginBloc.userMap['FName']);
     lnameController = TextEditingController(text: loginBloc.userMap['LName']);
     mobcontroller = TextEditingController(text: loginBloc.userMap['Mob'].toString());
@@ -55,7 +53,7 @@ class _UserDetailsEditState extends State<UserDetailsEdit> {
       home: Scaffold(
         key: _scaffoldKey,
         backgroundColor: Colors.white,
-        appBar: appBar('My Account', leading, actions),
+        appBar: appBar('My Account', leading, null),
         body: SingleChildScrollView(
           child: Center(
             child: Column(children: <Widget>[

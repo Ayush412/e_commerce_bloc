@@ -1,7 +1,7 @@
 import 'package:e_commerce_bloc/blocs/add_product_bloc/add_product_bloc.dart';
 import 'package:flutter/material.dart';
 
-descriptionField(){
+descriptionField(TextEditingController controller){
   return StreamBuilder(
     stream: addProductBloc.prodDescCheck,
     builder: (context, snapshot) {
@@ -13,6 +13,7 @@ descriptionField(){
             child: Stack(
               children: <Widget>[
                 TextField(
+                  controller: controller,
                   maxLines: null,
                   keyboardType: TextInputType.multiline,
                   onChanged: addProductBloc.prodDescChanged,
