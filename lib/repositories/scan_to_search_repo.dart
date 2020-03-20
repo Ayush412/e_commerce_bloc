@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:barcode_scan/barcode_scan.dart';
 import 'package:e_commerce_bloc/blocs/scan_to_seaarch_bloc/scan_to_search_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:firebase_ml_vision/firebase_ml_vision.dart';
@@ -46,9 +47,25 @@ class ScanToSearchRepo{
     }
   }
 
+  scanCode() async{
+    String qrCode;
+    try {
+      qrCode = await BarcodeScanner.scan();
+    } catch (e) {
+      scanToSearchBloc.qrCodeIn.add(null);
+      return null; 
+    }
+    return qrCode;
+  }
+
   getScanData() async{
     QuerySnapshot qs = await Firestore.instance.collection('products').where('scan', arrayContains: bestText).getDocuments();
     return qs;
+  }
+
+  getQRCodeData(String docID) async{
+    DocumentSnapshot ds = await Firestore.instance.collection('products').document(docID).get();
+    return ds;
   }
 }
 

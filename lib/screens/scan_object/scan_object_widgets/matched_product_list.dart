@@ -3,7 +3,7 @@ import 'package:e_commerce_bloc/blocs/bloc.dart';
 import 'package:e_commerce_bloc/blocs/scan_to_seaarch_bloc/scan_to_search_bloc.dart';
 import 'package:e_commerce_bloc/navigate.dart';
 import 'package:e_commerce_bloc/screens/product_description/product_description.dart';
-import 'package:e_commerce_bloc/screens/scan_object/scan_object_widgets/center_image.dart';
+import 'package:e_commerce_bloc/widgets/center_image.dart';
 import 'package:e_commerce_bloc/widgets/circular_progress_indicator.dart';
 import 'package:flutter/material.dart';
 

@@ -1,36 +1,40 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:e_commerce_bloc/blocs/scan_to_seaarch_bloc/scan_to_search_bloc.dart';
+import 'package:e_commerce_bloc/navigate.dart';
+import 'package:e_commerce_bloc/repositories/scan_to_search_repo.dart';
+import 'package:e_commerce_bloc/screens/product_description/product_description.dart';
 import 'package:e_commerce_bloc/widgets/app_bar.dart';
 import 'package:e_commerce_bloc/widgets/center_image.dart';
-import 'package:e_commerce_bloc/widgets/show_dialog.dart';
 import 'package:flutter/material.dart';
-import 'scan_object_widgets/matched_product_list.dart';
 
-class ScanObject extends StatefulWidget {
+class ScanQRCode extends StatefulWidget {
   @override
-  _ScanObjectState createState() => _ScanObjectState();
+  _ScanQRCodeState createState() => _ScanQRCodeState();
 }
 
-class _ScanObjectState extends State<ScanObject> {
-
-  List<Widget> actions = List<Widget>();
+class _ScanQRCodeState extends State<ScanQRCode> {
   dynamic leading;
-  
 
   @override
-  void initState() {
-    scanToSearchBloc.lablesIn.add(null);
+  void initState() { 
     super.initState();
-    actions = [
-      IconButton(
-        icon: Icon(Icons.info), 
-        color: Colors.white,
-        onPressed: () => showDialogBox(
-          context, 
-          'How it works', 'Click the camera icon below to take a picture of an object. Based on the best predictions made by the algorithm, you can find relevant products that match the category of the scanned object.', 
-          1)
-      )
-    ];
-    leading = IconButton(icon: Icon(Icons.arrow_back, color: Colors.white),onPressed: () => Navigator.of(context).pop());
+    leading = IconButton(icon: Icon(Icons.arrow_back), onPressed: () => Navigator.of(context).pop());
+    scanToSearchBloc.qrCodeIn.add(null);
+  }
+
+  scanning() async{
+     String qrCode = await scanToSearchRepo.scanCode();
+     if(qrCode == null)
+      scanToSearchBloc.qrCodeIn.add(null);
+    else{
+      scanToSearchBloc.qrCodeIn.add('Scanning');
+      DocumentSnapshot ds = await scanToSearchRepo.getQRCodeData(qrCode);
+      if(ds.data == null)
+        scanToSearchBloc.qrCodeIn.add('Not found');
+      else
+        navigate(context, ProductDescription(post: ds, tag: ds.documentID));
+    }
+    scanToSearchBloc.qrCodeIn.add(null);
   }
 
   @override
@@ -42,7 +46,7 @@ class _ScanObjectState extends State<ScanObject> {
           home: Scaffold(
             extendBody: true,
             backgroundColor: Colors.white,
-            appBar: appBar('Scan Object', leading, actions),
+            appBar: appBar('Scan Object', leading, null),
             body: Stack(
               children: <Widget>[
                 Container(color: Colors.white),
@@ -57,32 +61,21 @@ class _ScanObjectState extends State<ScanObject> {
                   )
                 ),
                 StreamBuilder(
-                  stream: scanToSearchBloc.labelsOut,
-                  builder: (context, data){
-                    if(data.data == null){
+                  stream: scanToSearchBloc.qrCodeOut,
+                  builder: (context, scan){
+                    if(scan.data == null){
                       return Padding(
                         padding: const EdgeInsets.only(top:10.0),
                         child: ClipRRect(
                           borderRadius: BorderRadius.only(topLeft: Radius.circular(50), topRight: Radius.circular(50)),
-                          child: centerImage('Scan an object to begin search', 'scan.png')
+                          child: centerImage('Scan a QR code to begin search', 'scan.png')
                         )
                       );
                     }
-                    else {
-                      return Stack(
-                        children: <Widget>[
-                          Padding(
-                            padding: const EdgeInsets.only(top:10.0),
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.only(topLeft: Radius.circular(50), topRight: Radius.circular(50)),
-                              child: Container(
-                                child: matchedProductsList()
-                              )
-                            ),
-                          ),
-                        ],
-                      );
-                    }
+                    else if(scan.data == 'Scanning')
+                      return Center(child: CircularProgressIndicator());
+                    else if(scan.data == 'Not found')
+                      return centerImage("Couldn't find relevant products", 'search.png');
                   }
                 )
               ],
@@ -97,7 +90,7 @@ class _ScanObjectState extends State<ScanObject> {
                     ),
             floatingActionButton: FloatingActionButton(
               elevation: 0,
-              onPressed: () => scanToSearchBloc.getImage(),
+              onPressed: () => scanning(),
               child: Icon(Icons.camera_alt, color: Colors.black),
               backgroundColor: Colors.orange,
             ),
