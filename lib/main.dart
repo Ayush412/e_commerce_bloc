@@ -1,12 +1,13 @@
 import 'package:e_commerce_bloc/blocs/user_login_bloc/user_login_bloc.dart';
 import 'package:e_commerce_bloc/navigate.dart';
 import 'package:e_commerce_bloc/repositories/user_details_repo.dart';
-import 'package:e_commerce_bloc/screens/products_home/products_home.dart';
 import 'package:e_commerce_bloc/screens/user_login/user_login.dart';
 import 'package:flutter/material.dart';
 import 'dart:async';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+
+import 'screens/homescreen/homescreen.dart';
 
 void main() {
   runApp(Home());
@@ -41,7 +42,7 @@ class _MyAppState extends State<MyApp> {
     else{
       await userDetails.getUserData(email);
       print(loginBloc.userMap['emailID']);
-      navigate(context, ProductsHome());
+      navigate(context, HomeScreen());
     }
   }
 
