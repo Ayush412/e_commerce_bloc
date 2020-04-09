@@ -1,10 +1,10 @@
 import 'package:e_commerce_bloc/navigate.dart';
-import 'package:e_commerce_bloc/screens/search_results.dart';
+import 'package:e_commerce_bloc/screens/search_results/search_results.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
-searchBar(BuildContext context, TextEditingController controller, bool onSearchPage){
+searchBar(BuildContext context, TextEditingController controller, bool sameScreen, dynamic function){
   return Container(
     height: 40,
     width: MediaQuery.of(context).size.width/1.5,
@@ -21,11 +21,13 @@ searchBar(BuildContext context, TextEditingController controller, bool onSearchP
             textInputAction: TextInputAction.search,
             cursorColor: Colors.black,
             onSubmitted: (String text){
-              if(onSearchPage){
-                //get new results
+              print(text.length);
+              if(sameScreen){
+                function();
               }
               else
-              navigate(context, SearchResults(text: text));
+                if (text.length!=0)
+                  navigate(context, SearchResults(text: text, onPop: function));
             },
             decoration: InputDecoration(
               filled: true,

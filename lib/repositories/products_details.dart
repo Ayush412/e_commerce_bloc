@@ -77,6 +77,11 @@ class ProductDetails{
     return await Firestore.instance.collection('banners').getDocuments();
   }
 
+  getSearchResults(String text) async{
+    text=text.toLowerCase();
+    return await Firestore.instance.collection('products').where('Keywords', arrayContains:text).getDocuments();
+  }
+
   getProductListFiltered(List sort, String category, String subcategory) async{
     print('$sort $category $subcategory');
     if(sort==null)

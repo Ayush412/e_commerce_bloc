@@ -59,6 +59,11 @@ class ProductsHomeBloc extends BaseBloc{
     bannerIn.add(qs);
   }
 
+  getSearchResults(String text) async{
+    QuerySnapshot qs = await productDetails.getSearchResults(text);
+    productsListIn.add(qs);
+  }
+
   filteredProductsList(List data) async{
     QuerySnapshot qs = await productDetails.getProductListFiltered(data[0], data[1], data[2]);
     productsListIn.add(qs);

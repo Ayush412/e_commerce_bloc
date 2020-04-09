@@ -62,7 +62,7 @@ class _HomeScreenState extends State<HomeScreen> {
     ]; 
   }
 
-  void onPop(){
+  onPop(){
     controller.text='';
   }
 
@@ -81,7 +81,7 @@ class _HomeScreenState extends State<HomeScreen> {
             backgroundColor: Colors.white,
             leading: leading,
             actions: actions,
-            title: searchBar(context, controller, false)
+            title: searchBar(context, controller, false, onPop)
           ),
           body: SingleChildScrollView(
             child: Column(

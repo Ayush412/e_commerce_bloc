@@ -7,6 +7,7 @@ productCard(DocumentSnapshot product){
   int newVal = product.data['ProdCost']-((product.data['ProdCost']*disc/100)).round();
   return Container(
     width: 180,
+    height: 225,
     child: Card(
       elevation: 2.2,
       shape:  RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
