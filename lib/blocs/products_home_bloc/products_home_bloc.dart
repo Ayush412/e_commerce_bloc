@@ -16,32 +16,47 @@ class ProductsHomeBloc extends BaseBloc{
   //CONTROLLERS
   BehaviorSubject<QuerySnapshot> _productsListController = BehaviorSubject();
   BehaviorSubject<QuerySnapshot> _productsCarouselController = BehaviorSubject();
+  BehaviorSubject<QuerySnapshot> _discountController = BehaviorSubject();
+  BehaviorSubject<QuerySnapshot> _bannerController = BehaviorSubject();
   BehaviorSubject<List> _sortController = BehaviorSubject();
   BehaviorSubject<int> _notificationCountController = BehaviorSubject();
   BehaviorSubject<int> _cartCountController = BehaviorSubject();
   
-
   //SINKS
   Sink<QuerySnapshot> get productsListIn => _productsListController.sink;
   Sink<QuerySnapshot> get productsCarouselIn => _productsCarouselController.sink;
+  Sink<QuerySnapshot> get discountIn => _discountController.sink;
   Sink<List> get sortIn => _sortController.sink;
   Sink<int> get notificationIn => _notificationCountController.sink;
   Sink<int> get cartIn => _cartCountController.sink;
+  Sink<QuerySnapshot> get bannerIn => _bannerController.sink;
 
   //STREAMS
   Stream<QuerySnapshot> get productsListOut => _productsListController.stream;
   Stream<QuerySnapshot> get productsCarouselOut => _productsCarouselController.stream;
+  Stream<QuerySnapshot> get discountOut => _discountController.stream;
   Stream<int> get notificationOut => _notificationCountController.stream;
   Stream<int> get cartOut => _cartCountController.stream;
+  Stream<QuerySnapshot> get bannerOut => _bannerController.stream;
 
   getProductsList() async{
     QuerySnapshot qs = await productDetails.getProductsList();
     productsListIn.add(qs);
   }
 
-  getProductsCarousel() async{
-    QuerySnapshot qs = await productDetails.getProductsCarousel();
+  getTopRated(bool limited) async{
+    QuerySnapshot qs = await productDetails.getToprated(limited);
     productsCarouselIn.add(qs);
+  }
+
+  getDiscounted(bool limited) async{
+    QuerySnapshot qs = await productDetails.getDiscounted(limited);
+    discountIn.add(qs);
+  }
+
+  getBanners() async{
+    QuerySnapshot qs = await productDetails.getBanners();
+    bannerIn.add(qs);
   }
 
   filteredProductsList(List data) async{
@@ -56,6 +71,8 @@ class ProductsHomeBloc extends BaseBloc{
     _sortController.close();
     _notificationCountController.close();
     _cartCountController.close();
+    _discountController.close();
+    _bannerController.close();
   }
 
 }

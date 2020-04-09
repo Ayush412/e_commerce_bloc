@@ -40,7 +40,7 @@ customDrawer(BuildContext context, int admin){
         ],),
         ),
         admin==1? Container() : Divider(),
-        drawerOptions('assets/icons/sale.png', 'Top Deals', null, 30),
+        drawerOptions('assets/icons/sale.png', 'Deals and Promotions', null, 30),
         admin==1? drawerOptions('assets/icons/package.png', 'Add Products', null, 30)
         : drawerOptions('assets/icons/cart.png', 'My Cart', null, 30),
         admin==1? Container()
@@ -53,7 +53,7 @@ customDrawer(BuildContext context, int admin){
             child: Padding(
               padding: const EdgeInsets.all(8.0),
               child: InkWell(
-                onTap: () => null,
+                onTap: () => null,//TODO logout
                 child: Container(
                   height: 40,
                   child: Center(

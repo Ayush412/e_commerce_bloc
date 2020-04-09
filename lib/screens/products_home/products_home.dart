@@ -41,7 +41,7 @@ class _ProductsHomeState extends State<ProductsHome> {
     notificationsRepo.listen();
     productDetails.getAllRatings();
     getCount();
-    productsHomeBloc.getProductsCarousel();
+    productsHomeBloc.getTopRated(false);
     productsHomeBloc.getProductsList();
     admin = loginBloc.userMap['Admin'];
     leading = IconButton(
@@ -62,7 +62,7 @@ class _ProductsHomeState extends State<ProductsHome> {
     getCount();
     bloc.containerHeightIn.add(60);
     bloc.loadingStatusIn.add(true);
-    await productsHomeBloc.getProductsCarousel();
+    await productsHomeBloc.getTopRated(false);
     await productsHomeBloc.getProductsList();
     bloc.loadingStatusIn.add(false);
     bloc.containerHeightIn.add(0);

@@ -59,8 +59,22 @@ class ProductDetails{
     return qs;
   }
 
-  getProductsCarousel() async{
-    return await Firestore.instance.collection('products').where('Rate', isGreaterThanOrEqualTo: 3).getDocuments();
+  getToprated(bool limited) async{
+    if(limited)
+      return await Firestore.instance.collection('products').where('Rate', isGreaterThanOrEqualTo: 4).limit(8).getDocuments();
+    else
+      return await Firestore.instance.collection('products').where('Rate', isGreaterThanOrEqualTo: 4).getDocuments();
+  }
+
+  getDiscounted(bool limited) async{
+    if(limited)
+      return await Firestore.instance.collection('products').where('Discount', isGreaterThan: 5).limit(8).getDocuments();
+    else
+      return await Firestore.instance.collection('products').where('Discount', isGreaterThan: 5).getDocuments();
+  }
+
+  getBanners() async{
+    return await Firestore.instance.collection('banners').getDocuments();
   }
 
   getProductListFiltered(List sort, String category, String subcategory) async{

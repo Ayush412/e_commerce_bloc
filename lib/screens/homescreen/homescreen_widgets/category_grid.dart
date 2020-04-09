@@ -19,13 +19,13 @@ categoryGrid(String image, String text, var screen){
     onTap: () => screen,//add navigate()
       child: Container(
       child:Card(
-        elevation: 2.2,
+        elevation: 0,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
         child: Column(
           children: <Widget>[
-            Image.asset(image, height: 130, width:130),
+            Image.asset(image, height: 100, width: 100),
             Container(
-              height: 30, width: 150,
+              height: 30, width: 130,
               child: Center(
                 child: Text(text, style: GoogleFonts.sourceSansPro(fontSize: 18, fontWeight: FontWeight.w600))
               ),
