@@ -6,11 +6,9 @@ import 'package:e_commerce_bloc/screens/homescreen/homescreen_widgets/banners.da
 import 'package:e_commerce_bloc/screens/homescreen/homescreen_widgets/category_grid.dart';
 import 'package:e_commerce_bloc/screens/homescreen/homescreen_widgets/discounted.dart';
 import 'package:e_commerce_bloc/screens/homescreen/homescreen_widgets/heading.dart';
-import 'package:e_commerce_bloc/screens/homescreen/homescreen_widgets/shopping_cart.dart';
 import 'package:e_commerce_bloc/screens/homescreen/homescreen_widgets/top_rated.dart';
-import 'package:e_commerce_bloc/widgets/custom_badge..dart';
+import 'package:e_commerce_bloc/widgets/appBar.dart';
 import 'package:e_commerce_bloc/widgets/custom_drawer.dart';
-import 'package:e_commerce_bloc/widgets/search_bar.dart';
 import 'package:e_commerce_bloc/widgets/show_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -23,43 +21,15 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   GlobalKey<ScaffoldState> scaffoldKey = new GlobalKey<ScaffoldState>();
   TextEditingController controller = TextEditingController();
-  FocusNode node = FocusNode();
-  int admin; 
-  dynamic leading;
-  List<Widget> actions = List<Widget>();
 
   @override
   void initState() {
     super.initState();
-    admin = loginBloc.userMap['Admin'];
     notificationsRepo.listen();
     productsHomeBloc.getTopRated(true);
     productsHomeBloc.getDiscounted(true);
     productsHomeBloc.getBanners();
     getCount();
-    leading = Padding(
-      padding: const EdgeInsets.only(left:10),
-      child: admin==1? 
-      IconButton(
-        icon: Icon(Icons.dehaze), 
-        color: Colors.black,
-        onPressed: () => scaffoldKey.currentState.openDrawer(),
-      )
-      : InkWell(
-        onTap: () => scaffoldKey.currentState.openDrawer(),
-        child: customBadge(Icons.dehaze),
-      )
-    );
-    actions = [
-      admin==1? 
-        Container()
-      :  Padding(
-          padding: const EdgeInsets.only(top: 20, right:20),
-          child: admin==1? 
-            Image.asset('assets/icons/cart.png', height:20, width: 20) 
-            : shoppingCartBadge(),
-        ) 
-    ]; 
   }
 
   onPop(){
@@ -75,14 +45,8 @@ class _HomeScreenState extends State<HomeScreen> {
         home: Scaffold(
           backgroundColor: Colors.white,
           key: scaffoldKey,
-          drawer:  customDrawer(context, admin),
-          appBar: AppBar(
-            elevation: 0,
-            backgroundColor: Colors.white,
-            leading: leading,
-            actions: actions,
-            title: searchBar(context, controller, false, onPop)
-          ),
+          drawer:  customDrawer(context, loginBloc.userMap['Admin']),
+          appBar: appBar(context, scaffoldKey, true, controller, onPop, null),
           body: SingleChildScrollView(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -90,12 +54,12 @@ class _HomeScreenState extends State<HomeScreen> {
                 banners(),
                 Padding(
                   padding: const EdgeInsets.only(left: 30, top: 30, bottom: 15, right: 20),
-                  child: heading('Featured Products', null)
+                  child: heading(context,'Featured Products', null)
                 ),
                 topRated(),
                 Padding(
                   padding: const EdgeInsets.only(left: 30, top: 40, bottom: 15, right: 20),
-                  child: heading('On Sale', null)
+                  child: heading(context,'On Sale', null)
                 ),
                 discounted(),
                 Padding(

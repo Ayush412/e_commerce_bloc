@@ -68,9 +68,9 @@ class ProductDetails{
 
   getDiscounted(bool limited) async{
     if(limited)
-      return await Firestore.instance.collection('products').where('Discount', isGreaterThan: 5).limit(8).getDocuments();
+      return await Firestore.instance.collection('products').where('Discount', isGreaterThanOrEqualTo: 5).limit(8).getDocuments();
     else
-      return await Firestore.instance.collection('products').where('Discount', isGreaterThan: 5).getDocuments();
+      return await Firestore.instance.collection('products').where('Discount', isGreaterThan: 0).getDocuments();
   }
 
   getBanners() async{

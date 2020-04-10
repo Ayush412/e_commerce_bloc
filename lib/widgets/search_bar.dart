@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
-searchBar(BuildContext context, TextEditingController controller, bool sameScreen, dynamic function){
+searchBar(BuildContext context, TextEditingController controller,  dynamic onPop, dynamic searchAgain){
   return Container(
     height: 40,
     width: MediaQuery.of(context).size.width/1.5,
@@ -21,13 +21,13 @@ searchBar(BuildContext context, TextEditingController controller, bool sameScree
             textInputAction: TextInputAction.search,
             cursorColor: Colors.black,
             onSubmitted: (String text){
-              print(text.length);
-              if(sameScreen){
-                function();
+              print(text);
+              if(searchAgain != null){
+                searchAgain();
               }
               else
                 if (text.length!=0)
-                  navigate(context, SearchResults(text: text, onPop: function));
+                  navigate(context, SearchResults(text: text, onPop: onPop));
             },
             decoration: InputDecoration(
               filled: true,

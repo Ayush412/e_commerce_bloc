@@ -1,7 +1,7 @@
 import 'package:e_commerce_bloc/blocs/user_login_bloc/user_login_bloc.dart';
 import 'package:e_commerce_bloc/navigate.dart';
 import 'package:e_commerce_bloc/screens/user_login/user_login.dart';
-import 'package:e_commerce_bloc/widgets/custom_badge..dart';
+import 'package:e_commerce_bloc/widgets/custom_badge.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
