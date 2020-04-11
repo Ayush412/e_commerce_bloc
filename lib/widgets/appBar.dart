@@ -27,7 +27,10 @@ appBar(BuildContext context, GlobalKey<ScaffoldState> scaffoldKey, bool isHomeSc
                 child: customBadge(Icons.dehaze),
               ),
             ),
-            searchBar(context, controller, onPop, searchAgain)
+            Container(
+              width: MediaQuery.of(context).size.width/1.5,
+            child: onPop!=null? searchBar(context, controller, onPop, searchAgain) : SizedBox()
+            )
           ]
         ),
         isHomeScreen ? Container() :
@@ -36,7 +39,8 @@ appBar(BuildContext context, GlobalKey<ScaffoldState> scaffoldKey, bool isHomeSc
           child: IconButton(
             icon: Icon(Icons.arrow_back_ios, color: Colors.black,),
             onPressed: (){
-              onPop();
+              if (onPop!=null)
+                onPop();
               Navigator.of(context).pop();
             },
           )
@@ -44,13 +48,11 @@ appBar(BuildContext context, GlobalKey<ScaffoldState> scaffoldKey, bool isHomeSc
       ],
     ),
     actions: [
-      /*loginBloc.userMap['Admin']==1? 
-        Container()
-      :*/  Padding(
-          padding: const EdgeInsets.only(top: 15, right: 15, bottom: 15, left: 2),
-          child: loginBloc.userMap['Admin']==1? 
-            Image.asset('assets/icons/cart.png', height:25, width: 25) 
-            : shoppingCart.cartBadge()
+      Padding(
+          padding: const EdgeInsets.only(top: 15, right: 15, bottom: 15),
+          child: /*loginBloc.userMap['Admin']==1? 
+            SizedBox(height: 20, width: 20,)
+            :*/ shoppingCart.cartBadge()
         ) 
     ]
   );

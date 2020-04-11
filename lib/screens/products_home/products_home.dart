@@ -42,7 +42,7 @@ class _ProductsHomeState extends State<ProductsHome> {
     productDetails.getAllRatings();
     getCount();
     productsHomeBloc.getTopRated(false);
-    productsHomeBloc.getProductsList();
+    productsHomeBloc.getProductsList(null);//changed
     admin = loginBloc.userMap['Admin'];
     leading = IconButton(
       icon: Icon(
@@ -63,7 +63,7 @@ class _ProductsHomeState extends State<ProductsHome> {
     bloc.containerHeightIn.add(60);
     bloc.loadingStatusIn.add(true);
     await productsHomeBloc.getTopRated(false);
-    await productsHomeBloc.getProductsList();
+    await productsHomeBloc.getProductsList(null);//changed
     bloc.loadingStatusIn.add(false);
     bloc.containerHeightIn.add(0);
     bottomNavigation.reset();

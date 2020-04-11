@@ -54,8 +54,8 @@ class ProductDetails{
 
   //PRODUCTS HOME SCREEN FUNCTIONS...
 
-  getProductsList() async{
-    QuerySnapshot qs =  await Firestore.instance.collection('products').getDocuments();
+  getProductsList(String option) async{
+    QuerySnapshot qs =  await Firestore.instance.collection('products').where('SubCategory', isEqualTo: option ).getDocuments();
     return qs;
   }
 

@@ -1,22 +1,23 @@
+import 'package:e_commerce_bloc/navigate.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-showGrid(String img1, String text1, var nav1, String img2, String text2, var nav2){
+showGrid(BuildContext context, String img1, String text1, dynamic nav1, String img2, String text2, dynamic nav2){
   return  Padding(
     padding: const EdgeInsets.only(top: 20),
     child: Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: <Widget>[
-        categoryGrid(img1, text1, nav1),
-        categoryGrid(img2, text2, nav2)
+        categoryGrid(context, img1, text1, nav1),
+        categoryGrid(context, img2, text2, nav2)
       ],
     )
   );
 }
 
-categoryGrid(String image, String text, var screen){
+categoryGrid(BuildContext context, String image, String text, dynamic screen){
   return InkWell(
-    onTap: () => screen,//add navigate()
+    onTap: () => navigate(context, screen),
       child: Container(
       child:Card(
         elevation: 0,

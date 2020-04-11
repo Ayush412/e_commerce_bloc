@@ -39,19 +39,25 @@ class ProductsHomeBloc extends BaseBloc{
   Stream<int> get cartOut => _cartCountController.stream;
   Stream<QuerySnapshot> get bannerOut => _bannerController.stream;
 
-  getProductsList() async{
-    QuerySnapshot qs = await productDetails.getProductsList();
+  getProductsList(String option) async{
+    QuerySnapshot qs = await productDetails.getProductsList(option);
     productsListIn.add(qs);
   }
 
   getTopRated(bool limited) async{
     QuerySnapshot qs = await productDetails.getToprated(limited);
-    productsCarouselIn.add(qs);
+    if(limited)
+      productsCarouselIn.add(qs);
+    else
+      productsListIn.add(qs);
   }
 
   getDiscounted(bool limited) async{
     QuerySnapshot qs = await productDetails.getDiscounted(limited);
-    discountIn.add(qs);
+    if(limited)
+      discountIn.add(qs);
+    else
+    productsListIn.add(qs);
   }
 
   getBanners() async{
@@ -67,6 +73,23 @@ class ProductsHomeBloc extends BaseBloc{
   filteredProductsList(List data) async{
     QuerySnapshot qs = await productDetails.getProductListFiltered(data[0], data[1], data[2]);
     productsListIn.add(qs);
+  }
+
+  getFullList(String option){
+    switch(option){
+      case 'Featured Products': {
+        getTopRated(false);
+        break;
+      }
+      case 'On Sale': {
+        getDiscounted(false);
+        break;
+      }
+      default: {
+        getProductsList(option);
+        break;
+      }
+    }
   }
 
   @override

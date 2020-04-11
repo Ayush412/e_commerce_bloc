@@ -1,6 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:e_commerce_bloc/blocs/bloc.dart';
 import 'package:e_commerce_bloc/blocs/products_home_bloc/products_home_bloc.dart';
+import 'package:e_commerce_bloc/navigate.dart';
+import 'package:e_commerce_bloc/screens/description_screen/description_screen.dart';
 import 'package:flutter/material.dart';
 import 'center_image.dart';
 import 'circular_progress_indicator.dart';
@@ -21,7 +23,7 @@ productsList(){
       else{
         bloc.loadingStatusIn.add(false);
         return Padding(
-          padding: const EdgeInsets.only(top: 20, left: 20, right: 20),
+          padding: const EdgeInsets.only(top: 25, left: 20, right: 20),
           child: GridView.builder(
             itemCount: snap.data.documents.length,
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
@@ -31,7 +33,10 @@ productsList(){
             itemBuilder: (context, index) => Card(
               elevation: 0,
               margin: EdgeInsets.symmetric(horizontal: 10),
-              child: productCard(snap.data.documents[index])
+              child: GestureDetector(
+                onTap: () => navigate(context, DescriptionScreen(post: snap.data.documents[index])),
+                child: productCard(snap.data.documents[index]),
+              ) 
             )
           ),
         );

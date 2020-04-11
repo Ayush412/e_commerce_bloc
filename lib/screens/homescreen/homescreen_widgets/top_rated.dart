@@ -1,6 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:e_commerce_bloc/blocs/bloc.dart';
 import 'package:e_commerce_bloc/blocs/products_home_bloc/products_home_bloc.dart';
+import 'package:e_commerce_bloc/navigate.dart';
+import 'package:e_commerce_bloc/screens/description_screen/description_screen.dart';
 import 'package:e_commerce_bloc/widgets/circular_progress_indicator.dart';
 import 'package:e_commerce_bloc/widgets/product_card.dart';
 import 'package:flutter/material.dart';
@@ -25,7 +27,11 @@ topRated(){
               DocumentSnapshot product = snap.data.documents[index];
               return Padding(
                 padding: const EdgeInsets.only(left:20),
-                child: productCard(product)
+                child: GestureDetector(
+                  onTap: () => navigate(context, DescriptionScreen(post: product)),
+                  child: productCard(product)
+                )
+                
               );
             }
           ),
