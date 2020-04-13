@@ -2,8 +2,8 @@ import 'package:e_commerce_bloc/blocs/user_login_bloc/user_login_bloc.dart';
 import 'package:e_commerce_bloc/navigate.dart';
 import 'package:e_commerce_bloc/screens/add_product/add_product.dart';
 import 'package:e_commerce_bloc/screens/analytics/analytics_screen.dart';
+import 'package:e_commerce_bloc/screens/cart_screen/cart_screen.dart';
 import 'package:e_commerce_bloc/screens/scan_to_search/scan_to_search.dart';
-import 'package:e_commerce_bloc/screens/user_cart/user_cart.dart';
 import 'package:e_commerce_bloc/screens/user_details_edit/user_details_edit.dart';
 import 'package:e_commerce_bloc/screens/user_login/user_login.dart';
 import 'package:flutter/material.dart';
@@ -35,7 +35,7 @@ Widget drawer(BuildContext context, int admin){
           admin == 1? drawerOptions("Add Products", AddProduct(), Icons.library_add ) 
           : drawerOptions("My Account",UserDetailsEdit(), Icons.person),
           admin == 1? drawerOptions("Analytics", AnalyticsScreen(), Icons.insert_chart) 
-          : drawerOptions("Cart", UserCart(), Icons.shopping_cart),
+          : drawerOptions("Cart", CartScreen(), Icons.shopping_cart),
           drawerOptions("Scan to Search", ScanToSearch(), Icons.camera_alt),
           Padding(
               padding:const EdgeInsets.only(top:180),

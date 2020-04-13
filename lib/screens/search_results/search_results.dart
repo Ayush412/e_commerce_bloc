@@ -43,7 +43,7 @@ class _SearchResultsState extends State<SearchResults> {
           resizeToAvoidBottomInset: false,
           key: scaffoldKey,
           backgroundColor: Colors.white,
-          appBar: appBar(context, scaffoldKey, false, controller, widget.onPop, getSearchResults),
+          appBar: appBar(context, scaffoldKey, false, controller, widget.onPop, getSearchResults, null),
           body: Stack(children: [
             productsList(),
           ],)

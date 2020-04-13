@@ -40,7 +40,7 @@ productCard(DocumentSnapshot product){
                           fontWeight: FontWeight.w700, 
                           decoration: disc != 0 ? TextDecoration.lineThrough : null,
                           decorationThickness: 1.7,
-                          decorationColor: Colors.red
+                          decorationColor: Colors.red[400]
                         )),
                         Row(
                           children: List.generate(5, (val) {

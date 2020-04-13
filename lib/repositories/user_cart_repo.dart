@@ -41,6 +41,7 @@ class UserCartRepo{
     .then((DocumentSnapshot snap){
        snap.exists ?  addVal(product.documentID) : addNew(product);
     });
+    getCount();
   }
 
   addNew(DocumentSnapshot product) async{

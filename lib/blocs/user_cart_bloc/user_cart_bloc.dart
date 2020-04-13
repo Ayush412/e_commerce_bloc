@@ -24,18 +24,24 @@ class UserCartBloc implements BaseBloc{
   }
 
   addVal(String doc) async{
+    bloc.loadingStatusIn.add(true);
     await userCartRepo.addVal(doc);
-    getCart();
+    await getCart();
+    bloc.loadingStatusIn.add(false);
   }
 
   remVal(String doc) async{
+    bloc.loadingStatusIn.add(true);
     await userCartRepo.remVal(doc);
-    getCart();
+    await getCart();
+    bloc.loadingStatusIn.add(false);
   }
 
   delProd(String doc) async{
+    bloc.loadingStatusIn.add(true);
     await userCartRepo.delProd(doc);
-    getCart();
+    await getCart();
+    bloc.loadingStatusIn.add(false);
   }
 
   @override

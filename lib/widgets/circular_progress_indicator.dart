@@ -7,11 +7,11 @@ circularProgressIndicator(BuildContext context){
     builder: (context, snapshot){
       if(snapshot.hasData && snapshot.data==true)
         return Container(
-          height: 50, width: 50,
+          height: 25, width: 25,
           child: CircularProgressIndicator()
         );
       else if(!snapshot.hasData || snapshot.data==false)
-        return Container();
+        return SizedBox(height: 30, width: 30);
     },
   );
 }

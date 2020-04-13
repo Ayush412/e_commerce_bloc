@@ -36,8 +36,8 @@ class _FullProductListState extends State<FullProductList> {
       home: Scaffold(
         key: scaffoldKey,
         backgroundColor: Colors.white,
-        drawer:  customDrawer(context, loginBloc.userMap['Admin']),
-        appBar: appBar(context, scaffoldKey, false, controller, onPop, null),
+        drawer:  customDrawer(context),
+        appBar: appBar(context, scaffoldKey, false, controller, onPop, null, null),
         body: Stack(
           children: [
             Padding(

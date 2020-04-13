@@ -46,8 +46,8 @@ class _HomeScreenState extends State<HomeScreen> {
         home: Scaffold(
           backgroundColor: Colors.white,
           key: scaffoldKey,
-          drawer:  customDrawer(context, loginBloc.userMap['Admin']),
-          appBar: appBar(context, scaffoldKey, true, controller, onPop, null),
+          drawer:  customDrawer(context),
+          appBar: appBar(context, scaffoldKey, true, controller, onPop, null, null),
           body: SingleChildScrollView(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
