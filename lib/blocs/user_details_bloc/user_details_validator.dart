@@ -1,5 +1,5 @@
 import 'dart:async';
-import 'package:e_commerce_bloc/blocs/user_details_bloc/user_details_bloc.dart';
+import 'user_details_bloc.dart';
 
 mixin ValidateDetails{
 

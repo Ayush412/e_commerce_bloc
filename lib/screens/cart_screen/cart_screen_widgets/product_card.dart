@@ -10,16 +10,20 @@ cartProductCard(DocumentSnapshot product){
     child: Card(
       elevation: 0,
       child: Padding(
-        padding: const EdgeInsets.all(8.0),
+        padding: const EdgeInsets.all(10),
         child: Row(children: [
+          IconButton(
+            icon: Icon(Icons.delete_outline,color: Colors.red),
+            onPressed: () => userCartBloc.delProd(product.documentID),
+          ),
           Image.network(product.data['imgurl'], height: 100, width: 100,),
           Padding(
-            padding: const EdgeInsets.only(left: 20, top: 10, bottom: 10),
+            padding: const EdgeInsets.only(top: 10, bottom: 10),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Container(
-                  width: 200,
+                  width: 175,
                   child: Text(product.data['ProdName'],
                     style: GoogleFonts.sourceSansPro(
                       fontSize: 17,

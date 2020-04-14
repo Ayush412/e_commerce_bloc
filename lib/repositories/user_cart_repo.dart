@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:e_commerce_bloc/blocs/bloc.dart';
+import 'package:e_commerce_bloc/blocs/user_cart_bloc/user_cart_bloc.dart';
 import 'package:e_commerce_bloc/blocs/user_login_bloc/user_login_bloc.dart';
-import 'package:firebase_storage/firebase_storage.dart';
 
 import 'cart_and_notification_count.dart';
 
@@ -42,6 +43,17 @@ class UserCartRepo{
        snap.exists ?  addVal(product.documentID) : addNew(product);
     });
     getCount();
+  }
+
+  getPromoCode(String code) async{
+    bloc.loadingStatusIn.add(true);
+    await Firestore.instance.collection('promocodes').document(code).get().then((DocumentSnapshot snap){
+      if(snap.exists)
+        userCartBloc.codeIn.add(snap);
+      else
+        userCartBloc.codeIn.add(null);
+    });
+    bloc.loadingStatusIn.add(false);
   }
 
   addNew(DocumentSnapshot product) async{

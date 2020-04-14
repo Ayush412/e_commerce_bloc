@@ -1,6 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:e_commerce_bloc/blocs/user_cart_bloc/user_cart_bloc.dart';
+import 'package:e_commerce_bloc/repositories/user_cart_repo.dart';
 import 'package:e_commerce_bloc/screens/cart_screen/cart_screen_widgets/amount_row.dart';
+import 'package:e_commerce_bloc/screens/cart_screen/cart_screen_widgets/apply_button.dart';
+import 'package:e_commerce_bloc/screens/cart_screen/cart_screen_widgets/discount.dart';
 import 'package:e_commerce_bloc/screens/cart_screen/cart_screen_widgets/product_card.dart';
 import 'package:e_commerce_bloc/widgets/appBar.dart';
 import 'package:e_commerce_bloc/widgets/circular_progress_indicator.dart';
@@ -8,7 +11,6 @@ import 'package:e_commerce_bloc/widgets/custom_drawer.dart';
 import 'package:e_commerce_bloc/widgets/show_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:intl/intl.dart';
 
 class CartScreen extends StatefulWidget {
@@ -19,10 +21,17 @@ class CartScreen extends StatefulWidget {
 class _CartScreenState extends State<CartScreen> {
 
   GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
+  TextEditingController controller = TextEditingController();
+  int subtotal;
 
   @override
   void initState() {
-     userCartBloc.getCart();
+    userCartBloc.getCart();
+    userCartBloc.discount = 0;
+    userCartBloc.shipping = 10;
+    userCartBloc.finalAmount = 0;
+    controller.text='';
+    userCartBloc.codeIn.add(null);
   }
 
   @override
@@ -71,6 +80,7 @@ class _CartScreenState extends State<CartScreen> {
                           Padding(
                             padding: const EdgeInsets.only(left: 5, right: 5, bottom: 20),
                             child: ListView.builder(
+                              physics: NeverScrollableScrollPhysics(),
                               shrinkWrap: true,
                               itemCount: snapshot.data.documents.length,
                               itemBuilder: (_, index){
@@ -84,17 +94,132 @@ class _CartScreenState extends State<CartScreen> {
                             indent: 10,
                             endIndent: 10,
                           ),
+                          Container(width: MediaQuery.of(context).size.width,
+                            child: Padding(
+                              padding: const EdgeInsets.only(top: 20, left: 40),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: <Widget>[
+                                  Text('Promo Code?', style: GoogleFonts.sourceSansPro(fontSize: 14, color: Colors.grey)),
+                                  Padding(
+                                    padding: const EdgeInsets.only(top: 10),
+                                    child: Row(
+                                      children: [
+                                        codeTextField(context, controller),
+                                        Padding(padding: const EdgeInsets.only(left: 20),
+                                          child: InkWell(
+                                            onTap: (){
+                                              FocusScope.of(context).requestFocus(FocusNode());
+                                              if(controller.text!='')
+                                              userCartRepo.getPromoCode(controller.text);
+                                            },
+                                            child: applyButton()
+                                          ),
+                                        )
+                                      ]
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.only(top: 10),
+                                    child: StreamBuilder(
+                                      stream: userCartBloc.codeOut,
+                                      builder: (context, AsyncSnapshot<DocumentSnapshot> code){
+                                        return StreamBuilder(
+                                          stream: userCartBloc.totalOut,
+                                          builder: (context, snap){
+                                            if(!code.hasData){
+                                              if(controller.text=='')
+                                                return Container();
+                                              else
+                                                return Text('Inavild code', style: GoogleFonts.sourceSansPro(fontSize: 15, color: Colors.red));
+                                            }
+                                            else{
+                                              if(code.data['Limit']>snap.data)
+                                                return Text("This code can't be applied", style: GoogleFonts.sourceSansPro(fontSize: 15, color: Colors.red));
+                                              else{
+                                                userCartBloc.codeIn.add(code.data);
+                                                return Text("Code applied", style: GoogleFonts.sourceSansPro(fontSize: 15, color: Colors.green));
+                                              }
+                                            }
+                                          }
+                                        );
+                                      }
+                                    )
+                                  )
+                                ],
+                              ),
+                            ),
+                          ),
                           Padding(
-                            padding: const EdgeInsets.only(top: 20),
+                            padding: const EdgeInsets.only(top: 40, bottom: 20),
                             child: StreamBuilder<Object>(
                               stream: userCartBloc.totalOut,
                               builder: (context, snapshot) {
-                                return amountRow('Subtotal:', snapshot.data, Colors.black);
+                                return StreamBuilder(
+                                  stream: userCartBloc.codeOut,
+                                  builder: (context, AsyncSnapshot<DocumentSnapshot> code){
+                                    String text1='Discount'; String amount1='QR. 0'; Color color1=Colors.grey;
+                                    String text2='Shipping'; String amount2='QR. 10'; Color color2=Colors.grey;
+                                    if(code.data!=null && code.data['Type']=='Cart'){
+                                      if(code.data['Amount']!=null)
+                                        amount1 = 'QR. ${code.data['Amount']}';
+                                      else
+                                        amount1 = '${code.data['Percentage']}%';
+                                      color1 = Colors.green;
+                                      userCartBloc.getDiscount(code.data);
+                                    }
+                                    else if (code.data!=null && code.data['Type']=='Shipping'){
+                                      amount2 = 'QR. ${code.data['Amount']}';
+                                      color2 = Colors.green;
+                                      userCartBloc.getShipping(code.data['Amount']);
+                                    }
+                                    return Column(children: [
+                                      amountRow('Subtotal:', 'QR. ${NumberFormat('#,###').format(snapshot.data)}', Colors.black),
+                                      amountRow(text1, amount1, color1),
+                                      amountRow(text2, amount2, color2)
+                                    ]);
+                                  }
+                                );
                               }
                             ),
                           ),
-                          amountRow('Discount:', 5, Colors.green[300]),
-                          amountRow('Shipping:', 10, Colors.grey),
+                          Divider(
+                            thickness: 1.5,
+                            indent: 10,
+                            endIndent: 10,
+                          ),
+                          StreamBuilder(
+                            stream: userCartBloc.finalAmountOut,
+                            builder: (context, snapshot){
+                              return amountRow('Total:','QR. ${NumberFormat('#,###').format(snapshot.data)}', Colors.blue);
+                            },
+                          ),
+                          Container(
+                            padding: const EdgeInsets.only(top: 30, left: 40),
+                            width: MediaQuery.of(context).size.width,
+                            child: Text('Cash on Delivery only.',
+                              style: GoogleFonts.sourceSansPro(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.grey),
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(top:30, bottom: 20, left: 40, right: 40),
+                            child: InkWell(
+                              onTap: () => null,
+                              child: Container(
+                                height: 40,
+                                decoration: BoxDecoration(
+                                  color: Colors.blue[400],
+                                  borderRadius: BorderRadius.circular(5)
+                                ),
+                                child: Center(
+                                  child: Text('PLACE ORDER',
+                                    style: GoogleFonts.sourceSansPro(fontSize: 19, fontWeight: FontWeight.bold, color: Colors.white),
+                                  ),
+                                  
+                                ),
+                              ),
+                            ),
+                          )
                         ]),
                       ),
                       Padding(
