@@ -47,8 +47,7 @@ class UserCartBloc implements BaseBloc{
 
   getPromoCode(String code) async{
     bloc.loadingStatusIn.add(true);
-    DocumentSnapshot ds = await userCartRepo.getPromoCode(code);
-    codeIn.add(ds);
+    codeIn.add( await userCartRepo.getPromoCode(code));
     bloc.loadingStatusIn.add(false);
   }
   
