@@ -2,10 +2,19 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:e_commerce_bloc/blocs/bloc.dart';
 import 'package:e_commerce_bloc/blocs/user_cart_bloc/user_cart_bloc.dart';
 import 'package:e_commerce_bloc/blocs/user_login_bloc/user_login_bloc.dart';
-
+import 'package:intl/intl.dart';
 import 'cart_and_notification_count.dart';
 
 class UserCartRepo{
+  String date = DateFormat.yMMMMd().format(DateTime.now());
+  
+  confirmPurchase(Map map) async{
+    await Firestore.instance.collection('users/${loginBloc.userMap['emailID']}/Orders').document().setData({
+      'Date': date,
+      'Status': 'Order Confirmed',
+      'Items': map
+    });
+  }
 
   getCart()async{
     int total=0;
@@ -46,14 +55,12 @@ class UserCartRepo{
   }
 
   getPromoCode(String code) async{
-    bloc.loadingStatusIn.add(true);
+    DocumentSnapshot ds;
     await Firestore.instance.collection('promocodes').document(code).get().then((DocumentSnapshot snap){
       if(snap.exists)
-        userCartBloc.codeIn.add(snap);
-      else
-        userCartBloc.codeIn.add(null);
+        ds = snap;
     });
-    bloc.loadingStatusIn.add(false);
+    return ds;
   }
 
   addNew(DocumentSnapshot product) async{

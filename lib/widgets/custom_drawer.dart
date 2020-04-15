@@ -1,6 +1,7 @@
 import 'package:e_commerce_bloc/blocs/user_login_bloc/user_login_bloc.dart';
 import 'package:e_commerce_bloc/navigate.dart';
 import 'package:e_commerce_bloc/screens/cart_screen/cart_screen.dart';
+import 'package:e_commerce_bloc/screens/homescreen/homescreen.dart';
 import 'package:e_commerce_bloc/screens/user_login/user_login.dart';
 import 'package:e_commerce_bloc/widgets/custom_badge.dart';
 import 'package:flutter/material.dart';
@@ -42,6 +43,7 @@ customDrawer(BuildContext context){
         ],),
         ),
         admin==1? Container() : Divider(),
+        drawerOptions(context, 'assets/icons/home.png', 'Home', HomeScreen(), 30),
         drawerOptions(context, 'assets/icons/sale.png', 'Deals and Promotions', null, 30),
         admin==1? drawerOptions(context, 'assets/icons/package.png', 'Add Products', null, 30)
         : drawerOptions(context, 'assets/icons/cart.png', 'My Cart', CartScreen(), 30),

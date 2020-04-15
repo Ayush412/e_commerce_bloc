@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:e_commerce_bloc/blocs/user_cart_bloc/user_cart_bloc.dart';
+import 'package:e_commerce_bloc/navigate.dart';
 import 'package:e_commerce_bloc/repositories/user_cart_repo.dart';
 import 'package:e_commerce_bloc/screens/cart_screen/cart_screen_widgets/amount_row.dart';
 import 'package:e_commerce_bloc/screens/cart_screen/cart_screen_widgets/apply_button.dart';
@@ -32,6 +33,11 @@ class _CartScreenState extends State<CartScreen> {
     userCartBloc.finalAmount = 0;
     controller.text='';
     userCartBloc.codeIn.add(null);
+  }
+
+  confirmPurchase() async{
+    await userCartBloc.confirmPurchase();
+    //navigate(context, className);
   }
 
   @override
@@ -111,7 +117,7 @@ class _CartScreenState extends State<CartScreen> {
                                             onTap: (){
                                               FocusScope.of(context).requestFocus(FocusNode());
                                               if(controller.text!='')
-                                              userCartRepo.getPromoCode(controller.text);
+                                              userCartBloc.getPromoCode(controller.text);
                                             },
                                             child: applyButton()
                                           ),
@@ -129,9 +135,11 @@ class _CartScreenState extends State<CartScreen> {
                                           builder: (context, snap){
                                             if(!code.hasData){
                                               if(controller.text=='')
-                                                return Container();
-                                              else
+                                                return Container(height: 19);
+                                              else{
+                                                userCartBloc.resetCode();
                                                 return Text('Inavild code', style: GoogleFonts.sourceSansPro(fontSize: 15, color: Colors.red));
+                                              }
                                             }
                                             else{
                                               if(code.data['Limit']>snap.data)
@@ -151,7 +159,7 @@ class _CartScreenState extends State<CartScreen> {
                             ),
                           ),
                           Padding(
-                            padding: const EdgeInsets.only(top: 40, bottom: 20),
+                            padding: const EdgeInsets.only(top: 30, bottom: 20),
                             child: StreamBuilder<Object>(
                               stream: userCartBloc.totalOut,
                               builder: (context, snapshot) {
@@ -197,14 +205,14 @@ class _CartScreenState extends State<CartScreen> {
                           Container(
                             padding: const EdgeInsets.only(top: 30, left: 40),
                             width: MediaQuery.of(context).size.width,
-                            child: Text('Cash on Delivery only.',
+                            child: Text('Cash On Delivery Only.',
                               style: GoogleFonts.sourceSansPro(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.grey),
                             ),
                           ),
                           Padding(
                             padding: const EdgeInsets.only(top:30, bottom: 20, left: 40, right: 40),
                             child: InkWell(
-                              onTap: () => null,
+                              onTap: () => confirmPurchase(),
                               child: Container(
                                 height: 40,
                                 decoration: BoxDecoration(

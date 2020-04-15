@@ -5,6 +5,7 @@ import 'package:rxdart/rxdart.dart';
 
 class UserCartBloc implements BaseBloc{
 
+  QuerySnapshot qs;
   int cartTotal;
   int discount = 0;
   int shipping = 10;
@@ -28,6 +29,29 @@ class UserCartBloc implements BaseBloc{
   Stream<DocumentSnapshot> get codeOut => _codeController.stream;
   Stream<int> get finalAmountOut => _finalAmountController.stream;
 
+  confirmPurchase() async{
+    bloc.loadingStatusIn.add(true);
+    Map<String, Map> map = Map<String, Map>();
+    qs.documents.forEach((element){map[element.documentID] = element.data;});
+    await userCartRepo.confirmPurchase(map);
+    bloc.loadingStatusIn.add(false);
+  }
+
+  resetCode(){
+    discount = 0;
+    shipping = 10;
+    finalAmount = 0;
+    codeIn.add(null);
+    calculateTotal();
+  }
+
+  getPromoCode(String code) async{
+    bloc.loadingStatusIn.add(true);
+    DocumentSnapshot ds = await userCartRepo.getPromoCode(code);
+    codeIn.add(ds);
+    bloc.loadingStatusIn.add(false);
+  }
+  
   getDiscount(DocumentSnapshot event){
      if(event.data['Percentage']!=null){
         discount = ((cartTotal*event.data['Percentage']/100)).round();
@@ -56,6 +80,7 @@ class UserCartBloc implements BaseBloc{
     totalIn.add(data[0]);
     cartIn.add(data[1]);
     cartTotal = data[0];
+    qs = data[1];
     calculateTotal();
   }
 
@@ -63,24 +88,24 @@ class UserCartBloc implements BaseBloc{
     bloc.loadingStatusIn.add(true);
     await userCartRepo.addVal(doc);
     await getCart();
-    bloc.loadingStatusIn.add(false);
     calculateTotal();
+    bloc.loadingStatusIn.add(false);
   }
 
   remVal(String doc) async{
     bloc.loadingStatusIn.add(true);
     await userCartRepo.remVal(doc);
     await getCart();
-    bloc.loadingStatusIn.add(false);
     calculateTotal();
+    bloc.loadingStatusIn.add(false);
   }
 
   delProd(String doc) async{
     bloc.loadingStatusIn.add(true);
     await userCartRepo.delProd(doc);
     await getCart();
-    bloc.loadingStatusIn.add(false);
     calculateTotal();
+    bloc.loadingStatusIn.add(false);
   }
 
   @override
