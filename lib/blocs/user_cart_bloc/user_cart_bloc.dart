@@ -33,7 +33,7 @@ class UserCartBloc implements BaseBloc{
     bloc.loadingStatusIn.add(true);
     Map<String, Map> map = Map<String, Map>();
     qs.documents.forEach((element){map[element.documentID] = element.data;});
-    await userCartRepo.confirmPurchase(map);
+    await userCartRepo.confirmPurchase(map, finalAmount);
     bloc.loadingStatusIn.add(false);
   }
 

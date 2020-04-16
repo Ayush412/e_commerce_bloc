@@ -15,6 +15,7 @@ class OrdersBloc implements BaseBloc{
   Stream<QuerySnapshot> get ordersOut => _ordersController.stream;
 
   getOrders() async{
+    ordersIn.add(null);
     ordersIn.add(await ordersRepo.getOrders());
   }
 

@@ -1,5 +1,4 @@
 import 'package:e_commerce_bloc/blocs/user_login_bloc/user_login_bloc.dart';
-import 'package:e_commerce_bloc/widgets/circular_progress_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'custom_badge.dart';
@@ -19,7 +18,7 @@ appBar(BuildContext context, GlobalKey<ScaffoldState> scaffoldKey, bool isHomeSc
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
               Padding(
-                padding: EdgeInsets.only(right: isHomeScreen? 30: titleText!=null? 35: onPop!=null? 10 : 0),
+                padding: EdgeInsets.only(right: titleText=='Orders'? 60: isHomeScreen? 30: titleText!=null? 35: onPop!=null? 10 : 0),
                 child: loginBloc.userMap['Admin']==1? 
                 IconButton(
                   icon: Icon(Icons.dehaze), 

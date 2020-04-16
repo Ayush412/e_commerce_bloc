@@ -1,12 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:e_commerce_bloc/blocs/user_cart_bloc/user_cart_bloc.dart';
-import 'package:e_commerce_bloc/navigate.dart';
-import 'package:e_commerce_bloc/repositories/user_cart_repo.dart';
 import 'package:e_commerce_bloc/screens/cart_screen/cart_screen_widgets/amount_row.dart';
 import 'package:e_commerce_bloc/screens/cart_screen/cart_screen_widgets/apply_button.dart';
 import 'package:e_commerce_bloc/screens/cart_screen/cart_screen_widgets/discount.dart';
 import 'package:e_commerce_bloc/screens/cart_screen/cart_screen_widgets/product_card.dart';
 import 'package:e_commerce_bloc/widgets/appBar.dart';
+import 'package:e_commerce_bloc/widgets/center_image.dart';
 import 'package:e_commerce_bloc/widgets/circular_progress_indicator.dart';
 import 'package:e_commerce_bloc/widgets/custom_drawer.dart';
 import 'package:e_commerce_bloc/widgets/show_dialog.dart';
@@ -58,25 +57,7 @@ class _CartScreenState extends State<CartScreen> {
                 return Center(child: CircularProgressIndicator());
               else{
                 if(snapshot.data.documents.length==0){
-                  return Center(
-                    child: Stack(children: <Widget>[
-                      Center(
-                        child: Container(
-                          width: 200,
-                          height: 200,
-                          decoration: BoxDecoration(
-                            shape: BoxShape.circle, 
-                            image: DecorationImage(
-                              image: AssetImage('empty2.png'),
-                              fit: BoxFit.cover)),
-                        )
-                      ),
-                      Center(
-                        child: Padding(padding: EdgeInsets.only(top:240),
-                        child: Text("Your cart is empty!", style: TextStyle(color: Colors.grey, fontSize: 16, fontWeight: FontWeight.bold),)),
-                      )
-                    ]),
-                  );
+                  return centerImage('Your acrt is empty', 'empty2.png');
                 }
                 else{
                   return Stack(
@@ -90,8 +71,7 @@ class _CartScreenState extends State<CartScreen> {
                               shrinkWrap: true,
                               itemCount: snapshot.data.documents.length,
                               itemBuilder: (_, index){
-                                DocumentSnapshot product = snapshot.data.documents[index];
-                                return cartProductCard(product);
+                                return cartProductCard(snapshot.data.documents[index]);
                               }
                             ),
                           ),

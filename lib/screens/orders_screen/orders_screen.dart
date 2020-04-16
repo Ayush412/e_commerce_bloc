@@ -1,3 +1,9 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:e_commerce_bloc/blocs/orders_bloc/orders_bloc.dart';
+import 'package:e_commerce_bloc/screens/orders_screen/order_screen_widgets/orders_card.dart';
+import 'package:e_commerce_bloc/widgets/appBar.dart';
+import 'package:e_commerce_bloc/widgets/center_image.dart';
+import 'package:e_commerce_bloc/widgets/custom_drawer.dart';
 import 'package:flutter/material.dart';
 
 class OrdersScreen extends StatefulWidget {
@@ -6,6 +12,15 @@ class OrdersScreen extends StatefulWidget {
 }
 
 class _OrdersScreenState extends State<OrdersScreen> {
+
+  GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
+
+  @override
+  void initState() {
+    super.initState();
+    ordersBloc.getOrders();
+  }
+
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
@@ -13,6 +28,29 @@ class _OrdersScreenState extends State<OrdersScreen> {
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         home: Scaffold(
+          key: scaffoldKey,
+          backgroundColor: Colors.white,
+          drawer: customDrawer(context),
+          appBar: appBar(context, scaffoldKey, true, null, null, false, 'Orders'),
+          body: StreamBuilder(
+            stream: ordersBloc.ordersOut,
+            builder: (context, AsyncSnapshot<QuerySnapshot> orders){
+              if(!orders.hasData)
+                return Center(child: CircularProgressIndicator());
+              else{
+                if(orders.data.documents.length==0)
+                  return centerImage('No orders found.', 'assets/icons/delivery.png');
+                else{
+                  return ListView.builder(
+                    itemCount: orders.data.documents.length,
+                    itemBuilder: (_, index){
+                      return ordersCard(context, orders.data.documents[index]);
+                    }
+                  );
+                }
+              }
+            }
+          ),
         ),
       ),
     );

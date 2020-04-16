@@ -1,6 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:e_commerce_bloc/blocs/bloc.dart';
-import 'package:e_commerce_bloc/blocs/user_cart_bloc/user_cart_bloc.dart';
 import 'package:e_commerce_bloc/blocs/user_login_bloc/user_login_bloc.dart';
 import 'package:intl/intl.dart';
 import 'cart_and_notification_count.dart';
@@ -8,9 +6,10 @@ import 'cart_and_notification_count.dart';
 class UserCartRepo{
   String date = DateFormat.yMMMMd().format(DateTime.now());
   
-  confirmPurchase(Map map) async{
+  confirmPurchase(Map map, int amount) async{
     await Firestore.instance.collection('users/${loginBloc.userMap['emailID']}/Orders').document().setData({
       'Date': date,
+      'Amount': amount,
       'Status': 'Order Confirmed',
       'Items': map
     });

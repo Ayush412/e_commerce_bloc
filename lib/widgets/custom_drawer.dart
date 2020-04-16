@@ -2,6 +2,7 @@ import 'package:e_commerce_bloc/blocs/user_login_bloc/user_login_bloc.dart';
 import 'package:e_commerce_bloc/navigate.dart';
 import 'package:e_commerce_bloc/screens/cart_screen/cart_screen.dart';
 import 'package:e_commerce_bloc/screens/homescreen/homescreen.dart';
+import 'package:e_commerce_bloc/screens/orders_screen/orders_screen.dart';
 import 'package:e_commerce_bloc/screens/user_login/user_login.dart';
 import 'package:e_commerce_bloc/widgets/custom_badge.dart';
 import 'package:flutter/material.dart';
@@ -48,7 +49,7 @@ customDrawer(BuildContext context){
         admin==1? drawerOptions(context, 'assets/icons/package.png', 'Add Products', null, 30)
         : drawerOptions(context, 'assets/icons/cart.png', 'My Cart', CartScreen(), 30),
         admin==1? Container()
-        : drawerOptions(context, 'assets/icons/delivery.png', 'Track Orders', null, 30),
+        : drawerOptions(context, 'assets/icons/delivery.png', 'Track Orders', OrdersScreen(), 30),
         admin==1? drawerOptions(context, 'assets/icons/analytics.jpg', 'Analytics', null, 30) : Container(),
         drawerOptions(context, 'assets/icons/barcode.png','Scan To Search', null, 30),
         Expanded(
