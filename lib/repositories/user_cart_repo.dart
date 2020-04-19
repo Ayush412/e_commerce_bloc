@@ -5,13 +5,15 @@ import 'cart_and_notification_count.dart';
 
 class UserCartRepo{
   String date = DateFormat.yMMMMd().format(DateTime.now());
-  
+  Map<String, String> dateMap = Map<String, String>();
+
   confirmPurchase(Map map, int amount) async{
+    dateMap['Order Confirmed'] = date;
     await Firestore.instance.collection('users/${loginBloc.userMap['emailID']}/Orders').document().setData({
-      'Date': date,
+      'Status Dates': dateMap,
       'Amount': amount,
-      'Status': 'Order Confirmed',
-      'Items': map
+      'Items': map,
+      'Date': date,
     });
     // Firestore.instance.collection('users/${loginBloc.userMap['emailID']}/Cart')..getDocuments().then((value) {
     //   value.documents.forEach((element) async {

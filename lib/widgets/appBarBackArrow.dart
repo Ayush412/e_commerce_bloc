@@ -1,3 +1,4 @@
+import 'package:e_commerce_bloc/screens/homescreen/homescreen.dart';
 import 'package:e_commerce_bloc/screens/notifications_list/notifications_list.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -13,6 +14,8 @@ appBarBackArrow(BuildContext context, String text, bool isNotifs){
     leading: IconButton(
       icon: Icon(Icons.arrow_back_ios,), 
       color: Colors.black,
-      onPressed: ()=> isNotifs? navigate(context, NotificationList()): Navigator.of(context).pop()),
+      onPressed: ()=> isNotifs? navigate(context, NotificationList())
+      : text=='Orders' ? navigate(context, HomeScreen()) 
+        : Navigator.of(context).pop()),
   );
 }

@@ -1,4 +1,5 @@
 import 'package:e_commerce_bloc/navigate.dart';
+import 'package:e_commerce_bloc/screens/scan_to_search/scan_to_search.dart';
 import 'package:e_commerce_bloc/screens/search_results/search_results.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -41,7 +42,7 @@ searchBar(BuildContext context, TextEditingController controller,  dynamic onPop
             alignment: Alignment.centerRight,
             child: IconButton(
               icon: Icon(MdiIcons.cubeScan),
-              onPressed: () => null,//TODO scan to search
+              onPressed: () => navigate(context, ScanToSearch()),
             ),
           )
         ],
