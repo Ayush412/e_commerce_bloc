@@ -1,5 +1,5 @@
 import 'package:e_commerce_bloc/blocs/scan_to_seaarch_bloc/scan_to_search_bloc.dart';
-import 'package:e_commerce_bloc/widgets/app_bar.dart';
+import 'package:e_commerce_bloc/widgets/appBarBackArrow.dart';
 import 'package:e_commerce_bloc/widgets/center_image.dart';
 import 'package:e_commerce_bloc/widgets/show_dialog.dart';
 import 'package:flutter/material.dart';
@@ -12,25 +12,10 @@ class ScanObject extends StatefulWidget {
 
 class _ScanObjectState extends State<ScanObject> {
 
-  List<Widget> actions = List<Widget>();
-  dynamic leading;
-  
-
   @override
   void initState() {
     scanToSearchBloc.lablesIn.add(null);
     super.initState();
-    actions = [
-      IconButton(
-        icon: Icon(Icons.info), 
-        color: Colors.white,
-        onPressed: () => showDialogBox(
-          context, 
-          'How it works', 'Click the camera icon below to take a picture of an object. Based on the best predictions made by the algorithm, you can find relevant products that match the category of the scanned object.', 
-          1)
-      )
-    ];
-    leading = IconButton(icon: Icon(Icons.arrow_back, color: Colors.white),onPressed: () => Navigator.of(context).pop());
   }
 
   @override
@@ -42,20 +27,9 @@ class _ScanObjectState extends State<ScanObject> {
           home: Scaffold(
             extendBody: true,
             backgroundColor: Colors.white,
-            appBar: appBar('Scan Object', leading, actions),
+            appBar: appBarBackArrow(context, 'Object Scan', false),
             body: Stack(
               children: <Widget>[
-                Container(color: Colors.white),
-                Padding(
-                  padding: const EdgeInsets.only(top:10),
-                  child: Container( decoration: BoxDecoration(color: Colors.black, borderRadius: BorderRadius.only(topLeft: Radius.circular(25), topRight: Radius.circular(25))),)
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(top:51),
-                  child: Container(
-                   decoration: BoxDecoration(color: Colors.black, borderRadius: BorderRadius.only(topLeft: Radius.circular(25), topRight: Radius.circular(25))),
-                  )
-                ),
                 StreamBuilder(
                   stream: scanToSearchBloc.labelsOut,
                   builder: (context, data){
@@ -91,15 +65,15 @@ class _ScanObjectState extends State<ScanObject> {
                       borderRadius: BorderRadius.only(topLeft: Radius.circular(20), topRight: Radius.circular(20)),
                       child: BottomAppBar(
                         shape: CircularNotchedRectangle(),
-                        color: Colors.orange,
+                        color: Colors.black,
                         child: Container(height: 40,),
                       )
                     ),
             floatingActionButton: FloatingActionButton(
               elevation: 0,
               onPressed: () => scanToSearchBloc.getImage(),
-              child: Icon(Icons.camera_alt, color: Colors.black),
-              backgroundColor: Colors.orange,
+              child: Icon(Icons.camera_alt, color: Colors.white),
+              backgroundColor: Colors.black,
             ),
             floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
           )

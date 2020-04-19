@@ -4,6 +4,7 @@ import 'package:e_commerce_bloc/screens/cart_screen/cart_screen_widgets/amount_r
 import 'package:e_commerce_bloc/screens/cart_screen/cart_screen_widgets/apply_button.dart';
 import 'package:e_commerce_bloc/screens/cart_screen/cart_screen_widgets/discount.dart';
 import 'package:e_commerce_bloc/screens/cart_screen/cart_screen_widgets/product_card.dart';
+import 'package:e_commerce_bloc/screens/orders_screen/orders_screen.dart';
 import 'package:e_commerce_bloc/widgets/appBar.dart';
 import 'package:e_commerce_bloc/widgets/center_image.dart';
 import 'package:e_commerce_bloc/widgets/circular_progress_indicator.dart';
@@ -12,6 +13,7 @@ import 'package:e_commerce_bloc/widgets/show_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
+import '../../navigate.dart';
 
 class CartScreen extends StatefulWidget {
   @override
@@ -36,7 +38,7 @@ class _CartScreenState extends State<CartScreen> {
 
   confirmPurchase() async{
     await userCartBloc.confirmPurchase();
-    //navigate(context, className);
+    navigate(context, OrdersScreen());
   }
 
   @override

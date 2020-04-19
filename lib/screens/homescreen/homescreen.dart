@@ -1,5 +1,4 @@
 import 'package:e_commerce_bloc/blocs/products_home_bloc/products_home_bloc.dart';
-import 'package:e_commerce_bloc/blocs/user_login_bloc/user_login_bloc.dart';
 import 'package:e_commerce_bloc/repositories/cart_and_notification_count.dart';
 import 'package:e_commerce_bloc/repositories/notifications_repo.dart';
 import 'package:e_commerce_bloc/screens/full_product_list/full_product_list.dart';
@@ -11,6 +10,7 @@ import 'package:e_commerce_bloc/screens/homescreen/homescreen_widgets/top_rated.
 import 'package:e_commerce_bloc/widgets/appBar.dart';
 import 'package:e_commerce_bloc/widgets/custom_drawer.dart';
 import 'package:e_commerce_bloc/widgets/show_dialog.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -22,6 +22,7 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   GlobalKey<ScaffoldState> scaffoldKey = new GlobalKey<ScaffoldState>();
   TextEditingController controller = TextEditingController();
+  final FirebaseMessaging _fcm = FirebaseMessaging();
 
   @override
   void initState() {

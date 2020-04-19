@@ -13,6 +13,11 @@ class UserCartRepo{
       'Status': 'Order Confirmed',
       'Items': map
     });
+    // Firestore.instance.collection('users/${loginBloc.userMap['emailID']}/Cart')..getDocuments().then((value) {
+    //   value.documents.forEach((element) async {
+    //     await delProd(element.documentID);
+    //   });
+    // });
   }
 
   getCart()async{

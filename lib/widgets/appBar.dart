@@ -18,7 +18,7 @@ appBar(BuildContext context, GlobalKey<ScaffoldState> scaffoldKey, bool isHomeSc
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
               Padding(
-                padding: EdgeInsets.only(right: titleText=='Orders'? 60: isHomeScreen? 30: titleText!=null? 35: onPop!=null? 10 : 0),
+                padding: EdgeInsets.only(right: isHomeScreen? 30: titleText!=null? 35: onPop!=null? 10 : 0),
                 child: loginBloc.userMap['Admin']==1? 
                 IconButton(
                   icon: Icon(Icons.dehaze), 
@@ -27,17 +27,17 @@ appBar(BuildContext context, GlobalKey<ScaffoldState> scaffoldKey, bool isHomeSc
                 )
                 : InkWell(
                   onTap: () => scaffoldKey.currentState.openDrawer(),
-                  child: customBadge(Icons.dehaze),
+                  child: customBadge(Icons.dehaze, true),
                 ),
               ),
               Container(
                 width: MediaQuery.of(context).size.width/1.5,
               child: onPop!=null? searchBar(context, controller, onPop, searchAgain)
-              : Padding(
-                padding: const EdgeInsets.only(left: 65),
+              :Padding(
+                padding:  EdgeInsets.only(left: (titleText.toString().length).toDouble()*5),
                 child: Text(titleText, style: GoogleFonts.sourceSansPro(fontWeight: FontWeight.bold, color: Colors.black),),
-              )
-              )
+              )),
+              
             ]
           ),
           isHomeScreen ? Container() :

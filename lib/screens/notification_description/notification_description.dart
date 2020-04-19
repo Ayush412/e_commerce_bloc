@@ -3,7 +3,7 @@ import 'package:date_format/date_format.dart';
 import 'package:e_commerce_bloc/navigate.dart';
 import 'package:e_commerce_bloc/repositories/notifications_repo.dart';
 import 'package:e_commerce_bloc/screens/notifications_list/notifications_list.dart';
-import 'package:e_commerce_bloc/widgets/app_bar.dart';
+import 'package:e_commerce_bloc/widgets/appBarBackArrow.dart';
 import 'package:flutter/material.dart';
 
 class NotificationDescription extends StatefulWidget {
@@ -34,49 +34,49 @@ class _NotificationDescriptionState extends State<NotificationDescription> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-        body: SingleChildScrollView(
-                child: Stack(
-                  children: <Widget>[
-                    Container(
-                    height:MediaQuery.of(context).size.height,
-                    decoration: BoxDecoration(gradient: LinearGradient(colors: [Color(0xffffd89b), Color(0xffc4e0e5)]))),
-                    appBar('', leading, null),
-                  Padding(
-                    padding: const EdgeInsets.only(top:80),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                       Center(
-                         child: Padding(
-                              padding: const EdgeInsets.only(top: 20, left: 10, right: 10),
-                              child: Container(height: 250, width:350,
-                                decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10), 
-                                image: DecorationImage(image: NetworkImage(imgurl), fit: BoxFit.cover)
-                                )
-                              )
-                          ),
-                       ),
-                        Padding(
-                            padding: const EdgeInsets.only(top:20, left:10),
-                            child: Text(date, style: TextStyle(color: Color(0xff19547b), fontSize: 16))
-                        ),
-                        Padding(
-                            padding: const EdgeInsets.only(top:30, left:20, right:20),
-                            child: Text(title, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24))
-                        ),
-                        Padding(
-                            padding: const EdgeInsets.only(top:40, left:20, right:20),
-                            child: Text(text, style: TextStyle(fontSize: 18, color: Colors.black54))
-                        ),
-                      ],
-              ),
+    return WillPopScope(
+      onWillPop: () => navigate(context, NotificationList()),
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        home: Scaffold(
+          backgroundColor: Colors.white,
+          appBar: appBarBackArrow(context, '', true),
+          body: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Center(
+                  child: Padding(
+                      padding: const EdgeInsets.only(top: 20, left: 10, right: 10),
+                      child: Container(height: 250,
+                        decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10), 
+                        image: DecorationImage(image: NetworkImage(imgurl), fit: BoxFit.cover)
+                        )
+                      )
                   ),
-            ],
-                      ),
-          )
+                ),
+                Padding(
+                    padding: const EdgeInsets.only(top:30, left:10, bottom: 20),
+                    child: Text(date, style: TextStyle(color: Colors.blue[400], fontSize: 16))
+                ),
+                Divider(
+                  thickness: 1.5,
+                  indent: 10,
+                  endIndent: 10,
+                ),
+                Padding(
+                    padding: const EdgeInsets.only(top:30, left:20, right:20),
+                    child: Text(title, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24))
+                ),
+                Padding(
+                    padding: const EdgeInsets.only(top:40, left:20, right:20, bottom: 30),
+                    child: Text(text, style: TextStyle(fontWeight: FontWeight.w600,fontSize: 17, color: Colors.grey[600]))
+                ),
+              ],
+            ),
+          ),
+        )
       ),
     );
   }

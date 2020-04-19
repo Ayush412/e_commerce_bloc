@@ -1,9 +1,8 @@
 import 'package:e_commerce_bloc/blocs/bloc.dart';
 import 'package:e_commerce_bloc/blocs/user_details_bloc/user_details_bloc.dart';
 import 'package:e_commerce_bloc/navigate.dart';
-import 'package:e_commerce_bloc/screens/products_home/products_home.dart';
+import 'package:e_commerce_bloc/screens/homescreen/homescreen.dart';
 import 'package:e_commerce_bloc/screens/user_login/user_login.dart';
-import 'package:e_commerce_bloc/widgets/app_bar.dart';
 import 'package:e_commerce_bloc/widgets/circular_progress_indicator.dart';
 import 'package:e_commerce_bloc/widgets/map_details.dart';
 import 'package:e_commerce_bloc/widgets/show_snack.dart';
@@ -26,22 +25,12 @@ class _getUserDetailsState extends State<getUserDetails> {
   double lat=0;
   double lng=0;
   GoogleMap map;
-  
-  @override
-  void initState() { 
-    super.initState();
-    leading = IconButton(icon: Icon(Icons.arrow_back),onPressed: () => navigate(context, login()));
-    actions = [
-      IconButton(icon: Icon(Icons.info), color: Colors.white,
-      onPressed: () => _scaffoldKey.currentState.showSnackBar(ShowSnack('Enter details', Colors.black, Colors.orange)))
-    ];
-  }
 
   saveDetails() async{
     bloc.loadingStatusIn.add(true);
     await userDetailsBloc.saveUserData();
     bloc.loadingStatusIn.add(false);
-    navigate(context, ProductsHome());
+    navigate(context, HomeScreen());
   }
   
   @override
@@ -53,7 +42,15 @@ class _getUserDetailsState extends State<getUserDetails> {
       home: Scaffold(
         key: _scaffoldKey,
         resizeToAvoidBottomInset: false,
-        appBar: appBar('User Details', leading, actions),
+        appBar: AppBar(
+          elevation: 1.5,
+          backgroundColor: Colors.white,
+          leading: IconButton(
+            color: Colors.black,
+            icon: Icon(Icons.close,), 
+            onPressed: ()=> navigate(context, login())
+          ),
+        ),
         backgroundColor: Colors.white,
         body: SingleChildScrollView(
                   child: Center(

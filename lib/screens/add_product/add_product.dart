@@ -4,13 +4,11 @@ import 'package:e_commerce_bloc/repositories/scan_to_search_repo.dart';
 import 'package:e_commerce_bloc/screens/add_product/add_product_widgets/category_dropdown_menu.dart';
 import 'package:e_commerce_bloc/screens/add_product/add_product_widgets/description_field.dart';
 import 'package:e_commerce_bloc/screens/add_product/add_product_widgets/labels_field.dart';
-import 'package:e_commerce_bloc/screens/products_home/products_home.dart';
-import 'package:e_commerce_bloc/widgets/app_bar.dart';
+import 'package:e_commerce_bloc/screens/homescreen/homescreen.dart';
 import 'package:e_commerce_bloc/widgets/show_dialog.dart';
 import 'package:e_commerce_bloc/widgets/show_snack.dart';
 import 'package:e_commerce_bloc/widgets/textfield_with_controller.dart';
 import 'package:flutter/material.dart';
-import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:progress_dialog/progress_dialog.dart';
 import 'add_product_widgets/image_picker.dart';
 
@@ -29,13 +27,6 @@ class _AddProductState extends State<AddProduct> {
   TextEditingController costController = TextEditingController();
   TextEditingController stockController = TextEditingController();
   TextEditingController descController = TextEditingController();
-
-  @override
-  void initState() { 
-    super.initState();
-    leading = IconButton(icon: Icon(Icons.arrow_back), onPressed: (){addProductBloc.clearAll(); navigate(context, ProductsHome());});
-    actions = [IconButton(icon: Icon(MdiIcons.qrcodeScan, color: Colors.white,), onPressed: () => scanQRCode())];
-  }
 
   scanQRCode() async{
     List<String> list = List<String>();
@@ -87,12 +78,12 @@ class _AddProductState extends State<AddProduct> {
               color: Colors.black, fontSize: 19.0, fontWeight: FontWeight.w600),
         ); 
     return WillPopScope(
-        onWillPop: (){addProductBloc.clearAll(); navigate(context, ProductsHome());},
+        onWillPop: (){addProductBloc.clearAll(); navigate(context, HomeScreen());},
         child: MaterialApp(
           debugShowCheckedModeBanner: false,
           home: Scaffold(
             key: _scaffoldKey,
-            appBar: appBar('Add Product', leading, actions),
+            //appBar: appBar('Add Product', leading, actions),
             body: SingleChildScrollView(
               child: Center(
                 child: Stack(

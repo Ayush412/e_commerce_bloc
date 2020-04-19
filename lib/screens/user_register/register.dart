@@ -1,6 +1,8 @@
 import 'package:e_commerce_bloc/blocs/bloc.dart';
 import 'package:e_commerce_bloc/blocs/user_register_bloc/user_register_bloc.dart';
-import 'package:e_commerce_bloc/widgets/app_bar.dart';
+import 'package:e_commerce_bloc/navigate.dart';
+import 'package:e_commerce_bloc/screens/user_details/user_details.dart';
+import 'package:e_commerce_bloc/widgets/appBarBackArrow.dart';
 import 'package:e_commerce_bloc/widgets/circular_progress_indicator.dart';
 import 'package:e_commerce_bloc/widgets/show_snack.dart';
 import 'package:e_commerce_bloc/widgets/textfield.dart';
@@ -32,7 +34,7 @@ class _registerState extends State<register> {
     bloc.loadingStatusIn.add(true);
     user = await registerBloc.createLogin();
     if(user)
-      null;//Navigator.push(context, MaterialPageRoute(builder: (context) => GetData()));
+      navigate(context, getUserDetails());
     else
       _scaffoldKey.currentState.showSnackBar(ShowSnack('User already exists', Colors.black, Colors.orange));
     bloc.loadingStatusIn.add(false);
@@ -46,8 +48,7 @@ class _registerState extends State<register> {
       debugShowCheckedModeBanner: false,
       home: Scaffold(
         key: _scaffoldKey,
-        resizeToAvoidBottomInset: false,
-        appBar: appBar('Sign-up', leading, actions),
+        appBar: appBarBackArrow(context, 'Sign up', false),
         backgroundColor: Colors.white,
         body: SingleChildScrollView(
                   child: Center(

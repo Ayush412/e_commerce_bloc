@@ -2,7 +2,7 @@ import 'package:badges/badges.dart';
 import 'package:e_commerce_bloc/blocs/products_home_bloc/products_home_bloc.dart';
 import 'package:flutter/material.dart';
 
-customBadge(IconData icon){
+customBadge(IconData icon, bool isAppBar){
   return StreamBuilder(
     stream: productsHomeBloc.notificationOut,
     builder: (context, snapshot) {
@@ -10,7 +10,7 @@ customBadge(IconData icon){
       return Icon(icon, color: Colors.black);
       else
       return Badge(
-        position: BadgePosition.topRight(top: 1, right: 0),
+        position: BadgePosition.topRight(top: isAppBar? -14: 5, right: isAppBar? -7: 0),
         animationDuration: Duration(milliseconds: 300),
         animationType: BadgeAnimationType.slide,
         badgeContent: Text(snapshot.data.toString(),

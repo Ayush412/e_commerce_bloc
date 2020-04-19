@@ -1,9 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:e_commerce_bloc/blocs/product_description_bloc/product_description_bloc.dart';
 import 'package:e_commerce_bloc/blocs/user_login_bloc/user_login_bloc.dart';
-import 'package:e_commerce_bloc/screens/product_description/product_description_widgets/rating_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'rating_dialog.dart';
 import 'stars.dart';
 
 description(BuildContext build, DocumentSnapshot data){

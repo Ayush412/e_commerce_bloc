@@ -2,8 +2,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:e_commerce_bloc/blocs/scan_to_seaarch_bloc/scan_to_search_bloc.dart';
 import 'package:e_commerce_bloc/navigate.dart';
 import 'package:e_commerce_bloc/repositories/scan_to_search_repo.dart';
-import 'package:e_commerce_bloc/screens/product_description/product_description.dart';
-import 'package:e_commerce_bloc/widgets/app_bar.dart';
+import 'package:e_commerce_bloc/screens/description_screen/description_screen.dart';
+import 'package:e_commerce_bloc/widgets/appBarBackArrow.dart';
 import 'package:e_commerce_bloc/widgets/center_image.dart';
 import 'package:flutter/material.dart';
 
@@ -32,7 +32,7 @@ class _ScanQRCodeState extends State<ScanQRCode> {
       if(ds.data == null)
         scanToSearchBloc.qrCodeIn.add('Not found');
       else
-        navigate(context, ProductDescription(post: ds, tag: ds.documentID));
+        navigate(context, DescriptionScreen(post: ds));
     }
     scanToSearchBloc.qrCodeIn.add(null);
   }
@@ -46,20 +46,9 @@ class _ScanQRCodeState extends State<ScanQRCode> {
           home: Scaffold(
             extendBody: true,
             backgroundColor: Colors.white,
-            appBar: appBar('Scan Object', leading, null),
+            appBar: appBarBackArrow(context, 'QR Code', false),
             body: Stack(
               children: <Widget>[
-                Container(color: Colors.white),
-                Padding(
-                  padding: const EdgeInsets.only(top:10),
-                  child: Container( decoration: BoxDecoration(color: Colors.black, borderRadius: BorderRadius.only(topLeft: Radius.circular(25), topRight: Radius.circular(25))),)
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(top:51),
-                  child: Container(
-                   decoration: BoxDecoration(color: Colors.black, borderRadius: BorderRadius.only(topLeft: Radius.circular(25), topRight: Radius.circular(25))),
-                  )
-                ),
                 StreamBuilder(
                   stream: scanToSearchBloc.qrCodeOut,
                   builder: (context, scan){
@@ -84,15 +73,15 @@ class _ScanQRCodeState extends State<ScanQRCode> {
                       borderRadius: BorderRadius.only(topLeft: Radius.circular(20), topRight: Radius.circular(20)),
                       child: BottomAppBar(
                         shape: CircularNotchedRectangle(),
-                        color: Colors.orange,
+                        color: Colors.black,
                         child: Container(height: 40,),
                       )
                     ),
             floatingActionButton: FloatingActionButton(
               elevation: 0,
               onPressed: () => scanning(),
-              child: Icon(Icons.camera_alt, color: Colors.black),
-              backgroundColor: Colors.orange,
+              child: Icon(Icons.camera_alt, color: Colors.white),
+              backgroundColor: Colors.black,
             ),
             floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
           )

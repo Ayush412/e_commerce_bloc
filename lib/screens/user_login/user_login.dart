@@ -2,10 +2,9 @@ import 'dart:async';
 import 'package:e_commerce_bloc/blocs/user_login_bloc/user_login_bloc.dart';
 import 'package:e_commerce_bloc/navigate.dart';
 import 'package:e_commerce_bloc/repositories/shared_preferences_email.dart';
-import 'package:e_commerce_bloc/screens/products_home/products_home.dart';
+import 'package:e_commerce_bloc/screens/homescreen/homescreen.dart';
 import 'package:e_commerce_bloc/screens/user_details/user_details.dart';
 import 'package:e_commerce_bloc/screens/user_register/register.dart';
-import 'package:e_commerce_bloc/widgets/app_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:e_commerce_bloc/widgets/show_snack.dart';
 import 'package:e_commerce_bloc/widgets/textfield.dart';
@@ -41,7 +40,6 @@ class _loginState extends State<login> {
   }
 
   Future checklogin() async{
-    
     bool hasUser = true;
     bloc.loadingStatusIn.add(true);
     hasUser = await loginBloc.checkLogin();
@@ -50,7 +48,7 @@ class _loginState extends State<login> {
     else{
       if(loginBloc.userMap!=null){
         sharedPreference.saveData(loginBloc.emailID);
-        navigate(context, ProductsHome());
+        navigate(context, HomeScreen());
       }
       else
         navigate(context, getUserDetails());
@@ -65,21 +63,21 @@ class _loginState extends State<login> {
     child: MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
+        backgroundColor: Colors.white,
         key: scaffoldKey,
-        resizeToAvoidBottomInset: false,
-        appBar: appBar('Login', leading, actions),
         body: SingleChildScrollView(
             child: Center(
               child: Column(children: <Widget>[
-                Padding(padding: const EdgeInsets.only(top:120.0),
+                Padding(padding: const EdgeInsets.only(top: 20.0),
+                  child: Image.asset('assets/icons/e-commerce.jpg'),
                 ),
                 Container(
-                            width: 300,
-                            padding: EdgeInsets.all(10.0),
-                child: textField(loginBloc.emailCheck, loginBloc.emailChanged, 'Email', 'Email', Icon(Icons.person), TextInputType.emailAddress, false)
+                  width: 300,
+                  padding: EdgeInsets.all(10.0),
+                    child: textField(loginBloc.emailCheck, loginBloc.emailChanged, 'Email', 'Email', Icon(Icons.person), TextInputType.emailAddress, false)
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(top:30),
+                  padding: const EdgeInsets.only(top:10),
                   child: Container(
                               width: 300,
                               padding: EdgeInsets.all(10.0),
@@ -87,7 +85,7 @@ class _loginState extends State<login> {
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(top: 50, bottom:20),
+                  padding: const EdgeInsets.only(top: 50),
                   child: StreamBuilder(
                     stream: loginBloc.credentialsCheck,
                     builder: (context, snap) => RaisedButton(
@@ -111,24 +109,24 @@ class _loginState extends State<login> {
               ),
               circularProgressIndicator(context),
                 Padding(
-                  padding: const EdgeInsets.only(top:60),
+                  padding: const EdgeInsets.only(top:20),
                   child: GestureDetector(
-                            onTap: (){
-                              navigate(context, register());
-                            },
-                            child: Container(height:50,
-                              child: Center(
-                                child: Text('New user? Click here to register', 
-                                  style: TextStyle(
-                                    fontSize: 18.0, 
-                                    color: Colors.black, 
-                                    fontWeight: FontWeight.w400, 
-                                    decoration: TextDecoration.underline
-                                  )
-                                )
-                              )
-                            )
-                          ),
+                    onTap: (){
+                      navigate(context, register());
+                    },
+                    child: Container(height:50,
+                      child: Center(
+                        child: Text('New user? Click here to register', 
+                          style: TextStyle(
+                            fontSize: 18.0, 
+                            color: Colors.black, 
+                            fontWeight: FontWeight.w400, 
+                            decoration: TextDecoration.underline
+                          )
+                        )
+                      )
+                    )
+                  ),
                 ),
               ],
               ),

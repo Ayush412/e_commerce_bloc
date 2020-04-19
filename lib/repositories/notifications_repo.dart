@@ -14,32 +14,32 @@ class NotificationsRepo{
     _fcm.getToken().then((token) => print(token));
       _fcm.subscribeToTopic('e-commerce');
       _fcm.configure(
-              onMessage: (Map<String, dynamic> message) async {
-              text=message['notification']['body'];
-              title=message['notification']['title'];
-              int i=0;
-              imgurl='';
-              while(text[i]!= ' '){
-              imgurl+=text[i];
-              i++;
-              }
-              text=text.substring(i+1, text.length);
-              addNotification(text, title, imgurl);
-              getCount();
-          },
-          onResume: (Map<String, dynamic> message) async {
-              text=message['notification']['body'];
-              title=message['notification']['title'];
-              int i=0;
-              imgurl='';
-              while(text[i]!= ' '){
-              imgurl+=text[i];
-              i++;
-              }
-              text=text.substring(i+1, text.length);
-              addNotification(text, title, imgurl);
-              getCount();
-          });
+        onMessage: (Map<String, dynamic> message) async {
+        text=message['notification']['body'];
+        title=message['notification']['title'];
+        int i=0;
+        imgurl='';
+        while(text[i]!= ' '){
+        imgurl+=text[i];
+        i++;
+        }
+        text=text.substring(i+1, text.length);
+        addNotification(text, title, imgurl);
+        getCount();
+    },
+    onResume: (Map<String, dynamic> message) async {
+        text=message['notification']['body'];
+        title=message['notification']['title'];
+        int i=0;
+        imgurl='';
+        while(text[i]!= ' '){
+        imgurl+=text[i];
+        i++;
+        }
+        text=text.substring(i+1, text.length);
+        addNotification(text, title, imgurl);
+        getCount();
+    });
   }
 
   addNotification(String text, String title, String imgurl){
