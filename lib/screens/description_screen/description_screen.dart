@@ -46,6 +46,7 @@ class _DescriptionScreenState extends State<DescriptionScreen> {
     else{
       productDescBloc.getChartData(widget.post.documentID);
     }
+    productDetails.getViewsAndAdds(widget.post.documentID);
     leading = IconButton(icon: Icon(Icons.arrow_back), onPressed: () => Navigator.of(context).pop());
     controller.addListener(() {
       double maxScroll = controller.position.maxScrollExtent;

@@ -254,7 +254,8 @@ class ProductDetails{
     if (ds.data['Map'] == null) {
       myMap[date] = [0, 0];
       addViewsAndPurchases(myMap, docID);
-    } else {
+    } 
+    else {
       myMap = ds.data['Map'];
       if (myMap[date] == null) {
         myMap[date] = [0, 0];
