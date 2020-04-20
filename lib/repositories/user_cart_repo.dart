@@ -7,19 +7,22 @@ class UserCartRepo{
   String date = DateFormat.yMMMMd().format(DateTime.now());
   Map<String, String> dateMap = Map<String, String>();
 
-  confirmPurchase(Map map, int amount) async{
+  confirmPurchase(Map map, int subTotal, int discount, int shipping, int total) async{
     dateMap['Order Confirmed'] = date;
     await Firestore.instance.collection('users/${loginBloc.userMap['emailID']}/Orders').document().setData({
       'Status Dates': dateMap,
-      'Amount': amount,
+      'Sub Total': subTotal,
+      'Total': total,
+      'Shipping': shipping,
+      'Discount': discount,
       'Items': map,
       'Date': date,
     });
-    // Firestore.instance.collection('users/${loginBloc.userMap['emailID']}/Cart')..getDocuments().then((value) {
-    //   value.documents.forEach((element) async {
-    //     await delProd(element.documentID);
-    //   });
-    // });
+    Firestore.instance.collection('users/${loginBloc.userMap['emailID']}/Cart')..getDocuments().then((value) {
+      value.documents.forEach((element) async {
+        await delProd(element.documentID);
+      });
+    });
   }
 
   getCart()async{
@@ -50,12 +53,12 @@ class UserCartRepo{
     getCount();
   }
 
-  addToCart(DocumentSnapshot product) async{
+  addToCart(DocumentSnapshot product, int newVal) async{
     await Firestore.instance.collection('/users/${loginBloc.userMap['emailID']}/Cart')
     .document(product.documentID)
     .get()
     .then((DocumentSnapshot snap){
-       snap.exists ?  addVal(product.documentID) : addNew(product);
+       snap.exists ?  addVal(product.documentID) : addNew(product, newVal);
     });
     getCount();
   }
@@ -69,12 +72,12 @@ class UserCartRepo{
     return ds;
   }
 
-  addNew(DocumentSnapshot product) async{
+  addNew(DocumentSnapshot product, int newVal) async{
     await Firestore.instance.collection('users/${loginBloc.userMap['emailID']}/Cart').document(product.documentID)
     .setData({
       'Quantity': 1,
       'ProdName': product.data['ProdName'],
-      'ProdCost': product.data['ProdCost'],
+      'ProdCost': newVal,
       'imgurl': product.data['imgurl'],
     });
   }

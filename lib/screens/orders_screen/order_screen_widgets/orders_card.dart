@@ -30,7 +30,7 @@ ordersCard(BuildContext context, DocumentSnapshot order){
               child: Row(children: [
                 Text('Amount :', style: GoogleFonts.sourceSansPro(fontSize: 18, fontWeight: FontWeight.w600, color: Colors.black),),
                 Padding(padding: const EdgeInsets.only(left: 10),
-                child: Text('QR. ${order.data['Amount']}', style: GoogleFonts.sourceSansPro(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.grey))
+                child: Text('QR. ${order.data['Total']}', style: GoogleFonts.sourceSansPro(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.grey))
                 )
               ]),
             ),

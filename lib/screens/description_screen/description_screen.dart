@@ -29,10 +29,12 @@ class _DescriptionScreenState extends State<DescriptionScreen> {
   dynamic leading;
   ScrollController controller = ScrollController();
   ProgressDialog pr;
+  int newVal;
 
   @override
   void initState() {
     super.initState();
+    newVal = widget.post.data['ProdCost']-((widget.post.data['ProdCost']*widget.post.data['Discount']/100)).round();
     productDetails.moreLoading = false;
     productDetails.moreDocsLeft = true;
     productDescBloc.reviewIn.add(null);
@@ -58,7 +60,7 @@ class _DescriptionScreenState extends State<DescriptionScreen> {
   }
 
   addItem() async{
-    await userCartRepo.addToCart(widget.post);
+    await userCartRepo.addToCart(widget.post, newVal);
     scaffoldKey.currentState.showSnackBar(ShowSnack('Item added!', Colors.white, Colors.green));
   }
 
@@ -196,10 +198,10 @@ class _DescriptionScreenState extends State<DescriptionScreen> {
                   padding: const EdgeInsets.only(top:30, bottom: 30),
                   child: Container(
                     alignment: Alignment.bottomCenter,
-                    width: 260,
-                    height: 60,
+                    width: 280,
+                    height: 40,
                     child: InkWell(
-                      borderRadius: BorderRadius.circular(30),
+                      borderRadius: BorderRadius.circular(5),
                       splashColor: Colors.grey,
                       onTap: () => loginBloc.userMap['Admin'] == 1
                         ? showDialogBox(context, 'Warning', 'Do you want to delete this product?', () => deleteItem())
@@ -208,10 +210,10 @@ class _DescriptionScreenState extends State<DescriptionScreen> {
                           : ShowSnack('Out of stock! Check back later.', Colors.black, Colors.orange),
                       child: Card(
                           shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(30)),
+                              borderRadius: BorderRadius.circular(5)),
                           color: loginBloc.userMap['Admin'] == 1
                               ? Colors.red
-                              : widget.post.data['Stock'] > 0 ? Colors.green : Colors.orange,
+                              : widget.post.data['Stock'] > 0 ? Colors.blue[400] : Colors.orange,
                           child: Center(
                               child: Text(
                             loginBloc.userMap['Admin'] == 1

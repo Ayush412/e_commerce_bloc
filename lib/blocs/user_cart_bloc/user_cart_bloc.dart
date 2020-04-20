@@ -33,7 +33,7 @@ class UserCartBloc implements BaseBloc{
     bloc.loadingStatusIn.add(true);
     Map<String, Map> map = Map<String, Map>();
     qs.documents.forEach((element){map[element.documentID] = element.data;});
-    await userCartRepo.confirmPurchase(map, finalAmount);
+    await userCartRepo.confirmPurchase(map, cartTotal, discount, shipping, finalAmount);
     bloc.loadingStatusIn.add(false);
   }
 
@@ -52,9 +52,8 @@ class UserCartBloc implements BaseBloc{
   }
   
   getDiscount(DocumentSnapshot event){
-     if(event.data['Percentage']!=null){
+      if(event.data['Percentage']!=null){
         discount = ((cartTotal*event.data['Percentage']/100)).round();
-        print(discount);
       }
       else{
         discount = event.data['Amount'];

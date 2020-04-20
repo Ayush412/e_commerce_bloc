@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:e_commerce_bloc/blocs/user_cart_bloc/user_cart_bloc.dart';
-import 'package:e_commerce_bloc/screens/cart_screen/cart_screen_widgets/amount_row.dart';
+import 'package:e_commerce_bloc/widgets/amount_row.dart';
 import 'package:e_commerce_bloc/screens/cart_screen/cart_screen_widgets/apply_button.dart';
 import 'package:e_commerce_bloc/screens/cart_screen/cart_screen_widgets/discount.dart';
 import 'package:e_commerce_bloc/screens/cart_screen/cart_screen_widgets/product_card.dart';
