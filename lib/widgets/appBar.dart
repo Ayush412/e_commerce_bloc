@@ -20,10 +20,9 @@ appBar(BuildContext context, GlobalKey<ScaffoldState> scaffoldKey, bool isHomeSc
               Padding(
                 padding: EdgeInsets.only(right: isHomeScreen? 30: titleText!=null? 35: onPop!=null? 10 : 0),
                 child: loginBloc.userMap['Admin']==1? 
-                IconButton(
-                  icon: Icon(Icons.dehaze), 
-                  color: Colors.black,
-                  onPressed: () => scaffoldKey.currentState.openDrawer(),
+                InkWell(
+                  onTap: () => scaffoldKey.currentState.openDrawer(),
+                  child: Icon(Icons.dehaze, color: Colors.black)
                 )
                 : InkWell(
                   onTap: () => scaffoldKey.currentState.openDrawer(),
@@ -33,9 +32,11 @@ appBar(BuildContext context, GlobalKey<ScaffoldState> scaffoldKey, bool isHomeSc
               Container(
                 width: MediaQuery.of(context).size.width/1.5,
               child: onPop!=null? searchBar(context, controller, onPop, searchAgain)
-              :Padding(
-                padding:  EdgeInsets.only(left: (titleText.toString().length).toDouble()*5),
-                child: Text(titleText, style: GoogleFonts.sourceSansPro(fontWeight: FontWeight.bold, color: Colors.black),),
+              :Container(
+                padding: const EdgeInsets.only(right: 75),
+                child: Center(
+                  child: Text(titleText, style: GoogleFonts.sourceSansPro(fontWeight: FontWeight.bold, color: Colors.black),),
+                ),
               )),
               
             ]
@@ -61,7 +62,7 @@ appBar(BuildContext context, GlobalKey<ScaffoldState> scaffoldKey, bool isHomeSc
       : Padding(
           padding: const EdgeInsets.only(top: 15, right: 15, bottom: 15),
           child: loginBloc.userMap['Admin']==1? 
-            SizedBox(height: 20, width: 20,)
+            SizedBox(height: 20, width: 20)
             : shoppingCart.cartBadge()
         )
     ]

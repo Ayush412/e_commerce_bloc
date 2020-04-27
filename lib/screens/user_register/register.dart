@@ -48,7 +48,7 @@ class _registerState extends State<register> {
       debugShowCheckedModeBanner: false,
       home: Scaffold(
         key: _scaffoldKey,
-        appBar: appBarBackArrow(context, 'Sign up', false),
+        appBar: appBarBackArrow(context, 'Sign up', null, null),
         backgroundColor: Colors.white,
         body: SingleChildScrollView(
                   child: Center(

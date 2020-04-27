@@ -27,7 +27,7 @@ class _ScanObjectState extends State<ScanObject> {
           home: Scaffold(
             extendBody: true,
             backgroundColor: Colors.white,
-            appBar: appBarBackArrow(context, 'Object Scan', false),
+            appBar: appBarBackArrow(context, 'Object Scan', null, null),
             body: Stack(
               children: <Widget>[
                 StreamBuilder(

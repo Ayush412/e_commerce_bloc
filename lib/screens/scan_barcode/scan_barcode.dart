@@ -46,7 +46,7 @@ class _ScanQRCodeState extends State<ScanQRCode> {
           home: Scaffold(
             extendBody: true,
             backgroundColor: Colors.white,
-            appBar: appBarBackArrow(context, 'QR Code', false),
+            appBar: appBarBackArrow(context, 'QR Code', null, null),
             body: Stack(
               children: <Widget>[
                 StreamBuilder(

@@ -42,7 +42,7 @@ class _OrderTrackingState extends State<OrderTracking> {
         key: scaffoldKey,
         backgroundColor: Colors.white,
         drawer: customDrawer(context),
-        appBar: appBarBackArrow(context, '', false),
+        appBar: appBarBackArrow(context, '', null, null),
         body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,

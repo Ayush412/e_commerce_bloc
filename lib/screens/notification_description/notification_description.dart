@@ -40,7 +40,7 @@ class _NotificationDescriptionState extends State<NotificationDescription> {
         debugShowCheckedModeBanner: false,
         home: Scaffold(
           backgroundColor: Colors.white,
-          appBar: appBarBackArrow(context, '', true),
+          appBar: appBarBackArrow(context, '', NotificationList(), null),
           body: SingleChildScrollView(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,

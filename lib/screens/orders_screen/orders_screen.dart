@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:e_commerce_bloc/blocs/orders_bloc/orders_bloc.dart';
+import 'package:e_commerce_bloc/screens/homescreen/homescreen.dart';
 import 'package:e_commerce_bloc/screens/orders_screen/order_screen_widgets/orders_card.dart';
 import 'package:e_commerce_bloc/widgets/appBar.dart';
 import 'package:e_commerce_bloc/widgets/appBarBackArrow.dart';
@@ -32,7 +33,7 @@ class _OrdersScreenState extends State<OrdersScreen> {
           key: scaffoldKey,
           backgroundColor: Colors.white,
           drawer: customDrawer(context),
-          appBar: appBarBackArrow(context, 'Orders', false),
+          appBar: appBarBackArrow(context, 'Orders', HomeScreen(), null),
           body: StreamBuilder(
             stream: ordersBloc.ordersOut,
             builder: (context, AsyncSnapshot<QuerySnapshot> orders){

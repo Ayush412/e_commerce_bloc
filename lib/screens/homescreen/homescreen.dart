@@ -22,7 +22,6 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   GlobalKey<ScaffoldState> scaffoldKey = new GlobalKey<ScaffoldState>();
   TextEditingController controller = TextEditingController();
-  final FirebaseMessaging _fcm = FirebaseMessaging();
 
   @override
   void initState() {
