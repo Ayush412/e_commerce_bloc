@@ -28,6 +28,7 @@ class UserDetailsBloc with ValidateDetails implements BaseBloc{
     _addressController.stream.listen((event) {address=event;});
   }
   //CONTROLLERS
+  BehaviorSubject<Map> _userMapController = BehaviorSubject();
   BehaviorSubject<String> _fnameController = BehaviorSubject();
   BehaviorSubject<String> _lnameController = BehaviorSubject();
   BehaviorSubject<String> _mobController = BehaviorSubject();
@@ -42,6 +43,7 @@ class UserDetailsBloc with ValidateDetails implements BaseBloc{
   Function(String) get addressChanged => _addressController.sink.add;
   Sink get mapCoordinatesIn => _mapController.sink;
   Sink get mapPlaceIn => _mapPlaceController.sink;
+  Sink get userMapIn => _userMapController.sink;
 
   //STREAMS
   Stream<String> get fnameCheck => _fnameController.stream.transform(fnameValidator);
@@ -51,6 +53,7 @@ class UserDetailsBloc with ValidateDetails implements BaseBloc{
   Stream<List> get mapCoordinatesOut => _mapController.stream;
   Stream<String> get mapPlaceOut => _mapPlaceController.stream;
   Stream<bool> get credentialsCheck => Rx.combineLatest5(fnameCheck, lnameCheck, mobCheck, addressCheck, mapCoordinatesOut, (a, b, c, d, e) => true);
+  Stream<Map> get userMapOut => _userMapController.stream;
 
   updateMap(double newlat, double newlng){
     lat=newlat;
@@ -93,6 +96,7 @@ class UserDetailsBloc with ValidateDetails implements BaseBloc{
     _addressController.close();
     _mapController.close();
     _mapPlaceController.close();
+    _userMapController.close();
   }
 }
 

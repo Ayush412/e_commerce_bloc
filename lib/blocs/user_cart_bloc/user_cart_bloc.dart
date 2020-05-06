@@ -10,6 +10,7 @@ class UserCartBloc implements BaseBloc{
   int discount = 0;
   int shipping = 10;
   int finalAmount = 0;
+  String code;
 
   //CONTROLLERS
   BehaviorSubject<QuerySnapshot> _cartController = BehaviorSubject();
@@ -34,6 +35,7 @@ class UserCartBloc implements BaseBloc{
     Map<String, Map> map = Map<String, Map>();
     qs.documents.forEach((element){map[element.documentID] = element.data;});
     await userCartRepo.confirmPurchase(map, cartTotal, discount, shipping, finalAmount);
+    userCartRepo.usePromoCode(code);
     bloc.loadingStatusIn.add(false);
   }
 
@@ -46,6 +48,7 @@ class UserCartBloc implements BaseBloc{
   }
 
   getPromoCode(String code) async{
+    this.code = code;
     bloc.loadingStatusIn.add(true);
     codeIn.add( await userCartRepo.getPromoCode(code));
     bloc.loadingStatusIn.add(false);

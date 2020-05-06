@@ -25,7 +25,7 @@ banners(){
                 snap.data.documents[count%snap.data.documents.length].data['imgurl'],
                 fit: BoxFit.fill,
               ),
-              onTap: () => null 
+              onTap: () => null
             );
           }
         );

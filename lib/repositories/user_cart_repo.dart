@@ -66,10 +66,40 @@ class UserCartRepo{
   getPromoCode(String code) async{
     DocumentSnapshot ds;
     await Firestore.instance.collection('promocodes').document(code).get().then((DocumentSnapshot snap){
-      if(snap.exists)
-        ds = snap;
+      ds=snap;
     });
-    return ds;
+    if(ds.exists){
+      if(DateTime.now().difference(DateTime.parse(ds.data['Start'])).inDays>=0 && DateTime.parse(ds.data['End']).difference(DateTime.now()).inDays>=0){
+        if(await getUserPromoQuantity(ds) > 0)
+          return ds;
+        else
+          return null;
+      }    
+      else
+        return null;
+    }
+    else
+      return null;
+  }
+
+  getUserPromoQuantity(DocumentSnapshot code) async{
+    int quantity = code.data['Quantity'];
+    await Firestore.instance.collection('users/${loginBloc.userMap['emailID']}/Promo Codes').document(code.documentID).get().then((DocumentSnapshot snap) async{
+      if(snap.exists)
+        quantity = snap.data['Quantity'];
+      else{
+        Firestore.instance.collection('users/${loginBloc.userMap['emailID']}/Promo Codes').document(code.documentID).setData({
+          'Quantity' : quantity
+        });
+      }
+    });
+    return quantity;
+  }
+
+  usePromoCode(String code){
+    Firestore.instance.collection('users/${loginBloc.userMap['emailID']}/Promo Codes').document(code).updateData({
+      'Quantity': FieldValue.increment(-1)
+    });
   }
 
   addNew(DocumentSnapshot product, int newVal) async{
