@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:e_commerce_bloc/repositories/user_cart_repo.dart';
+import 'package:e_commerce_bloc/screens/description_screen/description_screen_widgets/image_slider.dart';
 import 'package:e_commerce_bloc/widgets/appBar.dart';
 import 'package:e_commerce_bloc/blocs/product_description_bloc/product_description_bloc.dart';
 import 'package:e_commerce_bloc/blocs/user_login_bloc/user_login_bloc.dart';
@@ -34,6 +35,7 @@ class _DescriptionScreenState extends State<DescriptionScreen> {
   @override
   void initState() {
     super.initState();
+    productDescBloc.pageIn.add(0);
     newVal = widget.post.data['ProdCost']-((widget.post.data['ProdCost']*widget.post.data['Discount']/100)).round();
     productDetails.moreLoading = false;
     productDetails.moreDocsLeft = true;
@@ -104,7 +106,7 @@ class _DescriptionScreenState extends State<DescriptionScreen> {
                 Padding(
                   padding: const EdgeInsets.only(top: 20, bottom: 10),
                   child: Center(
-                    child: Image.network(widget.post.data['imgurl'], height: 300, width: 300)
+                    child: imageSlider(widget.post.data['images'])
                   ),
                 ),
                 viewCount(widget.post),

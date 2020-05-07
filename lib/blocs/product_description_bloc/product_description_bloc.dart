@@ -20,7 +20,7 @@ class ProductDescBloc implements BaseBloc{
   BehaviorSubject<double> _heightController = BehaviorSubject();
   BehaviorSubject<bool> _editController = BehaviorSubject();
   BehaviorSubject<List> _lineChartController = BehaviorSubject();
-  
+  BehaviorSubject<int> _pageController = BehaviorSubject();
 
   //SINKS
   Sink<String> get userReviewIn => _userReviewController.sink;
@@ -29,6 +29,7 @@ class ProductDescBloc implements BaseBloc{
   Sink<double> get heightIn => _heightController.sink;
   Sink<bool> get editIn => _editController.sink;
   Sink<List> get chartIn => _lineChartController.sink;
+  Sink<int> get pageIn => _pageController.sink;
 
   //STREAMS
   Stream<String> get userReviewOut => _userReviewController.stream;
@@ -37,6 +38,7 @@ class ProductDescBloc implements BaseBloc{
   Stream<double> get heightOut => _heightController.stream;
   Stream<bool> get editOut => _editController.stream;
   Stream<List> get chartOut => _lineChartController.stream;
+  Stream<int> get pageOut => _pageController.stream;
   
 
   @override
@@ -47,6 +49,7 @@ class ProductDescBloc implements BaseBloc{
     _heightController.close();
     _editController.close();
     _lineChartController.close();
+    _pageController.close();
   }
 
   addView(String docID){
