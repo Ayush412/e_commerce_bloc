@@ -1,6 +1,7 @@
 import 'package:e_commerce_bloc/blocs/products_home_bloc/products_home_bloc.dart';
 import 'package:e_commerce_bloc/repositories/cart_and_notification_count.dart';
 import 'package:e_commerce_bloc/repositories/notifications_repo.dart';
+import 'package:e_commerce_bloc/repositories/products_details.dart';
 import 'package:e_commerce_bloc/screens/full_product_list/full_product_list.dart';
 import 'package:e_commerce_bloc/screens/homescreen/homescreen_widgets/banners.dart';
 import 'package:e_commerce_bloc/screens/homescreen/homescreen_widgets/category_grid.dart';
@@ -30,6 +31,7 @@ class _HomeScreenState extends State<HomeScreen> {
     productsHomeBloc.getDiscounted(true);
     productsHomeBloc.getBanners();
     getCount();
+    productDetails.makeKeys();
   }
 
   onPop(){

@@ -14,6 +14,24 @@ class ProductDetails{
   DocumentSnapshot lastDoc;
   bool moreLoading = false;
   bool moreDocsLeft = true;
+
+  //GENERATE KEYWORDS FOR SEARCHING PRODUCT BY NAME
+  makeKeys()async {
+    QuerySnapshot qs = await Firestore.instance.collection('products').getDocuments();
+    qs.documents.forEach((f) async{ 
+      if(f.data['Keywords']==null){
+        var keywords = [];
+        String lower = f.data['ProdName'].toLowerCase();
+        for (int i = 1; i < lower.length + 1; i++) {
+        keywords.add(lower.substring(0, i));
+        }
+        keywords.add(f.data['Category'].toLowerCase());
+        await Firestore.instance.collection('products').document(f.documentID).updateData({
+          'Keywords': keywords
+        });
+      }
+    });
+  }
   
   //SCAN TO SEARCH SCREEN FUNCTION...
   getImage() async{
