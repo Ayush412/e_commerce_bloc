@@ -41,21 +41,23 @@ class ProductDetails{
       '5 Star': 0,
       'Rate': 0,
       'Views': 0,
+      'Discount': 0,
       'ProdName': map['ProdName'],
       'Category': map['Category'],
       'SubCategory': map['SubCategory'],
       'Stock': int.parse(map['Stock']),
       'ProdCost': int.parse(map['ProdCost']),
       'Description': map['Description'],
-      'imgurl': map['imgurl'],
+      'images': map['images'],
       'scan': map['labels'],
+      'Keywords': map['Keywords'] 
     });
   }
 
   //PRODUCTS HOME SCREEN FUNCTIONS...
 
   getProductsList(String option) async{
-    QuerySnapshot qs =  await Firestore.instance.collection('products').where('SubCategory', isEqualTo: option ).getDocuments();
+    QuerySnapshot qs =  await Firestore.instance.collection('products').where('Category', isEqualTo: option ).getDocuments();
     return qs;
   }
 

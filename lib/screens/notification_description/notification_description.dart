@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:date_format/date_format.dart';
 import 'package:e_commerce_bloc/navigate.dart';
+import 'package:e_commerce_bloc/repositories/cart_and_notification_count.dart';
 import 'package:e_commerce_bloc/repositories/notifications_repo.dart';
 import 'package:e_commerce_bloc/screens/notifications_list/notifications_list.dart';
 import 'package:e_commerce_bloc/widgets/appBarBackArrow.dart';
@@ -30,6 +31,7 @@ class _NotificationDescriptionState extends State<NotificationDescription> {
     imgurl = widget.ds.data['imgurl'];
     date = formatDate(widget.ds.data['Date'].toDate(), [dd, '/', 'mm', '/', yy]);
     notificationsRepo.markAsRead(widget.ds.documentID);
+    getCount();
   }
 
   @override

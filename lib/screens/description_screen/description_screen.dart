@@ -106,7 +106,7 @@ class _DescriptionScreenState extends State<DescriptionScreen> {
                 Padding(
                   padding: const EdgeInsets.only(top: 20, bottom: 10),
                   child: Center(
-                    child: imageSlider(widget.post.data['images'])
+                    child: imageSlider(widget.post.data['images'], widget.post.data['trailer'])
                   ),
                 ),
                 viewCount(widget.post),

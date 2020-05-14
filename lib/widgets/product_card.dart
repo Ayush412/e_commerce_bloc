@@ -18,7 +18,7 @@ productCard(DocumentSnapshot product){
             children: <Widget>[
               Padding(
                 padding: const EdgeInsets.only(top: 8),
-                child: Center(child: Image.network(product.data['imgurl'], height: 100, width: 100)),
+                child: Center(child: Image.network(product.data['images'][0], height: 100, width: 100)),
               ),
               Padding(
                 padding: const EdgeInsets.only(top: 15, left: 5, right: 5),

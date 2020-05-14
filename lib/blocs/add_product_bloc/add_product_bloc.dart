@@ -15,6 +15,8 @@ class AddProductBloc with ValidateProductDetails implements BaseBloc{
   String imgurl;
   File image;
   List<String> labels = List<String>();
+  List<String> keywords = List<String>();
+  List<String> images = List<String>();
 
   AddProductBloc(){
     _prodNameController.stream.listen((val) {name=val;});
@@ -62,6 +64,12 @@ class AddProductBloc with ValidateProductDetails implements BaseBloc{
 
   addProductData() async{
     imgurl = await productDetails.putImage(name, image);
+    images.add(imgurl);
+    var keywords = [];
+    String lower = name.toLowerCase();
+    for (int i = 1; i < lower.length + 1; i++) {
+    keywords.add(lower.substring(0, i));
+    }
     Map map = {
       "ProdName":name, 
       "ProdCost": cost, 
@@ -70,7 +78,8 @@ class AddProductBloc with ValidateProductDetails implements BaseBloc{
       "SubCategory": subcategory, 
       "Description": desc, 
       "scan": labels,
-      'imgurl': imgurl
+      "images": images,
+      "Keywords": keywords
     };
     productDetails.addProduct(map);
     clearAll();

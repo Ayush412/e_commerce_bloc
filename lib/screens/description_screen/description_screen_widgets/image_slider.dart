@@ -1,19 +1,23 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:e_commerce_bloc/blocs/product_description_bloc/product_description_bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:flutube/flutube.dart';
 
-imageSlider(List images){
+imageSlider(List images, String trailer){
+  int count = images.length;
+  if(trailer!=null)
+    count++;
   return Column(
     children: [
       CarouselSlider.builder(
         enableInfiniteScroll: false,
-        itemCount: images.length, 
+        itemCount: count, 
         itemBuilder: (context, index){
           return Image.network(images[index], height: 300, width: 300);
         },
         onPageChanged: (index) => productDescBloc.pageIn.add(index),
       ),
-      images.length > 1 ? StreamBuilder<Object>(
+      count > 1 ? StreamBuilder<Object>(
         stream: productDescBloc.pageOut,
         builder: (context, snapshot) {
           return Row(
