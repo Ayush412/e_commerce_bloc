@@ -58,8 +58,9 @@ class _DescriptionScreenState extends State<DescriptionScreen> {
         productDescBloc.getNextReviews(widget.post.documentID);
       }
     });
-    if(!productDescBloc.viewedList.contains(widget.post.documentID) &&
-      loginBloc.userMap['Admin'] != 1){ productDescBloc.addView(widget.post.documentID);}
+    if(loginBloc.userMap['Admin'] != 1){ 
+      productDescBloc.addView(widget.post.documentID, widget.post.data['Category']);
+    }
   }
 
   addItem() async{

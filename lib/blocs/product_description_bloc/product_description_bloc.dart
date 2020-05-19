@@ -52,8 +52,8 @@ class ProductDescBloc implements BaseBloc{
     _pageController.close();
   }
 
-  addView(String docID){
-    productDetails.addView(docID);
+  addView(String docID, String category){
+    productDetails.addView(docID, category);
   }
 
   getReviews(String docID){

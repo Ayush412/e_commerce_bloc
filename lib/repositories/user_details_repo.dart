@@ -3,6 +3,7 @@ import 'package:e_commerce_bloc/blocs/user_details_bloc/user_details_bloc.dart';
 import 'package:e_commerce_bloc/blocs/user_login_bloc/user_login_bloc.dart';
 import 'package:e_commerce_bloc/repositories/shared_preferences_email.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 
 class UserDetails{
 
@@ -36,6 +37,23 @@ class UserDetails{
       loginBloc.userMap = myMap;
       userDetailsBloc.userMapIn.add(myMap);
     }
+    if(myMap['Subs']!=null){
+      userSubscriptions();
+    }
+  }
+
+  userSubscriptions() async{
+    FirebaseMessaging firebaseMessaging = new FirebaseMessaging();
+    for(int i = 0; i < myMap['Subs'].length; i++){
+      firebaseMessaging.subscribeToTopic(myMap['Subs'][i]);
+    } 
+  }
+
+  unsubscribeTopics() async{
+    FirebaseMessaging firebaseMessaging = new FirebaseMessaging();
+    for(int i = 0; i < myMap['Subs'].length; i++){
+      firebaseMessaging.unsubscribeFromTopic(myMap['Subs'][i]);
+    } 
   }
 
   getUserRatings(String emailID) async{
@@ -50,6 +68,7 @@ class UserDetails{
   }
 
   saveUserData(Map map) async{
+    Map<String, int> views = {'Audio':0, 'Gaming':0, 'Laptops':0, 'Mens Wear':0, 'Womens Wear':0, 'Smart Phones':0};
     await Firestore.instance.collection('users').document(loginBloc.emailID).setData({
       'FName': map['FName'],
       'LName': map['LName'],
@@ -57,7 +76,8 @@ class UserDetails{
       'Admin': 0,
       'Address': map['Address'],
       'Latitude': map['Latitude'],
-      'Longitude': map['Longitude']
+      'Longitude': map['Longitude'],
+      'Views': views
     });
     sharedPreference.saveData(loginBloc.emailID);
   }

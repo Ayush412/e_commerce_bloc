@@ -1,5 +1,6 @@
 import 'package:e_commerce_bloc/blocs/user_login_bloc/user_login_bloc.dart';
 import 'package:e_commerce_bloc/navigate.dart';
+import 'package:e_commerce_bloc/repositories/user_details_repo.dart';
 import 'package:e_commerce_bloc/screens/add_product/add_product.dart';
 import 'package:e_commerce_bloc/screens/analytics/analytics_screen.dart';
 import 'package:e_commerce_bloc/screens/cart_screen/cart_screen.dart';
@@ -91,5 +92,6 @@ drawerOptions(String text, dynamic className , IconData icon){
 logOut(BuildContext context) async{
   SharedPreferences prefs = await SharedPreferences.getInstance();
   prefs.setString('email', null);
+  userDetails.unsubscribeTopics();
   navigate(context, login());
 }

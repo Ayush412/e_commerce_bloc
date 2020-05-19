@@ -132,15 +132,39 @@ class ProductDetails{
   
   //PRODUCT DESCRIPTION SCREEN FUNCTIONS...
 
-  addView(String docID) async {
+  addView(String docID, String category) async {
+    Map<String, dynamic> map = Map<String, dynamic>();
     await Firestore.instance
-        .collection('users/${loginBloc.userMap['emailID']}/Visited')
-        .document(docID)
-        .setData({});
+      .collection('users/${loginBloc.userMap['emailID']}/Visited')
+      .document(docID)
+      .get()
+      .then((DocumentSnapshot snap){
+        if (snap.exists){
+          Firestore.instance
+          .collection('users/${loginBloc.userMap['emailID']}/Visited')
+          .document(docID)
+          .updateData({'Views': FieldValue.increment(1)});
+        }
+        else{
+          Firestore.instance
+          .collection('users/${loginBloc.userMap['emailID']}/Visited')
+          .document(docID)
+          .setData({'Views': 1});
+        }
+      });
     await Firestore.instance
-        .collection('products')
-        .document(docID)
-        .updateData({'Views': FieldValue.increment(1)});
+      .collection('products')
+      .document(docID)
+      .updateData({'Views': FieldValue.increment(1)});
+    await Firestore.instance
+      .collection('users')
+      .document(loginBloc.userMap['emailID'])
+      .get().then((DocumentSnapshot snap) => map=snap.data['Views']);
+    map[category]+=1;
+    Firestore.instance
+      .collection('users')
+      .document(loginBloc.userMap['emailID'])
+      .updateData({'Views': map});
   } 
 
   getAllRatings() async{
@@ -192,7 +216,7 @@ class ProductDetails{
       'Name': '${loginBloc.userMap['FName']} ${loginBloc.userMap['LName']}',
       'Date': date,
       'Rate': userRate,
-      'Text': text
+      'Text': text 
     });
   }
 

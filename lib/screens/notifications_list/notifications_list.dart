@@ -4,10 +4,8 @@ import 'package:e_commerce_bloc/blocs/bloc.dart';
 import 'package:e_commerce_bloc/blocs/notifications_bloc/notifications_bloc.dart';
 import 'package:e_commerce_bloc/navigate.dart';
 import 'package:e_commerce_bloc/screens/notification_description/notification_description.dart';
-import 'package:e_commerce_bloc/widgets/appBar.dart';
 import 'package:e_commerce_bloc/widgets/circular_progress_indicator.dart';
 import 'package:e_commerce_bloc/widgets/custom_drawer.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
