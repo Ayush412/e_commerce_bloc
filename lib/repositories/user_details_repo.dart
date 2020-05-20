@@ -56,6 +56,23 @@ class UserDetails{
     } 
   }
 
+  subscribeTopics() async{
+    FirebaseMessaging firebaseMessaging = new FirebaseMessaging();
+    Map<String, dynamic> map = Map<String, dynamic>();
+    List<String> keys = List<String>();
+    await Firestore.instance.collection('users')
+    .document(loginBloc.userMap['emailID'])
+    .get()
+    .then((DocumentSnapshot snap){
+      map.addAll(snap.data['Views']);
+    });
+    keys=map.keys.toList();
+    for(int i = 0; i<keys.length; i++){
+      if(map[keys[i]]>=250)
+        firebaseMessaging.subscribeToTopic(keys[i].toLowerCase().replaceAll(' ', '_'));
+    }
+  }
+
   getUserRatings(String emailID) async{
     QuerySnapshot qs = await Firestore.instance.collection('users/$emailID/Visited').getDocuments();
     qs.documents.forEach((f){ 

@@ -1,3 +1,4 @@
+import 'package:e_commerce_bloc/repositories/user_details_repo.dart';
 import 'package:flutter_banner_swiper/flutter_banner_swiper.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:e_commerce_bloc/blocs/bloc.dart';

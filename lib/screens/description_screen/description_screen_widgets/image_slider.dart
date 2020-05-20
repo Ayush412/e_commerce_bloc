@@ -1,7 +1,6 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:e_commerce_bloc/blocs/product_description_bloc/product_description_bloc.dart';
 import 'package:flutter/material.dart';
-import 'package:flutube/flutube.dart';
 
 imageSlider(List images, String trailer){
   int count = images.length;

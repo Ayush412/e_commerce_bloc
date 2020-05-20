@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:e_commerce_bloc/repositories/user_cart_repo.dart';
+import 'package:e_commerce_bloc/screens/description_screen/description_screen_widgets/AR_button.dart';
 import 'package:e_commerce_bloc/screens/description_screen/description_screen_widgets/image_slider.dart';
 import 'package:e_commerce_bloc/widgets/appBar.dart';
 import 'package:e_commerce_bloc/blocs/product_description_bloc/product_description_bloc.dart';
@@ -104,6 +105,10 @@ class _DescriptionScreenState extends State<DescriptionScreen> {
           body: SingleChildScrollView(
             child: Column(
               children: [
+                widget.post.data['objectURL']!=null ? Padding(
+                  padding: const EdgeInsets.all(10),
+                  child: ARButton(context, widget.post.documentID, widget.post.data['objectURL'])
+                ): Container(),
                 Padding(
                   padding: const EdgeInsets.only(top: 20, bottom: 10),
                   child: Center(
