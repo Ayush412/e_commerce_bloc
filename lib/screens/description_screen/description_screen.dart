@@ -93,153 +93,150 @@ class _DescriptionScreenState extends State<DescriptionScreen> {
       messageTextStyle: TextStyle(
           color: Colors.black, fontSize: 19.0, fontWeight: FontWeight.w600),
     );
-    return WillPopScope(
-      onWillPop: (){Navigator.of(context).pop();},
-      child: MaterialApp(
-        debugShowCheckedModeBanner: false,
-        home: Scaffold(
-          backgroundColor: Colors.white,
-          key: scaffoldKey,
-          drawer: customDrawer(context),
-          appBar: appBar(context, scaffoldKey, false, null, null, null, ''),
-          body: SingleChildScrollView(
-            child: Column(
-              children: [
-                widget.post.data['objectURL']!=null ? Padding(
-                  padding: const EdgeInsets.all(10),
-                  child: ARButton(context, widget.post.documentID, widget.post.data['objectURL'])
-                ): Container(),
-                Padding(
-                  padding: const EdgeInsets.only(top: 20, bottom: 10),
-                  child: Center(
-                    child: imageSlider(widget.post.data['images'], widget.post.data['trailer'])
-                  ),
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: Scaffold(
+        backgroundColor: Colors.white,
+        key: scaffoldKey,
+        drawer: customDrawer(context),
+        appBar: appBar(context, scaffoldKey, false, null, null, null, ''),
+        body: SingleChildScrollView(
+          child: Column(
+            children: [
+              widget.post.data['objectURL']!=null ? Padding(
+                padding: const EdgeInsets.all(10),
+                child: ARButton(context, widget.post.documentID, widget.post.data['objectURL'])
+              ): Container(),
+              Padding(
+                padding: const EdgeInsets.only(top: 20, bottom: 10),
+                child: Center(
+                  child: imageSlider(widget.post.data['images'], widget.post.data['trailer'])
                 ),
-                viewCount(widget.post),
-                Padding(
-                  padding: const EdgeInsets.only(top: 10, bottom: 10),
-                  child: Container(
-                    width: 380,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(20),
-                      color: Colors.black
-                    ),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        description(context, widget.post),
-                        Padding(
-                          padding: const EdgeInsets.only( top: 30, left: 10, right: 10),
-                          child: Divider(
-                            height: 0.2,
-                            color: Colors.grey,
-                          )
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(top: 35, left: 10),
-                          child: Align(
-                            alignment: Alignment.centerLeft,
-                            child: Text('Rating:',
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 23
-                              )
-                            ),
-                          )
-                        ),
-                        ratings(widget.post),
-                        Padding(
-                          padding:const EdgeInsets.only(top: 30, left: 10),
-                          child: Text('Reviews:',
+              ),
+              viewCount(widget.post),
+              Padding(
+                padding: const EdgeInsets.only(top: 10, bottom: 10),
+                child: Container(
+                  width: 380,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(20),
+                    color: Colors.black
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      description(context, widget.post),
+                      Padding(
+                        padding: const EdgeInsets.only( top: 30, left: 10, right: 10),
+                        child: Divider(
+                          height: 0.2,
+                          color: Colors.grey,
+                        )
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(top: 35, left: 10),
+                        child: Align(
+                          alignment: Alignment.centerLeft,
+                          child: Text('Rating:',
                             style: TextStyle(
                               color: Colors.white,
                               fontWeight: FontWeight.bold,
                               fontSize: 23
                             )
-                          )
-                        ),
-                        reviews(controller)
-                      ],
-                    )
-                  )
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(top: 30),
-                  child: generateBarcode(widget.post.documentID), 
-                ),
-                loginBloc.userMap['Admin']==1 ? Padding(
-                  padding: const EdgeInsets.only(top: 20),
-                  child: Container(
-                    width:MediaQuery.of(context).size.width / 1.05,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(20),
-                      color: Colors.black),
-                    child: Column(
-                      children: <Widget>[
-                        Padding(
-                          padding: const EdgeInsets.only(top: 20, bottom: 20),
-                          child: Container(
-                            height: 40,
-                            width: 300,
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius:BorderRadius.circular(20)),
-                            child: Center(
-                              child: Text('Views and Purchase Analytics',
-                                style: TextStyle(fontSize: 20,color: Colors.black,fontWeight:FontWeight.w600)
-                              )
-                            )
-                          )
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(top:20, bottom:20),
-                          child: Container(
-                            height: 280, width: 340,
-                            child: lineChart()
+                          ),
+                        )
+                      ),
+                      ratings(widget.post),
+                      Padding(
+                        padding:const EdgeInsets.only(top: 30, left: 10),
+                        child: Text('Reviews:',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 23
                           )
                         )
-                      ]
-                    )
+                      ),
+                      reviews(controller)
+                    ],
                   )
-                ) : Container(),
-                Padding(
-                  padding: const EdgeInsets.only(top:30, bottom: 30),
-                  child: Container(
-                    alignment: Alignment.bottomCenter,
-                    width: 280,
-                    height: 40,
-                    child: InkWell(
-                      borderRadius: BorderRadius.circular(5),
-                      splashColor: Colors.grey,
-                      onTap: () => loginBloc.userMap['Admin'] == 1
-                        ? showDialogBox(context, 'Warning', 'Do you want to delete this product?', () => deleteItem())
-                        : widget.post.data['Stock'] > 0
-                          ? addItem()
-                          : ShowSnack('Out of stock! Check back later.', Colors.black, Colors.orange),
-                      child: Card(
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(5)),
-                          color: loginBloc.userMap['Admin'] == 1
-                              ? Colors.red
-                              : widget.post.data['Stock'] > 0 ? Colors.blue[400] : Colors.orange,
-                          child: Center(
-                              child: Text(
-                            loginBloc.userMap['Admin'] == 1
-                                ? 'Delete Product'
-                                : widget.post.data['Stock'] > 0
-                                    ? 'Add To Cart'
-                                    : 'Check back later',
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 26),
-                          ))),
-                    ),
-                  ),
                 )
-              ],
-            ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(top: 30),
+                child: generateBarcode(widget.post.documentID), 
+              ),
+              loginBloc.userMap['Admin']==1 ? Padding(
+                padding: const EdgeInsets.only(top: 20),
+                child: Container(
+                  width:MediaQuery.of(context).size.width / 1.05,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(20),
+                    color: Colors.black),
+                  child: Column(
+                    children: <Widget>[
+                      Padding(
+                        padding: const EdgeInsets.only(top: 20, bottom: 20),
+                        child: Container(
+                          height: 40,
+                          width: 300,
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius:BorderRadius.circular(20)),
+                          child: Center(
+                            child: Text('Views and Purchase Analytics',
+                              style: TextStyle(fontSize: 20,color: Colors.black,fontWeight:FontWeight.w600)
+                            )
+                          )
+                        )
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(top:20, bottom:20),
+                        child: Container(
+                          height: 280, width: 340,
+                          child: lineChart()
+                        )
+                      )
+                    ]
+                  )
+                )
+              ) : Container(),
+              Padding(
+                padding: const EdgeInsets.only(top:30, bottom: 30),
+                child: Container(
+                  alignment: Alignment.bottomCenter,
+                  width: 280,
+                  height: 40,
+                  child: InkWell(
+                    borderRadius: BorderRadius.circular(5),
+                    splashColor: Colors.grey,
+                    onTap: () => loginBloc.userMap['Admin'] == 1
+                      ? showDialogBox(context, 'Warning', 'Do you want to delete this product?', () => deleteItem())
+                      : widget.post.data['Stock'] > 0
+                        ? addItem()
+                        : ShowSnack('Out of stock! Check back later.', Colors.black, Colors.orange),
+                    child: Card(
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(5)),
+                        color: loginBloc.userMap['Admin'] == 1
+                            ? Colors.red
+                            : widget.post.data['Stock'] > 0 ? Colors.blue[400] : Colors.orange,
+                        child: Center(
+                            child: Text(
+                          loginBloc.userMap['Admin'] == 1
+                              ? 'Delete Product'
+                              : widget.post.data['Stock'] > 0
+                                  ? 'Add To Cart'
+                                  : 'Check back later',
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 26),
+                        ))),
+                  ),
+                ),
+              )
+            ],
           ),
         ),
       ),

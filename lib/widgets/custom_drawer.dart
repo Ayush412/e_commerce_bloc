@@ -55,7 +55,7 @@ customDrawer(BuildContext context){
             ),
             admin==1? Container() : Divider(),
             drawerOptions(context, 'assets/icons/home.png', 'Home', HomeScreen(), 30),
-            drawerOptions(context, 'assets/icons/sale.png', 'Deals and Promotions', null, 30),
+            drawerOptions(context, 'assets/icons/sale.png', 'Deals and Promotions', HomeScreen(), 30),
             admin==1? drawerOptions(context, 'assets/icons/package.png', 'Add Products', AddProduct(), 30)
             : drawerOptions(context, 'assets/icons/cart.png', 'My Cart', CartScreen(), 30),
             admin==1? Container()
