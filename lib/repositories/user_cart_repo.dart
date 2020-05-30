@@ -2,10 +2,12 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:e_commerce_bloc/blocs/user_login_bloc/user_login_bloc.dart';
 import 'package:intl/intl.dart';
 import 'cart_and_notification_count.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 
 class UserCartRepo{
   String date = DateFormat.yMMMMd().format(DateTime.now());
   Map<String, String> dateMap = Map<String, String>();
+  FirebaseAnalytics analytics = FirebaseAnalytics();
 
   confirmPurchase(Map map, int subTotal, int discount, int shipping, int total) async{
     dateMap['Order Confirmed'] = date;
@@ -20,9 +22,15 @@ class UserCartRepo{
     });
     Firestore.instance.collection('users/${loginBloc.userMap['emailID']}/Cart')..getDocuments().then((value) {
       value.documents.forEach((element) async {
-        await delProd(element.documentID);
+        await delProd(element);
       });
     });
+    analytics.logBeginCheckout();
+    analytics.logEcommercePurchase(
+      currency: 'QAR', 
+      value: subTotal.toDouble(), 
+      shipping: shipping.toDouble()
+    );
   }
 
   getCart()async{
@@ -34,22 +42,46 @@ class UserCartRepo{
     return [total,qs];
   }
 
-  Future addVal(String docID) async{
-    await Firestore.instance.collection('users/${loginBloc.userMap['emailID']}/Cart').document(docID)
+  Future addVal(DocumentSnapshot product) async{
+    await Firestore.instance.collection('users/${loginBloc.userMap['emailID']}/Cart').document(product.documentID)
     .updateData({
       'Quantity': FieldValue.increment(1),
     });
+    analytics.logAddToCart(
+      itemId: product.documentID, 
+      itemName: product.data['ProdName'], 
+      itemCategory: product.data['Category'], 
+      quantity: 1, 
+      price: product.data['ProdCost'],
+      currency: 'QAR'
+    );
+
   }
 
-  remVal(String docID) async{
-    await Firestore.instance.collection('users/${loginBloc.userMap['emailID']}/Cart').document(docID)
+  remVal(DocumentSnapshot product) async{
+    await Firestore.instance.collection('users/${loginBloc.userMap['emailID']}/Cart').document(product.documentID)
     .updateData({
       'Quantity': FieldValue.increment(-1),
     });
+    analytics.logRemoveFromCart(
+      itemId: product.documentID, 
+      itemName: product.data['ProdName'], 
+      itemCategory: product.data['Category'], 
+      quantity: 1,
+      price: product.data['ProdCost'],
+      currency: 'QAR'
+    );
   }
 
-  delProd(String docID) async{
-    await Firestore.instance.collection('users/${loginBloc.userMap['emailID']}/Cart').document(docID).delete();
+  delProd(DocumentSnapshot product) async{
+    await Firestore.instance.collection('users/${loginBloc.userMap['emailID']}/Cart').document(product.documentID).delete();
+    analytics.logRemoveFromCart(
+      itemId: product.documentID, 
+      itemName: product.data['ProdName'], 
+      itemCategory: product.data['Category'], 
+      quantity: 0, price: product.data['ProdCost'],
+      currency: 'QAR'
+    );
     getCount();
   }
 
@@ -58,8 +90,16 @@ class UserCartRepo{
     .document(product.documentID)
     .get()
     .then((DocumentSnapshot snap){
-       snap.exists ?  addVal(product.documentID) : addNew(product, newVal);
+       snap.exists ?  addVal(product) : addNew(product, newVal);
     });
+    analytics.logAddToCart(
+      itemId: product.documentID, 
+      itemName: product.data['ProdName'], 
+      itemCategory: product.data['Category'], 
+      quantity: 1, 
+      price: product.data['ProdCost'],
+      currency: 'QAR'
+    );
     getCount();
   }
 
@@ -108,7 +148,7 @@ class UserCartRepo{
       'Quantity': 1,
       'ProdName': product.data['ProdName'],
       'ProdCost': newVal,
-      'imgurl': product.data['imgurl'],
+      'imgurl': product.data['images'][0],
     });
   }
 }

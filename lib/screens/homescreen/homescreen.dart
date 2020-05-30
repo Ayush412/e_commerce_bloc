@@ -12,6 +12,7 @@ import 'package:e_commerce_bloc/screens/homescreen/homescreen_widgets/top_rated.
 import 'package:e_commerce_bloc/widgets/appBar.dart';
 import 'package:e_commerce_bloc/widgets/custom_drawer.dart';
 import 'package:e_commerce_bloc/widgets/show_dialog.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -23,9 +24,11 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   GlobalKey<ScaffoldState> scaffoldKey = new GlobalKey<ScaffoldState>();
   TextEditingController controller = TextEditingController();
+  //FirebaseMessaging mes = FirebaseMessaging();
 
   @override
   void initState() {
+    //mes.getToken().then((devTok){print('yeet $devTok');});
     super.initState();
     notificationsRepo.listen();
     productsHomeBloc.getTopRated(true);

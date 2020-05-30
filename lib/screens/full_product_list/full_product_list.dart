@@ -1,5 +1,4 @@
 import 'package:e_commerce_bloc/blocs/products_home_bloc/products_home_bloc.dart';
-import 'package:e_commerce_bloc/blocs/user_login_bloc/user_login_bloc.dart';
 import 'package:e_commerce_bloc/widgets/appBar.dart';
 import 'package:e_commerce_bloc/widgets/custom_drawer.dart';
 import 'package:e_commerce_bloc/widgets/products_list.dart';
@@ -19,7 +18,7 @@ class _FullProductListState extends State<FullProductList> {
   TextEditingController controller = TextEditingController();
 
   @override
-  void initState() { 
+  void initState() {
     super.initState();
     productsHomeBloc.productsListIn.add(null);
     productsHomeBloc.getFullList(widget.category);
@@ -41,7 +40,7 @@ class _FullProductListState extends State<FullProductList> {
         body: Stack(
           children: [
             Padding(
-              padding: const EdgeInsets.only(top: 30),
+              padding: const EdgeInsets.only(top: 30, bottom: 60),
               child: productsList(),
             ),
             Align(
@@ -53,6 +52,19 @@ class _FullProductListState extends State<FullProductList> {
                   child: Text(widget.category, style: GoogleFonts.sourceSansPro(fontSize: 20, fontWeight: FontWeight.w600),)
                 )
               )
+            ),
+            Align(
+              alignment: Alignment.bottomCenter,
+              child: Container(
+                height: 60,
+                color: Colors.red,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    
+                  ],
+                ),
+              ),
             )
           ],
         ),

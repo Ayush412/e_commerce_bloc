@@ -12,7 +12,6 @@ class NotificationsRepo{
 
   listen(){
     _fcm.getToken().then((token) => print(token));
-      _fcm.subscribeToTopic('e-commerce');
       _fcm.configure(
         onMessage: (Map<String, dynamic> message) async {
         text=message['notification']['body'];

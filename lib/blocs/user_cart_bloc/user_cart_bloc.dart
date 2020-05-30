@@ -35,7 +35,8 @@ class UserCartBloc implements BaseBloc{
     Map<String, Map> map = Map<String, Map>();
     qs.documents.forEach((element){map[element.documentID] = element.data;});
     await userCartRepo.confirmPurchase(map, cartTotal, discount, shipping, finalAmount);
-    userCartRepo.usePromoCode(code);
+    if(discount!=0)
+      userCartRepo.usePromoCode(code);
     bloc.loadingStatusIn.add(false);
   }
 
@@ -85,25 +86,25 @@ class UserCartBloc implements BaseBloc{
     calculateTotal();
   }
 
-  addVal(String doc) async{
+  addVal(DocumentSnapshot product) async{
     bloc.loadingStatusIn.add(true);
-    await userCartRepo.addVal(doc);
+    await userCartRepo.addVal(product);
     await getCart();
     calculateTotal();
     bloc.loadingStatusIn.add(false);
   }
 
-  remVal(String doc) async{
+  remVal(DocumentSnapshot product) async{
     bloc.loadingStatusIn.add(true);
-    await userCartRepo.remVal(doc);
+    await userCartRepo.remVal(product);
     await getCart();
     calculateTotal();
     bloc.loadingStatusIn.add(false);
   }
 
-  delProd(String doc) async{
+  delProd(DocumentSnapshot product) async{
     bloc.loadingStatusIn.add(true);
-    await userCartRepo.delProd(doc);
+    await userCartRepo.delProd(product);
     await getCart();
     calculateTotal();
     bloc.loadingStatusIn.add(false);

@@ -14,7 +14,7 @@ cartProductCard(DocumentSnapshot product){
         child: Row(children: [
           IconButton(
             icon: Icon(Icons.delete_outline,color: Colors.red),
-            onPressed: () => userCartBloc.delProd(product.documentID),
+            onPressed: () => userCartBloc.delProd(product),
           ),
           Image.network(product.data['imgurl'], height: 100, width: 100,),
           Padding(
@@ -50,14 +50,14 @@ cartProductCard(DocumentSnapshot product){
               IconButton(
                 icon: Icon(Icons.add),
                 color: Colors.black,
-                onPressed: () => userCartBloc.addVal(product.documentID),
+                onPressed: () => userCartBloc.addVal(product),
               ),
               Text(product.data['Quantity'].toString(), 
               style: GoogleFonts.sourceSansPro(fontSize: 16, color: Colors.blue),),
                 IconButton(
                 icon: Icon(Icons.remove),
                 color: Colors.black,
-                onPressed: () => product.data['Quantity']>1 ? userCartBloc.remVal(product.documentID) : null,
+                onPressed: () => product.data['Quantity']>1 ? userCartBloc.remVal(product) : null,
               ),
           ],)
         ]),

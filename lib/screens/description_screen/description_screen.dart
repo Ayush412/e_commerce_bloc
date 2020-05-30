@@ -9,6 +9,7 @@ import 'package:e_commerce_bloc/repositories/products_details.dart';
 import 'package:e_commerce_bloc/widgets/custom_drawer.dart';
 import 'package:e_commerce_bloc/widgets/show_dialog.dart';
 import 'package:e_commerce_bloc/widgets/show_snack.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'description_screen_widgets/barcode.dart';
 import 'description_screen_widgets/ratings.dart';
 import 'description_screen_widgets/reviews.dart';
@@ -28,6 +29,7 @@ class DescriptionScreen extends StatefulWidget {
 class _DescriptionScreenState extends State<DescriptionScreen> {
 
   final GlobalKey<ScaffoldState> scaffoldKey = new GlobalKey<ScaffoldState>();
+  FirebaseAnalytics analytics = FirebaseAnalytics();
   dynamic leading;
   ScrollController controller = ScrollController();
   ProgressDialog pr;
@@ -61,6 +63,7 @@ class _DescriptionScreenState extends State<DescriptionScreen> {
     });
     if(loginBloc.userMap['Admin'] != 1){ 
       productDescBloc.addView(widget.post.documentID, widget.post.data['Category']);
+      analytics.logViewItem(itemId: widget.post.documentID, itemName: widget.post.data['ProdName'], itemCategory: widget.post.data['Category']);
     }
   }
 
