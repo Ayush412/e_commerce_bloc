@@ -13,14 +13,14 @@ class ShoppingCart{
           return Stack(
             children: [
               Padding(
-                padding: const EdgeInsets.only(top: 20),
+                padding: const EdgeInsets.only(top: 25),
                 child: GestureDetector(
                   child: Image.asset('assets/icons/cart.png', height: 20, width: 20,),
                   onTap: () => navigate(context, CartScreen())
                 ),
               ),
               Positioned(
-                top: 10,
+                top: 15,
                 right: 5,
                 child: Container(
                   height: 13, width: 13,

@@ -37,6 +37,7 @@ class UserDetails{
       loginBloc.userMap = myMap;
       userDetailsBloc.userMapIn.add(myMap);
     }
+    userSubscriptions();
   }
 
   userSubscriptions() async{

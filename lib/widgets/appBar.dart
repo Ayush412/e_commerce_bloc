@@ -10,51 +10,62 @@ appBar(BuildContext context, GlobalKey<ScaffoldState> scaffoldKey, bool isHomeSc
     elevation: 1.5,
     automaticallyImplyLeading: false,
     backgroundColor: Colors.white,
-    title: Padding(
-      padding: const EdgeInsets.only(right: 15),
-      child: Stack(
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              Padding(
-                padding: EdgeInsets.only(right: isHomeScreen? 30: titleText!=null? 35: onPop!=null? 10 : 0),
-                child: loginBloc.userMap['Admin']==1? 
-                InkWell(
-                  onTap: () => scaffoldKey.currentState.openDrawer(),
-                  child: Icon(Icons.dehaze, color: Colors.black)
-                )
-                : InkWell(
-                  onTap: () => scaffoldKey.currentState.openDrawer(),
-                  child: customBadge(Icons.dehaze, true),
+    title: Container(
+      height: 40,
+      child: Padding(
+        padding: const EdgeInsets.only(right: 15),
+        child:Stack(
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                Container(
+                  height: 40,
+                  child: Padding(
+                    padding: EdgeInsets.only(top: 6, right: isHomeScreen? 20: titleText!=null? 35: onPop!=null? 10 : 0),
+                    child: loginBloc.userMap['Admin']==1? 
+                    InkWell(
+                      onTap: () => scaffoldKey.currentState.openDrawer(),
+                      child: Icon(Icons.dehaze, color: Colors.black)
+                    )
+                    : InkWell(
+                      onTap: () => scaffoldKey.currentState.openDrawer(),
+                      child: Container(
+                        height: 40,
+                        width: 30,
+                        padding: const EdgeInsets.only(bottom: 15),
+                        child: customBadge(Icons.dehaze, true, 2, 0, 13, 13)
+                      ),
+                    )
+                  ),
                 ),
-              ),
-              Container(
-                width: MediaQuery.of(context).size.width/1.5,
-              child: onPop!=null? searchBar(context, controller, onPop, searchAgain)
-              :Container(
-                padding: const EdgeInsets.only(right: 75),
-                child: Center(
-                  child: Text(titleText, style: GoogleFonts.sourceSansPro(fontWeight: FontWeight.bold, color: Colors.black),),
-                ),
-              )),
-              
-            ]
-          ),
-          isHomeScreen ? Container() :
-          Positioned(
-            left: -18,
-            top: controller==null? -12 : -5,
-            child: IconButton(
-              icon: Icon(Icons.arrow_back_ios, color: Colors.black,),
-              onPressed: (){
-                if (onPop!=null)
-                  onPop();
-                Navigator.of(context).pop();
-              },
+                Container(
+                  width: MediaQuery.of(context).size.width/1.5,
+                child: onPop!=null? searchBar(context, controller, onPop, searchAgain)
+                :Container(
+                  padding: const EdgeInsets.only(right: 75),
+                  child: Center(
+                    child: Text(titleText, style: GoogleFonts.sourceSansPro(fontWeight: FontWeight.bold, color: Colors.black),),
+                  ),
+                )),
+                
+              ]
+            ),
+            isHomeScreen ? Container() :
+            Positioned(
+              left: -18,
+              top: controller==null? 0 : -5,
+              child: IconButton(
+                icon: Icon(Icons.arrow_back_ios, color: Colors.black,),
+                onPressed: (){
+                  if (onPop!=null)
+                    onPop();
+                  Navigator.of(context).pop();
+                },
+              )
             )
-          )
-        ],
+          ],
+        ),
       ),
     ),
     actions: [

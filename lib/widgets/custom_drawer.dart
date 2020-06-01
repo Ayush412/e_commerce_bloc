@@ -46,7 +46,7 @@ customDrawer(BuildContext context){
                 child: Row(children: <Widget>[
                   Container(
                     height: 55, width: 40,
-                    child: customBadge(Icons.notifications, false),
+                    child: customBadge(Icons.notifications, false, 10, 10, 15, 15),
                   ),
                   SizedBox(width: 29),
                   Text('Notifications', style: GoogleFonts.sourceSansPro(fontSize: 20, fontWeight: FontWeight.w600),)
