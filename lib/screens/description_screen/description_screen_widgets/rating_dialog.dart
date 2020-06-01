@@ -31,7 +31,7 @@ giveRatingDialog(BuildContext context, double oldRate, double totalRate, int tot
                 children: <Widget>[
                   SmoothStarRating(
                     allowHalfRating: false,
-                    onRatingChanged: (val) {
+                    onRated: (val) {
                       setState(() {
                         newUserRate = val;
                       });

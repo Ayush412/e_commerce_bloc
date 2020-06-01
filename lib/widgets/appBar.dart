@@ -60,10 +60,14 @@ appBar(BuildContext context, GlobalKey<ScaffoldState> scaffoldKey, bool isHomeSc
     actions: [
       titleText!=null ? Container()
       : Padding(
-          padding: const EdgeInsets.only(top: 15, right: 15, bottom: 15),
-          child: loginBloc.userMap['Admin']==1? 
-            SizedBox(height: 20, width: 20)
-            : shoppingCart.cartBadge()
+            padding: const EdgeInsets.only(right: 3),
+            child: loginBloc.userMap['Admin']==1? 
+              SizedBox(height: 20, width: 20)
+              : Container(
+                width: 33,
+                height: 30,
+                child: shoppingCart.cartBadge()
+              )
         )
     ]
   );

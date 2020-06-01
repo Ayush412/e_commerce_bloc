@@ -48,9 +48,10 @@ class ScanToSearchRepo{
   }
 
   scanCode() async{
-    String qrCode;
+    dynamic qrCode;
     try {
       qrCode = await BarcodeScanner.scan();
+      qrCode=qrCode.toString();
     } catch (e) {
       scanToSearchBloc.qrCodeIn.add(null);
       return null; 

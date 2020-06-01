@@ -9,12 +9,15 @@ imageSlider(List images, String trailer){
   return Column(
     children: [
       CarouselSlider.builder(
-        enableInfiniteScroll: false,
+        options: CarouselOptions(
+          enableInfiniteScroll: false,
+          onPageChanged: (index, reason) => productDescBloc.pageIn.add(index)
+        ),
         itemCount: count, 
         itemBuilder: (context, index){
           return Image.network(images[index], height: 300, width: 300);
         },
-        onPageChanged: (index) => productDescBloc.pageIn.add(index),
+        
       ),
       count > 1 ? StreamBuilder<Object>(
         stream: productDescBloc.pageOut,

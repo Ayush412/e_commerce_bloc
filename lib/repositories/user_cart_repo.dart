@@ -52,7 +52,7 @@ class UserCartRepo{
       itemName: product.data['ProdName'], 
       itemCategory: product.data['Category'], 
       quantity: 1, 
-      price: product.data['ProdCost'],
+      price: product.data['ProdCost'].toDouble(),
       currency: 'QAR'
     );
 
@@ -68,7 +68,7 @@ class UserCartRepo{
       itemName: product.data['ProdName'], 
       itemCategory: product.data['Category'], 
       quantity: 1,
-      price: product.data['ProdCost'],
+      price: product.data['ProdCost'].toDouble(),
       currency: 'QAR'
     );
   }
@@ -79,7 +79,7 @@ class UserCartRepo{
       itemId: product.documentID, 
       itemName: product.data['ProdName'], 
       itemCategory: product.data['Category'], 
-      quantity: 0, price: product.data['ProdCost'],
+      quantity: 0, price: product.data['ProdCost'].toDouble(),
       currency: 'QAR'
     );
     getCount();
@@ -97,7 +97,7 @@ class UserCartRepo{
       itemName: product.data['ProdName'], 
       itemCategory: product.data['Category'], 
       quantity: 1, 
-      price: product.data['ProdCost'],
+      price: product.data['ProdCost'].toDouble(),
       currency: 'QAR'
     );
     getCount();

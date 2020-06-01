@@ -59,7 +59,7 @@ class _CartScreenState extends State<CartScreen> {
                 return Center(child: CircularProgressIndicator());
               else{
                 if(snapshot.data.documents.length==0){
-                  return centerImage('Your acrt is empty', 'empty2.png');
+                  return centerImage('Your cart is empty', 'empty2.png');
                 }
                 else{
                   return Stack(

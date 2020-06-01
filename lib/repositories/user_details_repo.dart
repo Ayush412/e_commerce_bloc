@@ -37,22 +37,19 @@ class UserDetails{
       loginBloc.userMap = myMap;
       userDetailsBloc.userMapIn.add(myMap);
     }
-    if(myMap['Subs']!=null){
-      userSubscriptions();
-    }
   }
 
   userSubscriptions() async{
     FirebaseMessaging firebaseMessaging = new FirebaseMessaging();
     for(int i = 0; i < myMap['Subs'].length; i++){
-      firebaseMessaging.subscribeToTopic(myMap['Subs'][i]);
+      await firebaseMessaging.subscribeToTopic(myMap['Subs'][i]);
     } 
   }
 
   unsubscribeTopics() async{
     FirebaseMessaging firebaseMessaging = new FirebaseMessaging();
     for(int i = 0; i < myMap['Subs'].length; i++){
-      firebaseMessaging.unsubscribeFromTopic(myMap['Subs'][i]);
+      await firebaseMessaging.unsubscribeFromTopic(myMap['Subs'][i]);
     } 
   }
 

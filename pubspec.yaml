@@ -24,7 +24,7 @@ dependencies:
   firebase_auth: 
   cached_network_image:
   page_transition:
-  badges:
+  #badges:
   firebase_analytics:
   flutter_launcher_icons:
   cloud_firestore:

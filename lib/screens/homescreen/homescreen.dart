@@ -24,7 +24,7 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   GlobalKey<ScaffoldState> scaffoldKey = new GlobalKey<ScaffoldState>();
   TextEditingController controller = TextEditingController();
-  //FirebaseMessaging mes = FirebaseMessaging();
+  FirebaseMessaging mes = FirebaseMessaging();
 
   @override
   void initState() {
@@ -36,7 +36,7 @@ class _HomeScreenState extends State<HomeScreen> {
     productsHomeBloc.getBanners();
     getCount();
     productDetails.makeKeys();
-    userDetails.subscribeTopics();
+    //userDetails.subscribeTopics();
   }
 
   onPop(){

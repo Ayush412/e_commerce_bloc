@@ -7,7 +7,6 @@ import 'dart:async';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'screens/homescreen/homescreen.dart';
-import 'package:firebase_analytics/firebase_analytics.dart';
 
 void main() {
   runApp(Home());
@@ -33,9 +32,9 @@ class _MyAppState extends State<MyApp> {
   String email;
   DocumentSnapshot ds;
   Timer _timer;
-  FirebaseAnalytics analytics = FirebaseAnalytics();
 
   Future afterSplash () async {
+    //analytics.logAppOpen();
     SharedPreferences prefs = await SharedPreferences.getInstance();
     email = prefs.getString('email');
     if(email==null)
@@ -50,7 +49,6 @@ class _MyAppState extends State<MyApp> {
   @override
   void initState() {
     super.initState();
-    analytics.logAppOpen();
     _timer = new Timer(const Duration(seconds: 1), () {
       afterSplash();
     });
