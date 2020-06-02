@@ -65,7 +65,14 @@ class _DescriptionScreenState extends State<DescriptionScreen> {
     });
     if(loginBloc.userMap['Admin'] != 1){ 
       productDescBloc.addView(widget.post.documentID, widget.post.data['Category']);
-      analytics.logViewItem(itemId: widget.post.documentID, itemName: widget.post.data['ProdName'], itemCategory: widget.post.data['Category']);
+      analytics.logViewItem(
+        itemId: widget.post.documentID, 
+        itemName: widget.post.data['ProdName'], 
+        itemCategory: widget.post.data['Category'],
+        price: widget.post.data['ProdCost'].toDouble(),
+        value: widget.post.data['ProdCost'].toDouble(),
+        currency: 'QAR'
+      );
     }
   }
 
