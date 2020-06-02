@@ -6,7 +6,10 @@ import 'package:e_commerce_bloc/widgets/appBarBackArrow.dart';
 import 'package:e_commerce_bloc/widgets/circular_progress_indicator.dart';
 import 'package:e_commerce_bloc/widgets/show_snack.dart';
 import 'package:e_commerce_bloc/widgets/textfield.dart';
+import 'package:firebase_analytics/observer.dart';
 import 'package:flutter/material.dart';
+
+import '../../analytics.dart';
 
 class register extends StatefulWidget {
   @override
@@ -33,8 +36,10 @@ class _registerState extends State<register> {
     bool user;
     bloc.loadingStatusIn.add(true);
     user = await registerBloc.createLogin();
-    if(user)
+    if(user){
+      analyticsService.analytics.logSignUp(signUpMethod: 'email');
       navigate(context, getUserDetails());
+    }
     else
       _scaffoldKey.currentState.showSnackBar(ShowSnack('User already exists', Colors.black, Colors.orange));
     bloc.loadingStatusIn.add(false);
@@ -46,6 +51,7 @@ class _registerState extends State<register> {
       onWillPop: (){Navigator.of(context).pop();},
     child: MaterialApp(
       debugShowCheckedModeBanner: false,
+      navigatorObservers: [FirebaseAnalyticsObserver(analytics: analyticsService.analytics)],
       home: Scaffold(
         key: _scaffoldKey,
         appBar: appBarBackArrow(context, 'Sign up', null, null),

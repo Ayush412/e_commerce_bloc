@@ -8,8 +8,10 @@ import 'package:e_commerce_bloc/screens/homescreen/homescreen.dart';
 import 'package:e_commerce_bloc/widgets/show_dialog.dart';
 import 'package:e_commerce_bloc/widgets/show_snack.dart';
 import 'package:e_commerce_bloc/widgets/textfield_with_controller.dart';
+import 'package:firebase_analytics/observer.dart';
 import 'package:flutter/material.dart';
 import 'package:progress_dialog/progress_dialog.dart';
+import '../../analytics.dart';
 import 'add_product_widgets/image_picker.dart';
 
 class AddProduct extends StatefulWidget {
@@ -81,6 +83,7 @@ class _AddProductState extends State<AddProduct> {
         onWillPop: (){addProductBloc.clearAll(); navigate(context, HomeScreen());},
         child: MaterialApp(
           debugShowCheckedModeBanner: false,
+          navigatorObservers: [FirebaseAnalyticsObserver(analytics: analyticsService.analytics)],
           home: Scaffold(
             key: _scaffoldKey,
             //appBar: appBar('Add Product', leading, actions),

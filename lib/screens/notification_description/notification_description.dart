@@ -5,7 +5,10 @@ import 'package:e_commerce_bloc/repositories/cart_and_notification_count.dart';
 import 'package:e_commerce_bloc/repositories/notifications_repo.dart';
 import 'package:e_commerce_bloc/screens/notifications_list/notifications_list.dart';
 import 'package:e_commerce_bloc/widgets/appBarBackArrow.dart';
+import 'package:firebase_analytics/observer.dart';
 import 'package:flutter/material.dart';
+
+import '../../analytics.dart';
 
 class NotificationDescription extends StatefulWidget {
   final DocumentSnapshot ds;
@@ -40,6 +43,7 @@ class _NotificationDescriptionState extends State<NotificationDescription> {
       onWillPop: () => navigate(context, NotificationList()),
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
+        navigatorObservers: [FirebaseAnalyticsObserver(analytics: analyticsService.analytics)],
         home: Scaffold(
           backgroundColor: Colors.white,
           appBar: appBarBackArrow(context, '', NotificationList(), null),

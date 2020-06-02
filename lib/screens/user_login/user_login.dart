@@ -5,12 +5,14 @@ import 'package:e_commerce_bloc/repositories/shared_preferences_email.dart';
 import 'package:e_commerce_bloc/screens/homescreen/homescreen.dart';
 import 'package:e_commerce_bloc/screens/user_details/user_details.dart';
 import 'package:e_commerce_bloc/screens/user_register/register.dart';
+import 'package:firebase_analytics/observer.dart';
 import 'package:flutter/material.dart';
 import 'package:e_commerce_bloc/widgets/show_snack.dart';
 import 'package:e_commerce_bloc/widgets/textfield.dart';
 import 'package:e_commerce_bloc/widgets/circular_progress_indicator.dart';
 import 'package:e_commerce_bloc/widgets/show_dialog.dart';
 import 'package:e_commerce_bloc/blocs/bloc.dart';
+import '../../analytics.dart';
 
 class login extends StatefulWidget {
   @override
@@ -19,7 +21,7 @@ class login extends StatefulWidget {
 
 class _loginState extends State<login> {
 
-  final GlobalKey<ScaffoldState> scaffoldKey = new GlobalKey<ScaffoldState>(); 
+  final GlobalKey<ScaffoldState> scaffoldKey = new GlobalKey<ScaffoldState>();
   Map<dynamic, dynamic> myMap = Map<dynamic, dynamic>();
   List<Widget> actions = List<Widget>();
   dynamic leading;
@@ -46,6 +48,7 @@ class _loginState extends State<login> {
     if(!hasUser)
       scaffoldKey.currentState.showSnackBar(ShowSnack('User not found', Colors.black, Colors.orange));
     else{
+      analyticsService.analytics.logLogin();
       if(loginBloc.userMap!=null){
         sharedPreference.saveData(loginBloc.emailID);
         navigate(context, HomeScreen());
@@ -62,6 +65,7 @@ class _loginState extends State<login> {
       onWillPop: () => showDialogBox(context, 'Confirm exit', 'Do you wish tio exit the app?', null),
     child: MaterialApp(
       debugShowCheckedModeBanner: false,
+      navigatorObservers: [FirebaseAnalyticsObserver(analytics: analyticsService.analytics)],
       home: Scaffold(
         backgroundColor: Colors.white,
         key: scaffoldKey,

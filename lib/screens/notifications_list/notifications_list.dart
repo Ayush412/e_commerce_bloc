@@ -6,8 +6,11 @@ import 'package:e_commerce_bloc/navigate.dart';
 import 'package:e_commerce_bloc/screens/notification_description/notification_description.dart';
 import 'package:e_commerce_bloc/widgets/circular_progress_indicator.dart';
 import 'package:e_commerce_bloc/widgets/custom_drawer.dart';
+import 'package:firebase_analytics/observer.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+
+import '../../analytics.dart';
 
 class NotificationList extends StatefulWidget {
   @override
@@ -30,6 +33,7 @@ class _NotificationListState extends State<NotificationList> {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
+      navigatorObservers: [FirebaseAnalyticsObserver(analytics: analyticsService.analytics)],
       home: Scaffold(
         key: scaffoldKey,
         drawer: customDrawer(context),

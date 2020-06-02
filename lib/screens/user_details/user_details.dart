@@ -7,8 +7,11 @@ import 'package:e_commerce_bloc/widgets/circular_progress_indicator.dart';
 import 'package:e_commerce_bloc/widgets/map_details.dart';
 import 'package:e_commerce_bloc/widgets/show_snack.dart';
 import 'package:e_commerce_bloc/widgets/textfield.dart';
+import 'package:firebase_analytics/observer.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+
+import '../../analytics.dart';
 
 class getUserDetails extends StatefulWidget {
   final String email;
@@ -39,6 +42,7 @@ class _getUserDetailsState extends State<getUserDetails> {
       onWillPop: () => navigate(context, login()),
     child: MaterialApp(
       debugShowCheckedModeBanner: false,
+      navigatorObservers: [FirebaseAnalyticsObserver(analytics: analyticsService.analytics)],
       home: Scaffold(
         key: _scaffoldKey,
         resizeToAvoidBottomInset: false,

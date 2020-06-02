@@ -25,7 +25,6 @@ class UserCartRepo{
         await delProd(element);
       });
     });
-    analytics.logBeginCheckout();
     analytics.logEcommercePurchase(
       currency: 'QAR', 
       value: subTotal.toDouble(), 

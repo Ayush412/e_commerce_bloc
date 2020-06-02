@@ -6,7 +6,10 @@ import 'package:e_commerce_bloc/widgets/appBar.dart';
 import 'package:e_commerce_bloc/widgets/appBarBackArrow.dart';
 import 'package:e_commerce_bloc/widgets/center_image.dart';
 import 'package:e_commerce_bloc/widgets/custom_drawer.dart';
+import 'package:firebase_analytics/observer.dart';
 import 'package:flutter/material.dart';
+
+import '../../analytics.dart';
 
 class OrdersScreen extends StatefulWidget {
   @override
@@ -29,6 +32,7 @@ class _OrdersScreenState extends State<OrdersScreen> {
       onWillPop: () => null,
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
+        navigatorObservers: [FirebaseAnalyticsObserver(analytics: analyticsService.analytics)],
         home: Scaffold(
           key: scaffoldKey,
           backgroundColor: Colors.white,

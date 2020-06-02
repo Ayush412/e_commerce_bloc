@@ -2,8 +2,11 @@ import 'package:e_commerce_bloc/screens/scan_barcode/scan_barcode.dart';
 import 'package:e_commerce_bloc/screens/scan_object/scan_object.dart';
 import 'package:e_commerce_bloc/screens/scan_to_search/scan_to_search_widgets/option_card.dart';
 import 'package:e_commerce_bloc/widgets/custom_drawer.dart';
+import 'package:firebase_analytics/observer.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+
+import '../../analytics.dart';
 
 class ScanToSearch extends StatefulWidget {
   @override
@@ -18,6 +21,7 @@ class _ScanToSearchState extends State<ScanToSearch> {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
+      navigatorObservers: [FirebaseAnalyticsObserver(analytics: analyticsService.analytics)],
       home: Scaffold(
         key: scaffoldKey,
         drawer: customDrawer(context),

@@ -4,9 +4,12 @@ import 'package:e_commerce_bloc/screens/order_tracking/order_tracking_widgets/st
 import 'package:e_commerce_bloc/widgets/amount_row.dart';
 import 'package:e_commerce_bloc/widgets/appBarBackArrow.dart';
 import 'package:e_commerce_bloc/widgets/custom_drawer.dart';
+import 'package:firebase_analytics/observer.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:steps_indicator/steps_indicator.dart';
+
+import '../../analytics.dart';
 
 class OrderTracking extends StatefulWidget {
   DocumentSnapshot order;
@@ -38,6 +41,7 @@ class _OrderTrackingState extends State<OrderTracking> {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
+      navigatorObservers: [FirebaseAnalyticsObserver(analytics: analyticsService.analytics)],
       home: Scaffold(
         key: scaffoldKey,
         backgroundColor: Colors.white,

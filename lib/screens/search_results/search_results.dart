@@ -1,8 +1,11 @@
 import 'package:e_commerce_bloc/blocs/products_home_bloc/products_home_bloc.dart';
 import 'package:e_commerce_bloc/widgets/appBar.dart';
 import 'package:e_commerce_bloc/widgets/products_list.dart';
+import 'package:firebase_analytics/observer.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+
+import '../../analytics.dart';
 
 class SearchResults extends StatefulWidget {
   String text;
@@ -39,6 +42,7 @@ class _SearchResultsState extends State<SearchResults> {
       },
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
+        navigatorObservers: [FirebaseAnalyticsObserver(analytics: analyticsService.analytics)],
         home: Scaffold(
           resizeToAvoidBottomInset: false,
           key: scaffoldKey,

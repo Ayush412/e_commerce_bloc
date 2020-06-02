@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:e_commerce_bloc/analytics.dart';
 import 'package:e_commerce_bloc/blocs/user_cart_bloc/user_cart_bloc.dart';
 import 'package:e_commerce_bloc/widgets/amount_row.dart';
 import 'package:e_commerce_bloc/screens/cart_screen/cart_screen_widgets/apply_button.dart';
@@ -10,6 +11,7 @@ import 'package:e_commerce_bloc/widgets/center_image.dart';
 import 'package:e_commerce_bloc/widgets/circular_progress_indicator.dart';
 import 'package:e_commerce_bloc/widgets/custom_drawer.dart';
 import 'package:e_commerce_bloc/widgets/show_dialog.dart';
+import 'package:firebase_analytics/observer.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
@@ -47,6 +49,7 @@ class _CartScreenState extends State<CartScreen> {
       onWillPop: () => showDialogBox(context, 'Warning', 'Do you want to delete this product?', () => Navigator.of(context).pop()),
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
+        navigatorObservers: [FirebaseAnalyticsObserver(analytics: analyticsService.analytics)],
         home: Scaffold(
           key: scaffoldKey,
           backgroundColor: Colors.white,

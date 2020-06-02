@@ -5,7 +5,10 @@ import 'package:e_commerce_bloc/repositories/scan_to_search_repo.dart';
 import 'package:e_commerce_bloc/screens/description_screen/description_screen.dart';
 import 'package:e_commerce_bloc/widgets/appBarBackArrow.dart';
 import 'package:e_commerce_bloc/widgets/center_image.dart';
+import 'package:firebase_analytics/observer.dart';
 import 'package:flutter/material.dart';
+
+import '../../analytics.dart';
 
 class ScanQRCode extends StatefulWidget {
   @override
@@ -43,6 +46,7 @@ class _ScanQRCodeState extends State<ScanQRCode> {
         onWillPop: (){Navigator.of(context).pop();},
         child: MaterialApp(
           debugShowCheckedModeBanner: false,
+          navigatorObservers: [FirebaseAnalyticsObserver(analytics: analyticsService.analytics)],
           home: Scaffold(
             extendBody: true,
             backgroundColor: Colors.white,

@@ -1,3 +1,4 @@
+import 'package:e_commerce_bloc/analytics.dart';
 import 'package:e_commerce_bloc/blocs/products_home_bloc/products_home_bloc.dart';
 import 'package:e_commerce_bloc/repositories/cart_and_notification_count.dart';
 import 'package:e_commerce_bloc/repositories/notifications_repo.dart';
@@ -11,6 +12,7 @@ import 'package:e_commerce_bloc/screens/homescreen/homescreen_widgets/top_rated.
 import 'package:e_commerce_bloc/widgets/appBar.dart';
 import 'package:e_commerce_bloc/widgets/custom_drawer.dart';
 import 'package:e_commerce_bloc/widgets/show_dialog.dart';
+import 'package:firebase_analytics/observer.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -35,7 +37,6 @@ class _HomeScreenState extends State<HomeScreen> {
     productsHomeBloc.getBanners();
     getCount();
     productDetails.makeKeys();
-    mes.subscribeToTopic('smart_phones');
   }
 
   onPop(){
@@ -48,6 +49,7 @@ class _HomeScreenState extends State<HomeScreen> {
       onWillPop: () => showDialogBox(context, 'Confirm exit', 'Do you wish to exit the app?', null),
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
+        navigatorObservers: [FirebaseAnalyticsObserver(analytics: analyticsService.analytics)],
         home: Scaffold(
           backgroundColor: Colors.white,
           key: scaffoldKey,

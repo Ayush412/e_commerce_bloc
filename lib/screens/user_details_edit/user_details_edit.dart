@@ -7,7 +7,10 @@ import 'package:e_commerce_bloc/widgets/custom_drawer.dart';
 import 'package:e_commerce_bloc/widgets/map_details.dart';
 import 'package:e_commerce_bloc/widgets/show_snack.dart';
 import 'package:e_commerce_bloc/widgets/textfield_with_controller.dart';
+import 'package:firebase_analytics/observer.dart';
 import 'package:flutter/material.dart';
+
+import '../../analytics.dart';
 
 class UserDetailsEdit extends StatefulWidget {
   @override
@@ -48,6 +51,7 @@ class _UserDetailsEditState extends State<UserDetailsEdit> {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
+      navigatorObservers: [FirebaseAnalyticsObserver(analytics: analyticsService.analytics)],
       home: Scaffold(
         key: scaffoldKey,
         backgroundColor: Colors.white,

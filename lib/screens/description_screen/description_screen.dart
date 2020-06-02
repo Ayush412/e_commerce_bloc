@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:e_commerce_bloc/analytics.dart';
 import 'package:e_commerce_bloc/repositories/user_cart_repo.dart';
 import 'package:e_commerce_bloc/screens/description_screen/description_screen_widgets/AR_button.dart';
 import 'package:e_commerce_bloc/screens/description_screen/description_screen_widgets/image_slider.dart';
@@ -10,6 +11,7 @@ import 'package:e_commerce_bloc/widgets/custom_drawer.dart';
 import 'package:e_commerce_bloc/widgets/show_dialog.dart';
 import 'package:e_commerce_bloc/widgets/show_snack.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:firebase_analytics/observer.dart';
 import 'description_screen_widgets/barcode.dart';
 import 'description_screen_widgets/ratings.dart';
 import 'description_screen_widgets/reviews.dart';
@@ -98,6 +100,7 @@ class _DescriptionScreenState extends State<DescriptionScreen> {
     );
     return MaterialApp(
       debugShowCheckedModeBanner: false,
+      navigatorObservers: [FirebaseAnalyticsObserver(analytics: analyticsService.analytics)],
       home: Scaffold(
         backgroundColor: Colors.white,
         key: scaffoldKey,

@@ -2,6 +2,7 @@ import 'package:e_commerce_bloc/blocs/user_login_bloc/user_login_bloc.dart';
 import 'package:e_commerce_bloc/navigate.dart';
 import 'package:e_commerce_bloc/repositories/user_details_repo.dart';
 import 'package:e_commerce_bloc/screens/user_login/user_login.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'dart:async';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -32,9 +33,10 @@ class _MyAppState extends State<MyApp> {
   String email;
   DocumentSnapshot ds;
   Timer _timer;
+  FirebaseAnalytics analytics = FirebaseAnalytics();
 
   Future afterSplash () async {
-    //analytics.logAppOpen();
+    analytics.logAppOpen();
     SharedPreferences prefs = await SharedPreferences.getInstance();
     email = prefs.getString('email');
     if(email==null)

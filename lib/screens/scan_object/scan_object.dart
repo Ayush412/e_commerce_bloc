@@ -2,7 +2,9 @@ import 'package:e_commerce_bloc/blocs/scan_to_seaarch_bloc/scan_to_search_bloc.d
 import 'package:e_commerce_bloc/widgets/appBarBackArrow.dart';
 import 'package:e_commerce_bloc/widgets/center_image.dart';
 import 'package:e_commerce_bloc/widgets/show_dialog.dart';
+import 'package:firebase_analytics/observer.dart';
 import 'package:flutter/material.dart';
+import '../../analytics.dart';
 import 'scan_object_widgets/matched_product_list.dart';
 
 class ScanObject extends StatefulWidget {
@@ -24,6 +26,7 @@ class _ScanObjectState extends State<ScanObject> {
         onWillPop: (){Navigator.of(context).pop();},
         child: MaterialApp(
           debugShowCheckedModeBanner: false,
+          navigatorObservers: [FirebaseAnalyticsObserver(analytics: analyticsService.analytics)],
           home: Scaffold(
             extendBody: true,
             backgroundColor: Colors.white,

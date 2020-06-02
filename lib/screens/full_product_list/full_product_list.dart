@@ -2,8 +2,11 @@ import 'package:e_commerce_bloc/blocs/products_home_bloc/products_home_bloc.dart
 import 'package:e_commerce_bloc/widgets/appBar.dart';
 import 'package:e_commerce_bloc/widgets/custom_drawer.dart';
 import 'package:e_commerce_bloc/widgets/products_list.dart';
+import 'package:firebase_analytics/observer.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+
+import '../../analytics.dart';
 
 class FullProductList extends StatefulWidget {
   String category;
@@ -32,6 +35,7 @@ class _FullProductListState extends State<FullProductList> {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
+      navigatorObservers: [FirebaseAnalyticsObserver(analytics: analyticsService.analytics)],
       home: Scaffold(
         key: scaffoldKey,
         backgroundColor: Colors.white,
