@@ -11,3 +11,14 @@ exports.myNotification = functions.firestore.document('products/{projectId}').on
     }};
     admin.messaging().sendToTopic('e-commerce', payload);
 })
+
+exports.orderTracking = functions.firestore.document('users/{usersId}/{ordersCollectionsID}/{ordersID}').onUpdate((doc, context)=>{
+    const userId = context.params.usersId;
+    const orderId = context.params.ordersID;
+    const info = doc.after.data();
+    const payload = {notification :{
+        title: `Your order is one step closer to being delivered!`,
+        text:  `https://www.gpstracker.at/wp-content/uploads/2019/03/How-GPS-Tracking-Can-Benefit-Delivery-Services.jpg Delivery status of your order no: ${orderId} has been updated. Please check the delivery screen to track it.`,
+    }};
+    admin.messaging().sendToTopic(`${info.ID}`, payload)
+})

@@ -10,6 +10,7 @@ class UserDetails{
   bool hasData=false;
   FirebaseAuth _auth = FirebaseAuth.instance;
   Map<dynamic, dynamic> myMap = Map<dynamic, dynamic>();
+  FirebaseMessaging fbm = FirebaseMessaging();
 
   checkUserLogin(String emailID, String pass) async{
     var user;
@@ -36,8 +37,10 @@ class UserDetails{
       myMap.putIfAbsent('emailID', () => emailID);
       loginBloc.userMap = myMap;
       userDetailsBloc.userMapIn.add(myMap);
+      fbm.subscribeToTopic(myMap['ID']);
+      fbm.subscribeToTopic('e-commerce');
+      userSubscriptions();
     }
-    userSubscriptions();
   }
 
   userSubscriptions() async{
@@ -92,7 +95,8 @@ class UserDetails{
       'Address': map['Address'],
       'Latitude': map['Latitude'],
       'Longitude': map['Longitude'],
-      'Views': views
+      'Views': views,
+      'ID': map['FName']+map['Mob']+map['LName']
     });
     sharedPreference.saveData(loginBloc.emailID);
   }
@@ -103,7 +107,8 @@ class UserDetails{
       'Mob': map['Mob'],
       'Address': map['Address'],
       'Latitude': map['Latitude'],
-      'Longitude': map['Longitude']
+      'Longitude': map['Longitude'],
+      'ID': map['FName']+map['Mob']+map['LName']
     });
     await getUserData(loginBloc.userMap['emailID']);
   }
