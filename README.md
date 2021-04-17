@@ -1,6 +1,8 @@
 # E-Commerce App
 
-A dummy e-commerce app that simulates the experience of shopping for products online. **NOTE: The packages used have since updated their syntax and some LOC may show syntax errors**
+A dummy e-commerce app that simulates the experience of shopping for products online. 
+
+**NOTE: The packages used may have been updated by their developers and could lead to some errors**
 
 Features:
 
