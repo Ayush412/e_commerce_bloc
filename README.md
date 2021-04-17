@@ -34,24 +34,24 @@ The following Firebase services were used in this app:
 
 ### Login
 
-![Screenshot](screenshots/Login.png)
+<img src="screenshots/Login.png" height="400">
 
 ### Home
 
-![Screenshot](screenshots/Home_1.png) ![Screenshot](screenshots/Home_2.png) ![Screenshot](screenshots/Drawer.png)
+<img src="screenshots/Home_1.png" height="400"> <img src="screenshots/Home_2.png" height="400"> <img src="screenshots/Drawer.png" height="400">
 
 ### Product Description
 
-![Screenshot](screenshots/Description_1.png) ![Screenshot](screenshots/Description_2.png)
+<img src="screenshots/Description_1.png" height="400"> <img src="screenshots/Description_2.png" height="400">
 
 ### Cart and Promo codes
 
-![Screenshot](screenshots/Cart_1.png) ![Screenshot](screenshots/Cart_2.png)
+<img src="screenshots/Cart_1.png" height="400"> <img src="screenshots/Cart_2.png" height="400">
 
 ### Order History
 
-![Screenshot](screenshots/Orders_1.png) ![Screenshot](screenshots/Orders_2.png) ![Screenshot](screenshots/Orders_3.png)
+<img src="screenshots/Orders_1.png" height="400"> <img src="screenshots/Orders_2.png" height="400"> <img src="screenshots/Orders_3.png" height="400">
 
 ### Object Detection
 
-![Screenshot](screenshots/Obj_Detect_1.png) ![Screenshot](screenshots/Obj_Detect_2.png) ![Screenshot](screenshots/Obj_Detect_3.png)
+<img src="screenshots/Obj_Detect_1.png" height="400"> <img src="screenshots/Obj_Detect_2.png" height="400"> <img src="screenshots/Obj_Detect_3.png" height="400">
