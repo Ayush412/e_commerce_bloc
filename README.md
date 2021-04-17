@@ -36,14 +36,20 @@ The following Firebase services were used in this app:
 
 ### Home
 
-![Screenshot](screenshots/Home 1.png) ![Screenshot](screenshots/Home 2.png)
+![Screenshot](screenshots/Home_1.png) ![Screenshot](screenshots/Home_2.png) ![Screenshot](screenshots/Drawer.png)
 
 ### Product Description
 
-![Screenshot](screenshots/Description 1.png) ![Screenshot](screenshots/Description 2.png)
+![Screenshot](screenshots/Description_1.png) ![Screenshot](screenshots/Description_2.png)
 
 ### Cart and Promo codes
 
+![Screenshot](screenshots/Cart_1.png) ![Screenshot](screenshots/Cart_2.png)
+
 ### Order History
 
+![Screenshot](screenshots/Orders_1.png) ![Screenshot](screenshots/Orders_2.png) ![Screenshot](screenshots/Orders_3.png)
+
 ### Object Detection
+
+![Screenshot](screenshots/Obj_Detect_1.png) ![Screenshot](screenshots/Obj_Detect_2.png) ![Screenshot](screenshots/Obj_Detect_3.png)
