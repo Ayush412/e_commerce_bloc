@@ -41,5 +41,3 @@ The following Firebase services were used in this app:
 ### Order History
 
 ### Object Detection
-
-### Augmented Reality
