@@ -32,9 +32,15 @@ The following Firebase services were used in this app:
 
 ### Login
 
+![Screenshot](screenshots/Login.png)
+
 ### Home
 
+![Screenshot](screenshots/Home 1.png) ![Screenshot](screenshots/Home 2.png)
+
 ### Product Description
+
+![Screenshot](screenshots/Description 1.png) ![Screenshot](screenshots/Description 2.png)
 
 ### Cart and Promo codes
 
