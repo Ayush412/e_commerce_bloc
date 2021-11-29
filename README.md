@@ -16,7 +16,7 @@ Features:
 
 Admin Features:
 
-- Add and deleted products
+- Add and delete products
 - View products statistics - views and sales on a daily basis
 
 ## Tools Used
